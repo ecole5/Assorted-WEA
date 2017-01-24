@@ -1,2 +1,2 @@
 # Assorted-WEA
-SE3350 Projectdfa
+SE3350 Project
