@@ -12,10 +12,17 @@
       <div class="item">
         <br><br>
       </div>
+
       <a class="item " {{action "about"}}>
         <i class="large user icon"></i>
         About
       </a>
+
+      <a class="item " {{action "help"}}>
+        <i class="large help icon"></i>
+        Help
+      </a>
+
     </div>
   </div>
   <div class="thirteen wide column ">
@@ -28,6 +35,9 @@
       {{/if}}
       {{#if isAboutShowing}}
         {{about-us}}
+      {{/if}}
+      {{#if isHelpShowing}}
+        {{help-info}}
       {{/if}}
     </div>
   </div>
