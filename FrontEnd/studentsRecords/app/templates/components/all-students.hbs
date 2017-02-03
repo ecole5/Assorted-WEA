@@ -1,20 +1,23 @@
 <div class="ui modal">
   <div class="header">List of 10 Students, click the arrow keys to get more students</div>
   <div class="content">
-    {{#each studentsModel as |oneStudent|}}
+    <!-- original location of #each start -->
       <div class="ui grid">
         <div class="ten wide column">
           <div class="actions">
             <div class="ui form">
               <div class="grouped fields">
+                {{#each studentsModel as |oneStudent|}} <!-- moved the #each start and end to reduce the vertical size of the list
+                                                             as long as the list isn't big enough to require scrolling, there is no bug -->
                 <div class="field">
                   <div class="ui radio checkbox">
-                    <input type="radio"
-                           onchange={{action 'getStudent' oneStudent}}>
+                    <input type="radio" name="studentChoice"
+                           onchange={{action 'getStudent' oneStudent}} >
                     <label>{{oneStudent.number}} {{oneStudent.firstName}}
                       {{oneStudent.lastName}}  </label>
                   </div>
                 </div>
+                {{/each}}
               </div>
             </div>
           </div>
@@ -22,7 +25,10 @@
         <div class="six wide column">
         </div>
       </div>
-    {{/each}}
+      <!-- original location of #each end -->
+
+
+
 
     <div class="actions">
       <hr>
@@ -32,7 +38,7 @@
       <div class="ui button" {{action "loadPrevious"}}>
         <i class="arrow left icon"></i>
       </div>
-      <div class="ui button" {{action "exit"}}>OK</div>
+      <div class="ui button" {{action "exit"}} >OK</div>
     </div>
 
   </div>
