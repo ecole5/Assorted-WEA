@@ -40,10 +40,11 @@ export default Ember.Component.extend({
 
 
   didRender() {
-    Ember.$('.ui.modal')
-      .modal({
-        closable: false,
-      })
-      .modal('show');
+      Ember.$('.ui.modal')
+        .modal({
+          closable: false,
+        })
+        .modal('show');
+      console.log("0");
   }
 });
