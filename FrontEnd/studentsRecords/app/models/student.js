@@ -7,6 +7,9 @@ export default DS.Model.extend({
   gender: DS.attr('number'),
   DOB: DS.attr('date'),
   photo: DS.attr(),
-  resInfo: DS.belongsTo('residency')
-
+  resInfo: DS.belongsTo('residency'),
+  registrationComments: DS.attr(),
+  basisOfAdmission: DS.attr(),
+  admissionAverage: DS.attr('number'),
+  admissionComments: DS.attr()
 });

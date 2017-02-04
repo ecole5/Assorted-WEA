@@ -60,6 +60,10 @@ router.route('/:student_id')
                 student.DOB = request.body.student.DOB;
                 student.photo = request.body.student.photo;
                 student.resInfo = request.body.student.resInfo;
+                student.registrationComments = createDefaultStringValue(request.body.student.registrationComments);
+                student.basisOfAdmission = createDefaultStringValue(request.body.student.basisOfAdmission);
+                student.admissionAverage = createDefaultNumberValue(request.body.student.admissionAverage);
+                student.admissionComments = createDefaultStringValue(request.body.student.admissionComments);
 
                 student.save(function (error) {
                     if (error) {
@@ -83,3 +87,17 @@ router.route('/:student_id')
     });
 
 module.exports = router;
+
+function createDefaultStringValue(value){
+    if (value == null){
+        return "Default value set, on serverside, routes/students.js";
+    }
+    return value;
+}
+
+function createDefaultNumberValue(value){
+    if (value == null){
+        return -1;
+    }
+    return value;
+}

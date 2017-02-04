@@ -138,19 +138,33 @@
     </h3>
   </div>
 
+  <!-- 
+{{input type="email" value=emailAddress class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus"}}
+
+
+    !-->
+
   <div class="ui tab" data-tab="registrationInfo">
      <br>
-    <h2>Information for registration Info</h2>
     {{! Put information here}}
     <h3>
-      Comments
+      Registration Comments:  
       <br>
-      Basis Of Admission
+      {{currentStudent.registrationComments}}
+      {{!input type="text" value=writtenRegistrationComments class="form-control" placeholder="currentStudent.registrationComments"}}
+      {{!view Ember.TextArea valueBinding="currentStudent.registrationComments" rows="12" cols="70"}}
+      <br>
+      Basis Of Admission: 
+      <br>
+      {{currentStudent.basisOfAdmission}}
       <br>
       Admission average
       <br>
-      Admission 
+      {{currentStudent.admissionAverage}}
       <br>
+      Admission Comments
+      <br>
+      {{currentStudent.admissionComments}}
     </h3>
   </div>
 

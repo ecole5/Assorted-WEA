@@ -5,6 +5,7 @@ var app = express();
 
 var students = require('./routes/students');
 var residencies = require('./routes/residencies');
+var scholarships= require('./routes/scholarships');
 
 
 app.use(function (request, response, next) {
@@ -18,7 +19,7 @@ app.use(logger);
 
 app.use('/students', students);
 app.use('/residencies', residencies);
-
+app.use('/scholarships', scholarships);
 
 app.listen(3700, function () {
     console.log('Listening on port 3700');

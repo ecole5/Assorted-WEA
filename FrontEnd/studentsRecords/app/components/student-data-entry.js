@@ -6,6 +6,7 @@ export default Ember.Component.extend({
   residencyModel: null,
   selectedResidency: null,
   selectedGender: null,
+  randomVariableForController: null,
   selectedDate: null,
   studentsRecords: null,
   currentStudent: null,
