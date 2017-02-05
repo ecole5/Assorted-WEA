@@ -126,7 +126,7 @@ export default Ember.Component.extend({
     createNewScholarship(){
       // We only save one way because the default serializer/adapter that we use wont give us a one-to-many JSON
       let scholarship = this.get('store').createRecord('scholarship', {
-        scholarshipID: "Mock ID for the scholarship",
+        scholarshipID: "Mock name for the scholarship",
         note: "Mock note for a scholarship",
         student: this.get('currentStudent'),
       });
@@ -135,6 +135,12 @@ export default Ember.Component.extend({
       scholarship.save().then(() => {     
         this.updateScholarships();      
       });
+    },
+
+    deleteScholarship(scholarship){
+      var self = this;
+      // Delete from store, and will automatically do everything else like sending delete request
+      scholarship.destroyRecord();
     },
 
     firstStudent() {

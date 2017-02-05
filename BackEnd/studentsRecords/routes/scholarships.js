@@ -22,9 +22,10 @@ router.route('/')
         // I need to grab the scholarships from the given student
         var Student = request.query.student;
         if (!Student) {
-            models.Scholarships.find(function (error, residencies) {
+            models.Scholarships.find(function (error, scholarship) {
                 if (error) response.send(error);
-                response.json({Scholarships: residencies});
+                // returns all scholarships
+                response.json({Scholarships: scholarship});
             });
         } else {
             //{"student": Student},
@@ -33,10 +34,11 @@ router.route('/')
                 response.json({Scholarships: students});
             });
         }
-    });
+    })
+    
 
 //Update a scholarship based on it's ID,
-// HAS NOT BEEN IMPLEMENTED THIS IS A COPY PASTE FROM STUDENTS/RESIDENTS
+// HAS NOT BEEN IMPLEMENTED
 router.route('/:scholarship_id')
     .put(parseUrlencoded, parseJSON, function (request, response) {
         models.Scholarships.findById(request.params.scholarship_id, function (error, scholarship) {
