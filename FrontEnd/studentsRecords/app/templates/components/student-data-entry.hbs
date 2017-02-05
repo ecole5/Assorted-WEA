@@ -132,7 +132,7 @@
     {{/each}}
 
     <br>
-    <button {{action "createNewScholarship"}}>Will become the create default scholarship button</button>
+    <button {{action "createNewScholarship"}}>Create new scholarship</button>
   </div>
 
   <div class="ui tab" data-tab="registrationInfo">
@@ -142,20 +142,27 @@
       Registration Comments:  
       <br>
       {{currentStudent.registrationComments}}
-      {{!input type="text" value=writtenRegistrationComments class="form-control" placeholder="currentStudent.registrationComments"}}
-      {{!view Ember.TextArea valueBinding="currentStudent.registrationComments" rows="12" cols="70"}}
+      <br>
+       {{input type="tet" value=registrationComments class="form-control" placeholder="Registration comments" autofocus="autofocus"}}
       <br>
       Basis Of Admission: 
       <br>
       {{currentStudent.basisOfAdmission}}
       <br>
+      {{input type="text" value=basisOfAdmission class="form-control" placeholder="Basis of admission" autofocus="autofocus"}}
+      <br>    
       Admission average
       <br>
       {{currentStudent.admissionAverage}}
       <br>
+      {{input type="number" value=admissionAverage class="form-control" placeholder="Admission average" autofocus="autofocus"}}
+      <br>
       Admission Comments
       <br>
       {{currentStudent.admissionComments}}
+      <br>  
+      {{input type="text" value=admissionComments class="form-control" placeholder="Admission comments" autofocus="autofocus"}}
+
     </h3>
   </div>
 

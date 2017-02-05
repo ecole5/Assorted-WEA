@@ -19,6 +19,11 @@ export default Ember.Component.extend({
   pageSize: null,
   movingBackword: false,
   scholarshipRecords: null,
+  registrationComments: null,
+  basisOfAdmission: null,
+  admissionAverage: 0,
+  admissionComments: null,
+
 
   studentModel: Ember.observer('offset', function () {
     var self = this;
@@ -99,11 +104,23 @@ export default Ember.Component.extend({
       updatedStudent.set('gender', this.get('selectedGender'));
       updatedStudent.set('DOB', new Date(this.get('selectedDate')));
       updatedStudent.set('resInfo', res);
+      updatedStudent.set('registrationComments', this.get('registrationComments'));
+      updatedStudent.set('basisOfAdmission', this.get('basisOfAdmission'));
+      var updatedAdmissionAverage = this.get('admissionAverage');
+
+      // Will convert to a method later
+      if (updatedAdmissionAverage > 100){
+        updatedAdmissionAverage = 100;
+      } else if (updatedAdmissionAverage < 0){
+        updatedAdmissionAverage = 0;
+      }
+      updatedStudent.set('admissionAverage', updatedAdmissionAverage);
+      updatedStudent.set('admissionComments', this.get('admissionComments'));
 
       // Saves the student
       updatedStudent.save().then(() => {     
-        
       });
+
     },
 
     createNewScholarship(){
