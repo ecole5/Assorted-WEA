@@ -17,8 +17,6 @@ export default Ember.Component.extend({
   offset: null,
   pageSize: null,
   movingBackword: false,
-  RExist: true,
-
 
   studentModel: Ember.observer('offset', function () {
     var self = this;
@@ -61,63 +59,17 @@ export default Ember.Component.extend({
       self.set('firstIndex', records.indexOf(records.get("firstObject")));
       self.set('lastIndex', records.indexOf(records.get("lastObject")));
 
-
       // Show first student data
       self.set('currentIndex', self.get('firstIndex'));
-<<<<<<< HEAD
-
-=======
-      
->>>>>>> 12fefdf1b5edd879eb612a4010e49892cc17dc54
     });
-  },
-
-  reload(){
-    
-    this._super(...arguments);
-    
-    
-    // load Residency data model
-    this.get('store').findAll('residency').then(function (records) {
-      self.set('residencyModel', records);
-    });
-
-    // load first page of the students records
-    this.set('limit', 10);
-    this.set('offset', 0);
-    this.set('pageSize', 10);
-    var self = this;
-    this.get('store').query('student', {
-      limit: self.get('limit'),
-      offset: self.get('offset')
-    }).then(function (records) {
-      self.set('studentsRecords', records);
-      self.set('firstIndex', records.indexOf(records.get("firstObject")));
-      self.set('lastIndex', records.indexOf(records.get("lastObject")));
-
-      // Show first student data
-      self.set('currentIndex', self.get('firstIndex'));
-      
-      ///////why this line still log out the stuff in the text field instead of the newly fetched data from db
-      console.log(self.get('currentStudent').get('number'));
-
-    });
-
-  
   },
 
   showStudentData: function (index) {
-    try{
-      this.set('currentStudent', this.get('studentsRecords').objectAt(index));
-      this.set('studentPhoto', this.get('currentStudent').get('photo'));
-      var date = this.get('currentStudent').get('DOB');
-      var datestring = date.toISOString().substring(0, 10);
-      this.set('selectedDate', datestring);
-      this.set('RExist',true);
-    }
-    catch(e){
-      this.set('RExist',false);
-    }
+    this.set('currentStudent', this.get('studentsRecords').objectAt(index));
+    this.set('studentPhoto', this.get('currentStudent').get('photo'));
+    var date = this.get('currentStudent').get('DOB');
+    var datestring = date.toISOString().substring(0, 10);
+    this.set('selectedDate', datestring);
   },
 
   didRender() {
@@ -136,56 +88,23 @@ export default Ember.Component.extend({
         //     this.set('isStudentFormEditing', false);
       });
     },
-    ////////////////
-    ////////////////
-    ////////////////
-    ////////////////
-    ////////////////
-    undoSave() {
-      var tempIndex = this.get('currentIndex');
-      this.reload();
-      
-      //this.init();
-      //this.studentModel();
-
-      ////////////////
-      //manually set offset back and forthe to trigger the observer function:  studentModel
-      this.set('offset', 1);
-      this.set('offset', 0);
-
-      //manually set currentIndex back and forthe to trigger the observer function:  fetchStudent
-      this.set('currentIndex', 1);
-      this.set('currentIndex', tempIndex);
-      //debug
-      console.log(this.get('currentStudent').get('number'));
-    },
-
-    ////////////////
-    ////////////////
-    ////////////////
-    ////////////////
-    ////////////////
 
     firstStudent() {
       this.set('currentIndex', this.get('firstIndex'));
     },
 
     nextStudent() {
-     if(this.get('RExist')===true){
       this.set('movingBackword' , false);
-        if (this.get('currentIndex') < this.get('lastIndex')) {
+      if (this.get('currentIndex') < this.get('lastIndex')) {
         this.set('currentIndex', this.get('currentIndex') + 1);
-            //     console.log(JSON.stringify(this.get('currentStudent')));
-        }
-        else {
-         this.set('offset', this.get('offset') + this.get('pageSize'));
-        }
+        //     console.log(JSON.stringify(this.get('currentStudent')));
+      }
+      else {
+        this.set('offset', this.get('offset') + this.get('pageSize'));
       }
     },
 
     previousStudent() {
-            
-
       this.set('movingBackword' , true);
       if (this.get('currentIndex') > 0) {
         this.set('currentIndex', this.get('currentIndex') - 1);
@@ -196,7 +115,6 @@ export default Ember.Component.extend({
     },
 
     lastStudent() {
-
       this.set('currentIndex', this.get('lastIndex'));
     },
 
