@@ -13,6 +13,7 @@ export default Ember.Component.extend({
 
   actions: {
     loadNext: function () {
+      //console.log(this.get("studentsModel"));
       Ember.$('.ui.modal').modal('hide');
       this.set('offset', this.get('offset') + this.get('pageSize'));
       Ember.$('.ui.modal').modal('show');
@@ -27,9 +28,8 @@ export default Ember.Component.extend({
     },
 
     getStudent: function (student) {
-      var index = this.get('studentsModel').indexOf(student);
-      this.set('INDEX', index);
-
+        var index = this.get('studentsModel').indexOf(student);
+        this.set('INDEX', index);
     },
 
     exit: function () {
@@ -45,6 +45,5 @@ export default Ember.Component.extend({
           closable: false,
         })
         .modal('show');
-      console.log("0");
   }
 });
