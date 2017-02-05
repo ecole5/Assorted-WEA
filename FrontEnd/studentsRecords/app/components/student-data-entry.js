@@ -41,8 +41,6 @@ export default Ember.Component.extend({
   fetchStudent: Ember.observer('currentIndex', function () {
     this.showStudentData(this.get('currentIndex'));
   }),
-
-  //this.set('scholarshipRecords', this.get('currentStudent').get('scholarshipInfo'));
  
   init() {
     this._super(...arguments);
@@ -68,12 +66,6 @@ export default Ember.Component.extend({
       // Show first student data
       self.set('currentIndex', self.get('firstIndex'));
     });
-
-    this.get('store').query('scholarship', {
-      student: self.get('currentStudent')
-    }).then(function(records) {
-        self.set('scholarshipRecords', records);
-    })
     
   },
 
@@ -84,7 +76,15 @@ export default Ember.Component.extend({
     var date = this.get('currentStudent').get('DOB');
     var datestring = date.toISOString().substring(0, 10);
     this.set('selectedDate', datestring);
+    var self = this;
+    this.get('store').query('scholarship', {
+      student: self.get('currentStudent').id
+    }).then(function(records) {
+        self.set('scholarshipRecords', records);
+    })  
   },
+
+  
 
   didRender() {
     Ember.$('.menu .item').tab();
@@ -98,18 +98,14 @@ export default Ember.Component.extend({
       updatedStudent.set('DOB', new Date(this.get('selectedDate')));
       updatedStudent.set('resInfo', res);
 
+      // We only save one way because the default serializer/adapter that we use wont give us a one-to-many JSON
       let scholarship = this.get('store').createRecord('scholarship', {
         note: "Mock note for a scholarship",
         student: updatedStudent,
       });
 
-      scholarship.save().then(() => {
-           updatedStudent.get('scholarshipInfo').then(function(scholarships){
-            scholarships.pushObject(scholarship);
-              updatedStudent.save().then(() => {
-        //     this.set('isStudentFormEditing', false);
-           });
-         });
+      // Saves the scholarship
+      scholarship.save().then(() => {           
       });
   
     },

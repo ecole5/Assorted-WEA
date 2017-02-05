@@ -11,6 +11,7 @@ router.route('/')
     .post(parseUrlencoded, parseJSON, function (request, response) {
         console.log("--------------------")
         console.log(request.body);
+        // I made a JSON object labeled scholarship, this is what the next line is using
         var scholarship = new models.Scholarships(request.body.scholarship);
         scholarship.save(function (error) {
             if (error) response.send(error);
@@ -19,16 +20,17 @@ router.route('/')
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
         // I need to grab the scholarships from the given student
-        var Student = request.query.filter;
+        var Student = request.query.student;
         if (!Student) {
             models.Scholarships.find(function (error, residencies) {
                 if (error) response.send(error);
                 response.json({Scholarships: residencies});
             });
         } else {
-            models.Scholarships.find({"student": Student.student}, function (error, students) {
+            //{"student": Student},
+            models.Scholarships.find({"student": Student}, function (error, students) {
                 if (error) response.send(error);
-                response.json({residency: students});
+                response.json({Scholarships: students});
             });
         }
     });
