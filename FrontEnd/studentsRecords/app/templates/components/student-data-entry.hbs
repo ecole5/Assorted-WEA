@@ -54,10 +54,6 @@
     <div class="item" data-tab="advanceStanding">Advance Standing</div>
     <div class="item" data-tab="scholarshipsAwards">Scholarships And Awards</div>
     <div class="item" data-tab="registrationInfo">Registration Info</div>
-    {{! Commented out old tabs
-    <div class="item" data-tab="program">Program Record</div>
-    <div class="item" data-tab="others">Other tabs</div>
-    }}
   </div>
   <div class="ui bottom attached active tab segment"data-tab="basics">
     <!-- student basic information !-->
@@ -128,24 +124,16 @@
   </div>
 
   <div class="ui tab" data-tab="scholarshipsAwards">
-     <br>
     <h2>Information for Scholarships and Awards</h2>
-    {{! Put information here}}
-    
     {{#each scholarshipRecords as |scholarship|}}
-      <br>
-      note:
-      <br>
-      {{scholarship.note}}
-      <br>
+      <br> {{scholarship.scholarshipID}}          
+      <br> note:
+      <br> {{scholarship.note}}
     {{/each}}
+
+    <br>
+    <button {{action "createNewScholarship"}}>Will become the create default scholarship button, currently press save</button>
   </div>
-
-  <!-- 
-{{input type="email" value=emailAddress class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus"}}
-
-
-    !-->
 
   <div class="ui tab" data-tab="registrationInfo">
      <br>
@@ -172,21 +160,8 @@
   </div>
 
 
-  <!-- OLD TABS THAT WE ARE KEEPING FOR THE TIME BEING, probably wont need!-->
-  <div class="ui tab" data-tab="program">
-    <!-- Program records, courses and grades !-->
-    <br>
-    <h2>{{currentStudent.number}}</h2>
-      <h3> {{currentStudent.firstName}} {{currentStudent.lastName}}</h3>
-    <br><br><br>
-  </div>
-  <div class="ui tab" data-tab="others">
-    <!-- Others !-->
-    <h2>Other data</h2>
-
-    <!-- OLD TABS THAT WE ARE KEEPING FOR THE TIME BEING, probably wont need and isnt showing right now!-->
+ 
   
-  </div>
   
 
 

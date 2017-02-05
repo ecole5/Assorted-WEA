@@ -24,8 +24,7 @@ export default Ember.Component.extend({
     var self = this;
     this.get('store').query('student', {
       limit: self.get('limit'),
-      offset: self.get('offset'),
-      include: 'scholarship'  
+      offset: self.get('offset')
     }).then(function (records) {
       self.set('studentsRecords', records);
       self.set('firstIndex', records.indexOf(records.get("firstObject")));
@@ -75,16 +74,19 @@ export default Ember.Component.extend({
     this.set('studentPhoto', this.get('currentStudent').get('photo'));
     var date = this.get('currentStudent').get('DOB');
     var datestring = date.toISOString().substring(0, 10);
-    this.set('selectedDate', datestring);
+    this.set('selectedDate', datestring);  
+    this.updateScholarships();
+  },
+
+  // Gets the scholarships for currentStudent and saves them to scholarshipRecords
+  updateScholarships(){
     var self = this;
     this.get('store').query('scholarship', {
       student: self.get('currentStudent').id
     }).then(function(records) {
         self.set('scholarshipRecords', records);
-    })  
+    })
   },
-
-  
 
   didRender() {
     Ember.$('.menu .item').tab();
@@ -97,17 +99,20 @@ export default Ember.Component.extend({
       updatedStudent.set('gender', this.get('selectedGender'));
       updatedStudent.set('DOB', new Date(this.get('selectedDate')));
       updatedStudent.set('resInfo', res);
+    },
 
+    createNewScholarship(){
       // We only save one way because the default serializer/adapter that we use wont give us a one-to-many JSON
       let scholarship = this.get('store').createRecord('scholarship', {
+        scholarshipID: "Mock ID for the scholarship",
         note: "Mock note for a scholarship",
-        student: updatedStudent,
+        student: this.get('currentStudent'),
       });
 
       // Saves the scholarship
-      scholarship.save().then(() => {           
+      scholarship.save().then(() => {     
+        this.updateScholarships();      
       });
-  
     },
 
     firstStudent() {
