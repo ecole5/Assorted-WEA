@@ -18,6 +18,7 @@ export default Ember.Component.extend({
   pageSize: null,
   movingBackword: false,
 
+
   studentModel: Ember.observer('offset', function () {
     var self = this;
     this.get('store').query('student', {
@@ -61,7 +62,42 @@ export default Ember.Component.extend({
 
       // Show first student data
       self.set('currentIndex', self.get('firstIndex'));
+      
     });
+  },
+
+  reload(){
+    
+    this._super(...arguments);
+    
+    
+    // load Residency data model
+    this.get('store').findAll('residency').then(function (records) {
+      self.set('residencyModel', records);
+    });
+
+    // load first page of the students records
+    this.set('limit', 10);
+    this.set('offset', 0);
+    this.set('pageSize', 10);
+    var self = this;
+    this.get('store').query('student', {
+      limit: self.get('limit'),
+      offset: self.get('offset')
+    }).then(function (records) {
+      self.set('studentsRecords', records);
+      self.set('firstIndex', records.indexOf(records.get("firstObject")));
+      self.set('lastIndex', records.indexOf(records.get("lastObject")));
+
+      // Show first student data
+      self.set('currentIndex', self.get('firstIndex'));
+      
+      ///////why this line still log out the stuff in the text field instead of the newly fetched data from db
+      console.log(self.get('currentStudent').get('number'));
+
+    });
+
+  
   },
 
   showStudentData: function (index) {
@@ -88,6 +124,35 @@ export default Ember.Component.extend({
         //     this.set('isStudentFormEditing', false);
       });
     },
+    ////////////////
+    ////////////////
+    ////////////////
+    ////////////////
+    ////////////////
+    undoSave() {
+      var tempIndex = this.get('currentIndex');
+      this.reload();
+      
+      //this.init();
+      //this.studentModel();
+
+      ////////////////
+      //manually set offset back and forthe to trigger the observer function:  studentModel
+      this.set('offset', 1);
+      this.set('offset', 0);
+
+      //manually set currentIndex back and forthe to trigger the observer function:  fetchStudent
+      this.set('currentIndex', 1);
+      this.set('currentIndex', tempIndex);
+      //debug
+      console.log(this.get('currentStudent').get('number'));
+    },
+
+    ////////////////
+    ////////////////
+    ////////////////
+    ////////////////
+    ////////////////
 
     firstStudent() {
       this.set('currentIndex', this.get('firstIndex'));
