@@ -35,7 +35,8 @@ router.route('/')
         }
     });
 
-//Update a scholarship based on it's ID
+//Update a scholarship based on it's ID,
+// HAS NOT BEEN IMPLEMENTED THIS IS A COPY PASTE FROM STUDENTS/RESIDENTS
 router.route('/:scholarship_id')
     .put(parseUrlencoded, parseJSON, function (request, response) {
         models.Scholarships.findById(request.params.scholarship_id, function (error, scholarship) {

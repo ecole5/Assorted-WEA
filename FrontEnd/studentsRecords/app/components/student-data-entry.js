@@ -99,6 +99,11 @@ export default Ember.Component.extend({
       updatedStudent.set('gender', this.get('selectedGender'));
       updatedStudent.set('DOB', new Date(this.get('selectedDate')));
       updatedStudent.set('resInfo', res);
+
+      // Saves the student
+      updatedStudent.save().then(() => {     
+        
+      });
     },
 
     createNewScholarship(){
