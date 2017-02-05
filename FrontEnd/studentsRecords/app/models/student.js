@@ -11,5 +11,6 @@ export default DS.Model.extend({
   registrationComments: DS.attr(),
   basisOfAdmission: DS.attr(),
   admissionAverage: DS.attr('number'),
-  admissionComments: DS.attr()
+  admissionComments: DS.attr(),
+  scholarships: DS.hasMany('scholarship')
 });

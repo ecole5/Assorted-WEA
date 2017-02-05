@@ -54,7 +54,8 @@ export default Ember.Component.extend({
     var self = this;
     this.get('store').query('student', {
       limit: self.get('limit'),
-      offset: self.get('offset')
+      offset: self.get('offset'),
+      include: 'scholarship'
     }).then(function (records) {
       self.set('studentsRecords', records);
       self.set('firstIndex', records.indexOf(records.get("firstObject")));
