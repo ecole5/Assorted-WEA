@@ -28,6 +28,7 @@ var residencySchema = mongoose.Schema(
 var scholarshipsSchema = mongoose.Schema(
     {
         note: String,
+        id: String,
         student: {type: mongoose.Schema.ObjectId, ref: 'Students'}
     }
 );
