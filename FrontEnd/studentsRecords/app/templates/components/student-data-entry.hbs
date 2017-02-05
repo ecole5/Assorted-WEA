@@ -153,25 +153,29 @@
       <br>
       {{currentStudent.registrationComments}}
       <br>
-       {{input type="text" value=currentStudent.registrationComments class="form-control" placeholder="Registration comments" autofocus="autofocus"}}
+       <input type="text" value={{currentStudent.registrationComments}}  class="form-control" placeholder="Registration comments" 
+       autofocus="autofocus" onchange={{action 'editRegistrationComments' value="target.value"}}>
       <br>
       Basis Of Admission: 
       <br>
       {{currentStudent.basisOfAdmission}}
       <br>
-      {{input type="text" value=currentStudent.basisOfAdmission class="form-control" placeholder="Basis of admission" autofocus="autofocus"}}
+      <input type="text" value={{currentStudent.basisOfAdmission}} class="form-control" placeholder="Basis of admission" 
+      autofocus="autofocus" onchange={{action 'editBasisOfAdmission' value="target.value"}}>
       <br>    
       Admission average
       <br>
       {{currentStudent.admissionAverage}}
       <br>
-      {{input type="number" value=currentStudent.admissionAverage class="form-control" placeholder="Admission average" autofocus="autofocus"}}
+      <input type="number" value={{currentStudent.admissionAverage}} class="form-control" placeholder="Admission average" 
+      autofocus="autofocus" onchange={{action 'editAdmissionAverage' value="target.value"}}>
       <br>
       Admission Comments
       <br>
       {{currentStudent.admissionComments}}
       <br>  
-      {{input type="text" value=currentStudent.admissionComments class="form-control" placeholder="Admission comments" autofocus="autofocus"}}
+      <input type="text" value={{currentStudent.admissionComments}} class="form-control" placeholder="Admission comments" 
+      autofocus="autofocus" onchange={{action 'editAdmissionComments' value="target.value"}}>
 
     </h3>
   </div>

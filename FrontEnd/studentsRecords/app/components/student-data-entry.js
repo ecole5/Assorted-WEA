@@ -105,19 +105,7 @@ export default Ember.Component.extend({
       updatedStudent.set('gender', this.get('selectedGender'));
       updatedStudent.set('DOB', new Date(this.get('selectedDate')));
       updatedStudent.set('resInfo', res);
-      updatedStudent.set('registrationComments', this.get('registrationComments'));
-      updatedStudent.set('basisOfAdmission', this.get('basisOfAdmission'));
-      var updatedAdmissionAverage = this.get('admissionAverage');
-
-      // Will convert to a method later
-      if (updatedAdmissionAverage > 100){
-        updatedAdmissionAverage = 100;
-      } else if (updatedAdmissionAverage < 0){
-        updatedAdmissionAverage = 0;
-      }
-      updatedStudent.set('admissionAverage', updatedAdmissionAverage);
-      updatedStudent.set('admissionComments', this.get('admissionComments'));
-
+     
       // Saves the student
       updatedStudent.save().then(() => {     
       });
@@ -141,12 +129,52 @@ export default Ember.Component.extend({
     editScholarshipNote(newScholarshipNote){
         var updatedScholarship = this.get('editingScholarship');
         updatedScholarship.set('note',newScholarshipNote);
-
+alert("here");
         // Saves the scholarship
       updatedScholarship.save().then(() => {     
         //this.updateScholarships();      
       });
     },
+
+    editRegistrationComments(newRegistrationComments){
+      var updatedStudentComments = this.get('currentStudent');
+      updatedStudentComments.set('registrationComments', newRegistrationComments);
+      updatedStudentComments.save().then(() => {     
+        //this.updateScholarships();      
+      });
+    },
+
+    editBasisOfAdmission(newBasisOfAdmission){
+       var updatedStudentComments = this.get('currentStudent');
+      updatedStudentComments.set('basisOfAdmission', newBasisOfAdmission);
+      updatedStudentComments.save().then(() => {     
+        //this.updateScholarships();      
+      });
+    },
+
+    editAdmissionAverage(newAdmissionAverage){
+      var updatedStudentComments = this.get('currentStudent');
+      if (newAdmissionAverage > 100){
+        newAdmissionAverage = 100;
+      } else if (newAdmissionAverage < 0){
+        newAdmissionAverage = 0;
+      }
+
+      updatedStudentComments.set('admissionAverage', newAdmissionAverage);
+      updatedStudentComments.save().then(() => {     
+        //this.updateScholarships();      
+      });
+    },
+
+    editAdmissionComments(newAdmissionComments){
+      var updatedStudentComments = this.get('currentStudent');
+      updatedStudentComments.set('admissionComments', newAdmissionComments);
+
+      updatedStudentComments.save().then(() => {     
+        //this.updateScholarships();      
+      });
+    },
+
 
     createNewScholarship(){
       // We only save one way because the default serializer/adapter that we use wont give us a one-to-many JSON
