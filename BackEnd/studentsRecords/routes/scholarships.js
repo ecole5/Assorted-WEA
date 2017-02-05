@@ -47,6 +47,7 @@ router.route('/:scholarship_id')
             }
             else {
                 scholarship.note = request.body.scholarship.note;
+                scholarship.scholarshipID = request.body.scholarship.scholarshipID;
 
                 scholarship.save(function (error) {
                     if (error) {

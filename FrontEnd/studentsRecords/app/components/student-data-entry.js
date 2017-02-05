@@ -23,6 +23,7 @@ export default Ember.Component.extend({
   basisOfAdmission: null,
   admissionAverage: 0,
   admissionComments: null,
+  editingScholarship: null,
 
 
   studentModel: Ember.observer('offset', function () {
@@ -121,6 +122,30 @@ export default Ember.Component.extend({
       updatedStudent.save().then(() => {     
       });
 
+    },
+
+    setCurrentInputScholarship(scholarship){
+      this.set('editingScholarship',scholarship);
+    },
+
+    editScholarshipID(newScholarshipID){
+        var updatedScholarship = this.get('editingScholarship');
+        updatedScholarship.set('scholarshipID',newScholarshipID);
+          // Saves the scholarship
+      updatedScholarship.save().then(() => {     
+        //this.updateScholarships();      
+      });
+        
+    },
+
+    editScholarshipNote(newScholarshipNote){
+        var updatedScholarship = this.get('editingScholarship');
+        updatedScholarship.set('note',newScholarshipNote);
+
+        // Saves the scholarship
+      updatedScholarship.save().then(() => {     
+        //this.updateScholarships();      
+      });
     },
 
     createNewScholarship(){

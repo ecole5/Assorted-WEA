@@ -131,6 +131,13 @@
       <br> note:
       <br> {{scholarship.note}}
       <br>
+
+      <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
+      onchange={{action 'editScholarshipID' value="target.value"}}>
+
+      <input type="text" value={{scholarship.note}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
+      onchange={{action 'editScholarshipNote' value="target.value"}}>
+      
       <button {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
     {{/each}}
 
@@ -146,25 +153,25 @@
       <br>
       {{currentStudent.registrationComments}}
       <br>
-       {{input type="text" value=registrationComments class="form-control" placeholder="Registration comments" autofocus="autofocus"}}
+       {{input type="text" value=currentStudent.registrationComments class="form-control" placeholder="Registration comments" autofocus="autofocus"}}
       <br>
       Basis Of Admission: 
       <br>
       {{currentStudent.basisOfAdmission}}
       <br>
-      {{input type="text" value=basisOfAdmission class="form-control" placeholder="Basis of admission" autofocus="autofocus"}}
+      {{input type="text" value=currentStudent.basisOfAdmission class="form-control" placeholder="Basis of admission" autofocus="autofocus"}}
       <br>    
       Admission average
       <br>
       {{currentStudent.admissionAverage}}
       <br>
-      {{input type="number" value=admissionAverage class="form-control" placeholder="Admission average" autofocus="autofocus"}}
+      {{input type="number" value=currentStudent.admissionAverage class="form-control" placeholder="Admission average" autofocus="autofocus"}}
       <br>
       Admission Comments
       <br>
       {{currentStudent.admissionComments}}
       <br>  
-      {{input type="text" value=admissionComments class="form-control" placeholder="Admission comments" autofocus="autofocus"}}
+      {{input type="text" value=currentStudent.admissionComments class="form-control" placeholder="Admission comments" autofocus="autofocus"}}
 
     </h3>
   </div>
