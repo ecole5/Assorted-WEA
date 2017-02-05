@@ -50,7 +50,8 @@
   <div class="ui top attached tabular menu">
     <div class="active item" data-tab="basics">Basic Info</div>
     <div class="item" data-tab="program">Program Record</div>
-    <div class="item" data-tab="others">Other tabs</div>
+    <div class="item" data-tab="systemCode">Manage System Code</div>
+    
   </div>
   <div class="ui bottom attached active tab segment"data-tab="basics">
     <!-- student basic information !-->
@@ -72,9 +73,11 @@
           </div>
           <div class="inline field">
             <label>Gender</label>
-            <select onchange={{action 'selectGender' value="target.value"}}>
-              <option value=1 selected={{eq 1 currentStudent.gender}}>Male</option>
-              <option value=2 selected={{eq 2 currentStudent.gender}}>Female</option>
+             <select onchange={{action 'selectGender' value="target.value"}}>
+              {{#each genderModel as |genderChoice|}}
+                <option value={{genderChoice.id}} selected={{eq currentStudent.genInfo.id
+                                                                   genderChoice.id}}>{{genderChoice.name}} </option>
+              {{/each}}
             </select>
           </div>
           <div class="inline field">
@@ -82,7 +85,7 @@
             <input value={{selectedDate}} type="date" onchange={{action 'assignDate' value="target.value"}}>
           </div>
           <div class="inline field">
-            <label>Residency</label>
+            <label>Residency</label>      
             <select onchange={{action 'selectResidency' value="target.value"}}>
               {{#each residencyModel as |residencyChoice|}}
                 <option value={{residencyChoice.id}} selected={{eq currentStudent.resInfo.id
@@ -106,14 +109,14 @@
       <h3> {{currentStudent.firstName}} {{currentStudent.lastName}}</h3>
     <br><br><br>
   </div>
-  <div class="ui tab" data-tab="others">
-    <!-- Others !-->
-    <h2>Other data</h2>
+
+
+   <div class="ui tab" data-tab="systemCode">
+    <!-- Manage System Code !-->
+    
+    {{manage-system-code ResidencyModel = residencyModel GenderModel = genderModel }}
+
   </div>
-
-
-
-
 
 {{/if}}
 

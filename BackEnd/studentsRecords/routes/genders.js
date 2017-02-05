@@ -7,59 +7,59 @@ var parseJSON = bodyParser.json();
 
 router.route('/')
     .post(parseUrlencoded, parseJSON, function (request, response) {
-        var residency = new models.Residencies(request.body.residency);
-        residency.save(function (error) {
+        var gender = new models.Genders(request.body.gender);
+        gender.save(function (error) {
             if (error) response.send(error);
-            response.json({residency: residency});
+            response.json({gender: gender});
         });
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
         var Student = request.query.filter;
         if (!Student) {
-            models.Residencies.find(function (error, Residencies) {
+            models.Genders.find(function (error, Genders) {
                 if (error) response.send(error);
-                response.json({residency: Residencies});
+                response.json({gender: Genders});
             });
         } else {
-            models.Residencies.find({"student": Student.student}, function (error, students) {
+            models.Genders.find({"student": Student.student}, function (error, students) {
                 if (error) response.send(error);
-                response.json({residency: students});
+                response.json({gender: students});
             });
         }
     });
 
-router.route('/:residency_id')
+router.route('/:gender_id')
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        models.Residencies.findById(request.params.residency_id, function (error, residency) {
+        models.Genders.findById(request.params.gender_id, function (error, gender) {
             if (error) response.send(error);
-            response.json({residency: residency});
+            response.json({gender: gender});
         })
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
-        models.Residencies.findById(request.params.residency_id, function (error, residency) {
+        models.Genders.findById(request.params.gender_id, function (error, gender) {
             if (error) {
                 response.send({error: error});
             }
             else {
-                residency.name = request.body.residency.name;
-                residency.students = request.body.residency.students;
+                gender.name = request.body.gender.name;
+                gender.students = request.body.gender.students;
 
-                residency.save(function (error) {
+                gender.save(function (error) {
                     if (error) {
                         response.send({error: error});
                     }
                     else {
-                        response.json({residency: residency});
+                        response.json({gender: gender});
                     }
                 });
             }
         })
     })
      .delete(parseUrlencoded, parseJSON, function (request, response) {
-        models.Residencies.findByIdAndRemove(request.params.residency_id,
+        models.Genders.findByIdAndRemove(request.params.gender_id,
             function (error, deleted) {
                 if (!error) {
-                    response.json({residency: deleted});
+                    response.json({gender: deleted});
                 }
             }
         );
