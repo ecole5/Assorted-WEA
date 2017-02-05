@@ -38,6 +38,12 @@
   </a>
 </div>
 
+{{#if showFindStudent}}
+
+ {{find-student notDONE = showFindStudent }}
+ 
+{{/if}}
+
 {{#if showAllStudents}}
   <!-- Note that offset is an "in" and "out" parameter !-->
  {{all-students INDEX = currentIndex notDONE = showAllStudents offset = offset studentsModel = studentsRecords}}
@@ -174,16 +180,4 @@
 
 
 {{/if}}
-
-
-
-
-
-
-
-
-
-
-
-
 

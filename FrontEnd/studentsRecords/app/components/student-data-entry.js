@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   store: Ember.inject.service(),
   showAllStudents: false,
+  showFindStudent: false,
   residencyModel: null,
   selectedResidency: null,
   selectedGender: null,
@@ -64,11 +65,7 @@ export default Ember.Component.extend({
 
       // Show first student data
       self.set('currentIndex', self.get('firstIndex'));
-<<<<<<< HEAD
-
-=======
       
->>>>>>> 12fefdf1b5edd879eb612a4010e49892cc17dc54
     });
   },
 
@@ -214,6 +211,11 @@ export default Ember.Component.extend({
 
     assignDate (date){
       this.set('selectedDate', date);
+    },
+
+    findStudent(){
+      //disabled until fixed
+       // this.set('showFindStudent', true); 
     },
   }
 });
