@@ -48,11 +48,16 @@ router.route('/:student_id')
         });
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
+     console.log("----------- Student");
+        console.log(request.body);
+
         models.Students.findById(request.params.student_id, function (error, student) {
             if (error) {
                 response.send({error: error});
             }
             else {
+
+                
                 student.number = request.body.student.number;
                 student.firstName = request.body.student.firstName;
                 student.lastName = request.body.student.lastName;

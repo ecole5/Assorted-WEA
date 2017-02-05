@@ -9,7 +9,9 @@ var parseJSON = bodyParser.json();
 
 router.route('/')
     .post(parseUrlencoded, parseJSON, function (request, response) {
-        var scholarship = new models.Scholarships(request.body.student);
+        console.log("--------------------")
+        console.log(request.body);
+        var scholarship = new models.Scholarships(request.body.scholarship);
         scholarship.save(function (error) {
             if (error) response.send(error);
             response.json({scholarship: scholarship});
@@ -21,7 +23,7 @@ router.route('/')
         if (!Student) {
             models.Scholarships.find(function (error, residencies) {
                 if (error) response.send(error);
-                response.json({residency: residencies});
+                response.json({Scholarships: residencies});
             });
         } else {
             models.Scholarships.find({"student": Student.student}, function (error, students) {

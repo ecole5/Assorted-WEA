@@ -18,12 +18,14 @@ export default Ember.Component.extend({
   offset: null,
   pageSize: null,
   movingBackword: false,
+  scholarshipRecords: null,
 
   studentModel: Ember.observer('offset', function () {
     var self = this;
     this.get('store').query('student', {
       limit: self.get('limit'),
-      offset: self.get('offset')
+      offset: self.get('offset'),
+      include: 'scholarship'  
     }).then(function (records) {
       self.set('studentsRecords', records);
       self.set('firstIndex', records.indexOf(records.get("firstObject")));
@@ -40,6 +42,8 @@ export default Ember.Component.extend({
     this.showStudentData(this.get('currentIndex'));
   }),
 
+  //this.set('scholarshipRecords', this.get('currentStudent').get('scholarshipInfo'));
+ 
   init() {
     this._super(...arguments);
     // load Residency data model
@@ -64,10 +68,18 @@ export default Ember.Component.extend({
       // Show first student data
       self.set('currentIndex', self.get('firstIndex'));
     });
+
+    this.get('store').query('scholarship', {
+      student: self.get('currentStudent')
+    }).then(function(records) {
+        self.set('scholarshipRecords', records);
+    })
+    
   },
 
   showStudentData: function (index) {
-    this.set('currentStudent', this.get('studentsRecords').objectAt(index));
+    var tempStudent  = this.get('studentsRecords').objectAt(index);
+    this.set('currentStudent', tempStudent);
     this.set('studentPhoto', this.get('currentStudent').get('photo'));
     var date = this.get('currentStudent').get('DOB');
     var datestring = date.toISOString().substring(0, 10);
@@ -78,7 +90,6 @@ export default Ember.Component.extend({
     Ember.$('.menu .item').tab();
   },
 
-
   actions: {
     saveStudent () {
       var updatedStudent = this.get('currentStudent');
@@ -86,9 +97,21 @@ export default Ember.Component.extend({
       updatedStudent.set('gender', this.get('selectedGender'));
       updatedStudent.set('DOB', new Date(this.get('selectedDate')));
       updatedStudent.set('resInfo', res);
-      updatedStudent.save().then(() => {
-        //     this.set('isStudentFormEditing', false);
+
+      let scholarship = this.get('store').createRecord('scholarship', {
+        note: "Mock note for a scholarship",
+        student: updatedStudent,
       });
+
+      scholarship.save().then(() => {
+           updatedStudent.get('scholarshipInfo').then(function(scholarships){
+            scholarships.pushObject(scholarship);
+              updatedStudent.save().then(() => {
+        //     this.set('isStudentFormEditing', false);
+           });
+         });
+      });
+  
     },
 
     firstStudent() {

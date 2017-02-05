@@ -131,11 +131,17 @@
      <br>
     <h2>Information for Scholarships and Awards</h2>
     {{! Put information here}}
-    <h3>
-      ID
+    
+    {{#each scholarshipRecords as |scholarship|}}
+      ID: 
       <br>
-      Note
-    </h3>
+      {{scholarship.id}}
+      <br>
+      note:
+      <br>
+      {{scholarship.note}}
+      <br>
+    {{/each}}
   </div>
 
   <!-- 
