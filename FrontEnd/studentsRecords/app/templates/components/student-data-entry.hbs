@@ -48,7 +48,8 @@
   <div class="ui top attached tabular menu">
     <div class="active item" data-tab="basics">Basic Info</div>
     {{! These are the tabs we are currently showing}}
-    <div class="item" data-tab="advanceStanding">Advance Standing</div>
+    <div class="item" data-tab="advanceStandingInput">Advance Standing Input</div>
+    <div class="item" data-tab="advanceStandingDisplay">Advance Standing Display</div>
     <div class="item" data-tab="scholarshipsAwards">Scholarships And Awards</div>
     <div class="item" data-tab="registrationInfo">Registration Info</div>
     {{! Commented out old tabs
@@ -106,11 +107,42 @@
 
   {{!Information to be shown inside of a tab}}
 
-  <div class="ui tab" data-tab="advanceStanding"> 
+  <div class="ui tab" data-tab="advanceStandingInput"> 
+    <br>
+    <h2>Input for Advance Standing</h2>
+    {{! Put information here}}
+   <h3>
+      Course
+      <br>
+       <input type="text">
+      <br>
+      Description
+      <br>
+        <input type="text">
+      <br>
+      Units
+      <br>
+      <input type="text">
+      <br>
+      Grade
+      <br>
+      <input type="text">
+      <br>
+      From
+      <br>
+      <input type="text">
+      <br>
+      <br>
+      <button>Submit Information</button>
+    </h3>
+    <br><br><br>
+  </div>
+
+<div class="ui tab" data-tab="advanceStandingDisplay"> 
     <br>
     <h2>Information for Advance Standing</h2>
     {{! Put information here}}
-    <h3>
+   <h3>
       Course
       <br>
       Description
@@ -120,9 +152,12 @@
       Grade
       <br>
       From
+      <br>
     </h3>
     <br><br><br>
   </div>
+
+
 
   <div class="ui tab" data-tab="scholarshipsAwards">
      <br>
