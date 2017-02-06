@@ -12,10 +12,10 @@ router.route('/')
         console.log("--------------------")
         console.log(request.body);
         // I made a JSON object labeled scholarship, this is what the next line is using
-        var advanceStanding = new models.AdvancedStandings(request.body.advanceStanding);
+        var advanceStanding = new models.AdvancedStandings(request.body.advancestanding);
         advanceStanding.save(function (error) {
             if (error) response.send(error);
-            response.json({AdvanceStanding: advanceStanding});
+            response.json({advancestanding: advanceStanding});
         });
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
@@ -25,13 +25,14 @@ router.route('/')
             models.AdvancedStandings.find(function (error, advanceStanding) {
                 if (error) response.send(error);
                 // returns all scholarships
-                response.json({AdvanceStanding: advanceStanding});
+                response.json({advancestanding: advanceStanding});
             });
         } else {
             //{"student": Student},
+            console.log("here");
             models.AdvancedStandings.find({"student": Student}, function (error, students) {
                 if (error) response.send(error);
-                response.json({AdvanceStanding: students});
+                response.json({advancestanding: students});
             });
         }
     })
@@ -54,7 +55,7 @@ router.route('/:advanceStanding_id')
                         response.send({error: error});
                     }
                     else {
-                        response.json({AdvanceStanding: advanceStanding});
+                        response.json({advancestanding: advanceStanding});
                     }
                 });
             }
@@ -64,7 +65,7 @@ router.route('/:advanceStanding_id')
         models.AdvancedStandings.findByIdAndRemove(request.params.advanceStanding_id,
             function (error, deleted) {
                 if (!error) {
-                    response.json({AdvanceStanding: deleted});
+                    response.json({advancestanding: deleted});
                 }
             }
         );

@@ -52,7 +52,7 @@ var advancedStandingSchema = mongoose.Schema(
         units: Number,
         grade: Number,
         from: String,
-        students: {type: mongoose.Schema.ObjectId, ref: ('Students')}
+        student: {type: mongoose.Schema.ObjectId, ref: ('Students')}
     }
 );
 
@@ -69,7 +69,7 @@ var Students = mongoose.model('student', studentsSchema);
 var Residencies = mongoose.model('residency', residencySchema);
 var Genders = mongoose.model('gender', genderSchema);
 var Scholarships = mongoose.model('scholarship', scholarshipsSchema);
-var AdvancedStandings = mongoose.model('advancedStanding', advancedStandingSchema);
+var AdvancedStandings = mongoose.model('advancedstanding', advancedStandingSchema);
 
 mongoose.connect('mongodb://localhost/studentsRecords');
 var db = mongoose.connection;

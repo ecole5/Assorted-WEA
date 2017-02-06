@@ -127,6 +127,16 @@ export default Ember.Component.extend({
     var datestring = date.toISOString().substring(0, 10);
     this.set('selectedDate', datestring);  
     this.updateScholarships();
+    this.updateAdanceStanding();
+  },
+
+  updateAdanceStanding(){
+    var self = this;
+    this.get('store').query('advancestanding', {
+      student: self.get('currentStudent').id
+    }).then(function(records) {
+        self.set('advanceStandingRecords', records);
+    });
   },
 
   // Gets the scholarships for currentStudent and saves them to scholarshipRecords
@@ -137,7 +147,7 @@ export default Ember.Component.extend({
       student: self.get('currentStudent').id
     }).then(function(records) {
         self.set('scholarshipRecords', records);
-    })
+    });
     try{
       this.set('currentStudent', this.get('studentsRecords').objectAt(index));
       this.set('studentPhoto', this.get('currentStudent').get('photo'));
@@ -280,10 +290,30 @@ export default Ember.Component.extend({
       });
     },
 
+    createNewAdvanceStanding(){
+      let advanceStanding = this.get('store').createRecord('advancestanding', {
+        course: "Mock course name for advance standing",
+        description: "Mock description for advance standing",
+        units: 2,
+        grade: 100,
+        from: "Western University",
+        student: this.get('currentStudent'),
+      });
+
+      // Saves the scholarship
+      advanceStanding.save().then(() => {     
+        this.updateAdanceStanding();     
+      });
+    },
+
     deleteScholarship(scholarship){
-      var self = this;
       // Delete from store, and will automatically do everything else like sending delete request
       scholarship.destroyRecord();
+    },
+
+    deleteAdvanceStanding(advanceStanding){
+      // Delete from store, and will automatically do everything else like sending delete request
+      advanceStanding.destroyRecord();
     },
 
     firstStudent() {
