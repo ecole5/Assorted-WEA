@@ -30,15 +30,22 @@
   </a>
   <a class="item" {{action 'allStudents'}}>
     <i class="content icon"></i>
-    All Records
+    All
   </a>
   <a class="item" {{action 'findStudent'}}>
     <i class="search icon"></i>
-    Find Record
+    Find
   </a>
-  <a class="item">
-    Help
+  <a class="item" {{action 'removeStudent'}}>
+    <i class="remove circle icon"></i>
+    Remove
   </a>
+
+  <a class="item" {{action 'addStudent'}}>
+    <i class="plus icon"></i>
+    Add
+  </a>
+ 
 </div>
 
 {{#if showAllStudents}}
@@ -50,7 +57,7 @@
   <div class="ui top attached tabular menu">
     <div class="active item" data-tab="basics">Basic Info</div>
     <div class="item" data-tab="program">Program Record</div>
-    <div class="item" data-tab="systemCode">Manage System Code</div>
+    
     
   </div>
   <div class="ui bottom attached active tab segment"data-tab="basics">
@@ -111,12 +118,7 @@
   </div>
 
 
-   <div class="ui tab" data-tab="systemCode">
-    <!-- Manage System Code !-->
-    
-    {{manage-system-code ResidencyModel = residencyModel GenderModel = genderModel }}
-
-  </div>
+ 
 
 {{/if}}
 

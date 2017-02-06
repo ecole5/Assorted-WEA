@@ -5,7 +5,6 @@ var studentsSchema = mongoose.Schema(
         number: String,
         firstName: String,
         lastName: String,
-        gender: Number,
         DOB: Date,
         photo: String,
         resInfo: {type: mongoose.Schema.ObjectId, ref: 'Residencies'},

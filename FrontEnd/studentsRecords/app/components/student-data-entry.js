@@ -100,7 +100,15 @@ export default Ember.Component.extend({
       this.set('currentIndex', this.get('firstIndex'));
     },
 
-    nextStudent() {
+    removeStudent(){
+      var temp =  this.get('currentStudent');
+       this.send('nextStudent');
+      temp.destroyRecord();
+     
+      
+    },
+    
+        nextStudent() {
       this.set('movingBackword' , false);
       if (this.get('currentIndex') < this.get('lastIndex')) {
         this.set('currentIndex', this.get('currentIndex') + 1);
@@ -125,12 +133,32 @@ export default Ember.Component.extend({
       this.set('currentIndex', this.get('lastIndex'));
     },
 
+    addStudent(){
+       var myStore = this.get('store');
+        var res = myStore.peekRecord('residency', this.get('selectedResidency'));
+      var gen = myStore.peekRecord('gender', this.get('selectedGender'));
+      var newThing = myStore.createRecord('student', {
+         
+              number: '0',
+      firstName: 'New',
+      lastName: 'User',
+      DOB: new Date(this.get('selectedDate')),
+      photo: '1',
+      resInfo: res,
+      genInfo: gen,
+            
+
+        });
+      newThing.save();
+    },
+
     allStudents() {
       this.set('showAllStudents', true);
     },
 
     selectGender (gender){
       this.set('selectedGender', gender);
+      console.log(gender);
     },
 
     selectResidency (residency){
