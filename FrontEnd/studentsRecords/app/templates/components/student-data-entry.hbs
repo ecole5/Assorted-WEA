@@ -51,6 +51,7 @@
     <div class="item" data-tab="advanceStanding">Advance Standing</div>
     <div class="item" data-tab="scholarshipsAwards">Scholarships And Awards</div>
     <div class="item" data-tab="registrationInfo">Registration Info</div>
+<<<<<<< HEAD
     {{! Commented out old tabs
     <div class="item" data-tab="program">Program Record</div>
 <<<<<<< HEAD
@@ -60,6 +61,8 @@
     <div class="item" data-tab="systemCode">Manage System Code</div>
     
 >>>>>>> origin/ManageSystemCode
+=======
+>>>>>>> martin
   </div>
   <div class="ui bottom attached active tab segment"data-tab="basics">
     <!-- student basic information !-->
@@ -132,33 +135,64 @@
   </div>
 
   <div class="ui tab" data-tab="scholarshipsAwards">
-     <br>
     <h2>Information for Scholarships and Awards</h2>
-    {{! Put information here}}
-    <h3>
-      ID
+    {{#each scholarshipRecords as |scholarship|}}
+      <br> Name:
+      <br> {{scholarship.scholarshipID}}          
+      <br> note:
+      <br> {{scholarship.note}}
       <br>
-      Note
-    </h3>
+
+      <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
+      onchange={{action 'editScholarshipID' value="target.value"}}>
+
+      <input type="text" value={{scholarship.note}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
+      onchange={{action 'editScholarshipNote' value="target.value"}}>
+      
+      <button {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
+    {{/each}}
+
+    <br>
+    <button {{action "createNewScholarship"}}>Create new scholarship</button>
   </div>
 
   <div class="ui tab" data-tab="registrationInfo">
      <br>
-    <h2>Information for registration Info</h2>
     {{! Put information here}}
     <h3>
-      Comments
+      Registration Comments:  
       <br>
-      Basis Of Admission
+      {{currentStudent.registrationComments}}
       <br>
+       <input type="text" value={{currentStudent.registrationComments}}  class="form-control" placeholder="Registration comments" 
+       autofocus="autofocus" onchange={{action 'editRegistrationComments' value="target.value"}}>
+      <br>
+      Basis Of Admission: 
+      <br>
+      {{currentStudent.basisOfAdmission}}
+      <br>
+      <input type="text" value={{currentStudent.basisOfAdmission}} class="form-control" placeholder="Basis of admission" 
+      autofocus="autofocus" onchange={{action 'editBasisOfAdmission' value="target.value"}}>
+      <br>    
       Admission average
       <br>
-      Admission 
+      {{currentStudent.admissionAverage}}
       <br>
+      <input type="number" value={{currentStudent.admissionAverage}} class="form-control" placeholder="Admission average" 
+      autofocus="autofocus" onchange={{action 'editAdmissionAverage' value="target.value"}}>
+      <br>
+      Admission Comments
+      <br>
+      {{currentStudent.admissionComments}}
+      <br>  
+      <input type="text" value={{currentStudent.admissionComments}} class="form-control" placeholder="Admission comments" 
+      autofocus="autofocus" onchange={{action 'editAdmissionComments' value="target.value"}}>
+
     </h3>
   </div>
 
 
+<<<<<<< HEAD
   <!-- OLD TABS THAT WE ARE KEEPING FOR THE TIME BEING, probably wont need!-->
   <div class="ui tab" data-tab="program">
     <!-- Program records, courses and grades !-->
@@ -173,8 +207,10 @@
     <h2>Other data</h2>
 
     <!-- OLD TABS THAT WE ARE KEEPING FOR THE TIME BEING, probably wont need and isnt showing right now!-->
+=======
+ 
+>>>>>>> martin
   
-  </div>
   
 =======
 >>>>>>> origin/ManageSystemCode

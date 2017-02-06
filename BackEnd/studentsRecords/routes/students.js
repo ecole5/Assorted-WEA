@@ -48,11 +48,16 @@ router.route('/:student_id')
         });
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
+     console.log("----------- Student");
+        console.log(request.body);
+
         models.Students.findById(request.params.student_id, function (error, student) {
             if (error) {
                 response.send({error: error});
             }
             else {
+
+                
                 student.number = request.body.student.number;
                 student.firstName = request.body.student.firstName;
                 student.lastName = request.body.student.lastName;
@@ -60,6 +65,10 @@ router.route('/:student_id')
                 student.DOB = request.body.student.DOB;
                 student.photo = request.body.student.photo;
                 student.resInfo = request.body.student.resInfo;
+                student.registrationComments = (request.body.student.registrationComments);
+                student.basisOfAdmission = (request.body.student.basisOfAdmission);
+                student.admissionAverage = (request.body.student.admissionAverage);
+                student.admissionComments = (request.body.student.admissionComments);
 
                 student.save(function (error) {
                     if (error) {

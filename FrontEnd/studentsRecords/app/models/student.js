@@ -8,6 +8,14 @@ export default DS.Model.extend({
   DOB: DS.attr('date'),
   photo: DS.attr(),
   resInfo: DS.belongsTo('residency'),
+<<<<<<< HEAD
   genInfo: DS.belongsTo('gender')
 
+=======
+  registrationComments: DS.attr(),
+  basisOfAdmission: DS.attr(),
+  admissionAverage: DS.attr('number'),
+  admissionComments: DS.attr(),
+  scholarshipInfo: DS.hasMany('scholarship', {async: true})
+>>>>>>> martin
 });
