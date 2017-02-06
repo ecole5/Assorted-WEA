@@ -20,7 +20,7 @@ router.route('/')
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
         // I need to grab the scholarships from the given student
-        var Student = request.query.student;
+        var advancedStanding = request.query.student;
         if (!Student) {
             models.AdvInfo.find(function (error, advancedStanding) {
                 if (error) response.send(error);
@@ -28,7 +28,7 @@ router.route('/')
                 response.json({AdvInfo: advancedStanding});
             });
         } else {
-            //{"student": Student},
+          
             models.AdvInfo.find({"student": Student}, function (error, students) {
                 if (error) response.send(error);
                 response.json({AdvInfo: students});
@@ -36,39 +36,4 @@ router.route('/')
         }
     })
     
-
-//Update a scholarship based on it's ID,
-// HAS NOT BEEN IMPLEMENTED
-router.route('/:scholarship_id')
-    .put(parseUrlencoded, parseJSON, function (request, response) {
-        models.Scholarships.findById(request.params.scholarship_id, function (error, scholarship) {
-            if (error) {
-                response.send({error: error});
-            }
-            else {
-                scholarship.note = request.body.scholarship.note;
-                scholarship.scholarshipID = request.body.scholarship.scholarshipID;
-
-                scholarship.save(function (error) {
-                    if (error) {
-                        response.send({error: error});
-                    }
-                    else {
-                        response.json({scholarship: scholarship});
-                    }
-                });
-            }
-        });
-    })
-    .delete(parseUrlencoded, parseJSON, function (request, response) {
-        models.Scholarships.findByIdAndRemove(request.params.scholarship_id,
-            function (error, deleted) {
-                if (!error) {
-                    response.json({scholarship: deleted});
-                }
-            }
-        );
-    });
-
-
 module.exports = router;
