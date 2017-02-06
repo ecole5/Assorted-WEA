@@ -18,16 +18,22 @@ router.route('/')
         var o = parseInt(request.query.offset);
         var Student = request.query.student;
         if (!Student) {
+
             //models.Students.find(function (error, students) {
             //    if (error) response.send(error);
             //    response.json({student: students});
             //});
             models.Students.paginate({}, { offset: o, limit: l },
                 function (error, students) {
-                    if (error) response.send(error);
+                    //if (students.docs.length) {console.log('g')};
+                    //console.log(students.docs.length);
+                    if (error) {
+                        response.send(error)
+                    };
                     response.json({student: students.docs});
                 });
         } else {
+
             //        if (Student == "residency")
             models.Students.find({"residency": request.query.residency}, function (error, students) {
                 if (error) response.send(error);
