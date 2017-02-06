@@ -64,11 +64,7 @@ export default Ember.Component.extend({
 
       // Show first student data
       self.set('currentIndex', self.get('firstIndex'));
-<<<<<<< HEAD
 
-=======
-      
->>>>>>> 12fefdf1b5edd879eb612a4010e49892cc17dc54
     });
   },
 

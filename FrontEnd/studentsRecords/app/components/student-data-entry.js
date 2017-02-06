@@ -20,16 +20,13 @@ export default Ember.Component.extend({
   offset: null,
   pageSize: null,
   movingBackword: false,
-<<<<<<< HEAD
   scholarshipRecords: null,
   registrationComments: null,
   basisOfAdmission: null,
   admissionAverage: 0,
   admissionComments: null,
   editingScholarship: null,
-=======
   RExist: true,
->>>>>>> bug-fix
 
 
   studentModel: Ember.observer('offset', function () {
@@ -122,7 +119,6 @@ export default Ember.Component.extend({
   },
 
   showStudentData: function (index) {
-<<<<<<< HEAD
     var tempStudent  = this.get('studentsRecords').objectAt(index);
     this.set('currentStudent', tempStudent);
     this.set('studentPhoto', this.get('currentStudent').get('photo'));
@@ -133,6 +129,7 @@ export default Ember.Component.extend({
   },
 
   // Gets the scholarships for currentStudent and saves them to scholarshipRecords
+  //fix what ever is going on with the RExist stuff. it should be in the above function
   updateScholarships(){
     var self = this;
     this.get('store').query('scholarship', {
@@ -140,19 +137,17 @@ export default Ember.Component.extend({
     }).then(function(records) {
         self.set('scholarshipRecords', records);
     })
-=======
     try{
       this.set('currentStudent', this.get('studentsRecords').objectAt(index));
       this.set('studentPhoto', this.get('currentStudent').get('photo'));
       var date = this.get('currentStudent').get('DOB');
       var datestring = date.toISOString().substring(0, 10);
       this.set('selectedDate', datestring);
-      this.set('RExist',true);
+     // this.set('RExist',true);
     }
     catch(e){
-      this.set('RExist',false);
+      //this.set('RExist',false);
     }
->>>>>>> bug-fix
   },
 
   didRender() {
@@ -166,11 +161,10 @@ export default Ember.Component.extend({
       var gen = this.get('store').peekRecord('gender', this.get('selectedGender'));
       updatedStudent.set('DOB', new Date(this.get('selectedDate')));
       updatedStudent.set('resInfo', res);
-<<<<<<< HEAD
       updatedStudent.set('genInfo', gen);
-      updatedStudent.save().then(() => {
+      //updatedStudent.save().then(() => {
         //     this.set('isStudentFormEditing', false);
-=======
+
      
       // Saves the student
       updatedStudent.save().then(() => {     
@@ -195,11 +189,10 @@ export default Ember.Component.extend({
     editScholarshipNote(newScholarshipNote){
         var updatedScholarship = this.get('editingScholarship');
         updatedScholarship.set('note',newScholarshipNote);
-alert("here");
+//alert("here");
         // Saves the scholarship
       updatedScholarship.save().then(() => {     
         //this.updateScholarships();      
->>>>>>> martin
       });
     },
 
