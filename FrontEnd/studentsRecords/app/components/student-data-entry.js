@@ -28,6 +28,7 @@ export default Ember.Component.extend({
   editingScholarship: null,
   RExist: true,
   advanceStandingRecords: null,
+  advanceStandingEditing: null,
 
 
   studentModel: Ember.observer('offset', function () {
@@ -183,6 +184,57 @@ export default Ember.Component.extend({
 
     },
 
+    setCurrentAdvanceStanding(advancestanding){
+      this.set('advanceStandingEditing',advancestanding);
+    },
+
+    editAdvanceStandingUnits(advanceStandingUnits){
+       var updatedAdvanceStanding = this.get('advanceStandingEditing');
+      updatedAdvanceStanding.set('units', advanceStandingUnits);
+
+      updatedAdvanceStanding.save().then(() => {      
+      });
+    },
+
+    editAdvanceStandingGrade(advanceStandingGrade){
+       var updatedAdvanceStanding = this.get('advanceStandingEditing');
+
+       if (advanceStandingGrade > 100){
+         advanceStandingGrade = 100;
+       } else if (advanceStandingGrade < 0){
+         advanceStandingGrade = 0;
+       }
+      updatedAdvanceStanding.set('grade', advanceStandingGrade);
+
+      updatedAdvanceStanding.save().then(() => {      
+      });
+    },
+
+    editAdvanceStandingFrom(advanceStandingFrom){
+      var updatedAdvanceStanding = this.get('advanceStandingEditing');
+
+      updatedAdvanceStanding.set('from', advanceStandingFrom);
+
+      updatedAdvanceStanding.save().then(() => {      
+      });
+    },
+
+    editAdvanceStandingCourse(advanceStandingCourse){
+      var updatedAdvanceStanding = this.get('advanceStandingEditing');
+      updatedAdvanceStanding.set('course', advanceStandingCourse);
+
+      updatedAdvanceStanding.save().then(() => {      
+      });
+    },
+
+    editAdvanceStandingDescription(advanceStandingDescription){
+      var updatedAdvanceStanding = this.get('advanceStandingEditing');
+      updatedAdvanceStanding.set('description', advanceStandingDescription);
+
+      updatedAdvanceStanding.save().then(() => {      
+      });
+    },
+
     setCurrentInputScholarship(scholarship){
       this.set('editingScholarship',scholarship);
     },
@@ -297,7 +349,7 @@ export default Ember.Component.extend({
         units: 2,
         grade: 100,
         from: "Western University",
-        student: this.get('currentStudent'),
+        student: this.get('currentStudent')
       });
 
       // Saves the scholarship

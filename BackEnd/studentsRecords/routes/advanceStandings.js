@@ -47,8 +47,11 @@ router.route('/:advanceStanding_id')
                 response.send({error: error});
             }
             else {
-                advanceStanding.note = request.body.scholarship.note;
-                advanceStanding.scholarshipID = request.body.scholarship.scholarshipID;
+                advanceStanding.course = request.body.advancestanding.course;
+                advanceStanding.description = request.body.advancestanding.description;
+                advanceStanding.units = request.body.advancestanding.units;
+                advanceStanding.grade = request.body.advancestanding.grade;
+                advanceStanding.from = request.body.advancestanding.from;
 
                 advanceStanding.save(function (error) {
                     if (error) {
