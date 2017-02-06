@@ -13,5 +13,5 @@ export default DS.Model.extend({
   admissionAverage: DS.attr('number'),
   admissionComments: DS.attr(),
   scholarshipInfo: DS.hasMany('scholarship', {async: true}),
-  advanceStandingInfo: DS.hasMany('advanceStading', {async: true})
+  advanceStandingInfo: DS.hasMany('advanceStanding', {async: true})
 });

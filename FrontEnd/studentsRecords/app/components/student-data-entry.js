@@ -24,6 +24,7 @@ export default Ember.Component.extend({
   admissionAverage: 0,
   admissionComments: null,
   editingScholarship: null,
+  advanceStandingRecords: null,
 
 
   studentModel: Ember.observer('offset', function () {
@@ -90,10 +91,10 @@ export default Ember.Component.extend({
     this.get('store').query('scholarship', {
       student: self.get('currentStudent').id
     }).then(function(records) {
-        self.set('scholarshipRecords', records);
+        self.set('advanceStandingRecords', records);
     })
   },
-
+  
   didRender() {
     Ember.$('.menu .item').tab();
   },
@@ -124,6 +125,34 @@ export default Ember.Component.extend({
         //this.updateScholarships();      
       });
         
+    },
+
+    createNewAdvanceStanding(){
+      alert("createNewAdvanceStanding stub");
+
+       let advanceStanding = this.get('store').createRecord('advanceStanding', {
+        course: "Mock course for advance standing",
+        description: "Mock description for the course",
+        units: 2,
+        grade: 100,
+        from: "Western University",
+        student: this.get('currentStudent')
+      });
+
+      // Saves the scholarship
+      advanceStanding.save().then(() => {     
+        this.updateAdvanceStanding();      
+      });
+
+    },
+
+    updateAdvanceStanding(){
+      var self = this;
+      this.get('store').query('advanceStanding', {
+        student: self.get('currentStudent').id
+      }).then(function(records) {
+          self.set('scholarshipRecords', records);
+      })
     },
 
     editScholarshipNote(newScholarshipNote){

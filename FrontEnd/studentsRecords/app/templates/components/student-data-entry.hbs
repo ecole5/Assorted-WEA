@@ -108,19 +108,33 @@
   <div class="ui tab" data-tab="advanceStanding"> 
     <br>
     <h2>Information for Advance Standing</h2>
+    {{#each advanceStandingRecords as |advanceStanding|}}
     {{! Put information here}}
     <h3>
       Course
       <br>
+      {{advanceStanding.course}}
+      <br>
       Description
+      <br>
+      {{advanceStanding.description}}
       <br>
       Units
       <br>
+      {{advanceStanding.units}}
+      <br>
       Grade
       <br>
+      {{advanceStanding.grade}}
+      <br>
       From
+      <br>
+      {{advanceStanding.from}}
     </h3>
     <br><br><br>
+
+      {{/each}}
+      <button {{action "createNewAdvanceStanding"}}>Create new advanceStanding</button>
   </div>
 
   <div class="ui tab" data-tab="scholarshipsAwards">
