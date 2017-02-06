@@ -13,8 +13,9 @@ var studentsSchema = mongoose.Schema(
         basisOfAdmission: String,
         admissionAverage: Number,
         admissionComments: String,
-        scholarshipsInfo: [{type:mongoose.Schema.ObjectId, ref: ('Scholarships')}]
-    }
+        scholarshipsInfo: [{type:mongoose.Schema.ObjectId, ref: ('Scholarships')}],
+        advancedStanding: [{type:mongoose.Schema.ObjectId, ref: ('Scholarships')}]
+}
 );
 studentsSchema.plugin(mongoosePaginate);
 
@@ -34,9 +35,21 @@ var scholarshipsSchema = mongoose.Schema(
     }
 );
 
+var advancedStandingSchema = mongoose.Schema(
+    {
+        course: String,
+        description: String,
+        units: Number,
+        grade: Number,
+        from: String,
+        students: [{type: mongoose.Schema.ObjectId, ref: ('Students')}]
+    }
+);
+
 var Students = mongoose.model('student', studentsSchema);
 var Residencies = mongoose.model('residency', residencySchema);
 var Scholarships = mongoose.model('scholarship', scholarshipsSchema);
+var AdvancedStandings = mongoose.model('advancedStanding', advancedStandingSchema);
 
 mongoose.connect('mongodb://localhost/studentsRecords');
 var db = mongoose.connection;
@@ -46,6 +59,7 @@ db.once('open', function() {
     exports.Students = Students;
     exports.Residencies = Residencies;
     exports.Scholarships =  Scholarships;
+    exports.AdvancedStandings = AdvancedStandings;
 
 });
 
