@@ -52,7 +52,7 @@ var advancedStandingSchema = mongoose.Schema(
         units: Number,
         grade: Number,
         from: String,
-        students: [{type: mongoose.Schema.ObjectId, ref: ('Students')}]
+        students: {type: mongoose.Schema.ObjectId, ref: ('Students')}
     }
 );
 

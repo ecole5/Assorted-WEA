@@ -27,6 +27,7 @@ export default Ember.Component.extend({
   admissionComments: null,
   editingScholarship: null,
   RExist: true,
+  advanceStandingRecords: null,
 
 
   studentModel: Ember.observer('offset', function () {
