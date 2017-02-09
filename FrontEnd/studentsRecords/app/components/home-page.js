@@ -43,6 +43,7 @@ export default Ember.Component.extend({
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', true);
       this.set('isHelpShowing', false);
+         this.set('isSettingsShowing', false);
     },
 
     help (){

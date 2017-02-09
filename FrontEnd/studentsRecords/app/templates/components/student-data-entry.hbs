@@ -184,14 +184,14 @@
       <br> note:
       <br> {{scholarship.note}}
       <br>
-  <div class="ui input">
+ 
       <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
       onchange={{action 'editScholarshipID' value="target.value"}}>
-      </div>
-  <div class="ui input">
+ 
+ 
       <input type="text" value={{scholarship.note}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
       onchange={{action 'editScholarshipNote' value="target.value"}}>
-      </div>
+      
       
       <button {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
     {{/each}}
