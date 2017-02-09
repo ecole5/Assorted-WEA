@@ -71,7 +71,7 @@
     {{! Commented out old tabs
     <div class="item" data-tab="program">Program Record</div>
 
-    <div class="item" data-tab="others">Other tabs</div>
+  
     }}
    
     
@@ -179,17 +179,19 @@
   <div class="ui tab" data-tab="scholarshipsAwards">
     <h2>Information for Scholarships and Awards</h2>
     {{#each scholarshipRecords as |scholarship|}}
-      <br> Name:
+      <label> Name </label>
       <br> {{scholarship.scholarshipID}}          
       <br> note:
       <br> {{scholarship.note}}
       <br>
-
+  <div class="ui input">
       <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
       onchange={{action 'editScholarshipID' value="target.value"}}>
-
+      </div>
+  <div class="ui input">
       <input type="text" value={{scholarship.note}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
       onchange={{action 'editScholarshipNote' value="target.value"}}>
+      </div>
       
       <button {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
     {{/each}}

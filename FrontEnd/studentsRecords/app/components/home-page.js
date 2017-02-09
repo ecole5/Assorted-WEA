@@ -11,16 +11,10 @@ export default Ember.Component.extend({
     });
   },
 
-
-
-
-
   isHomeShowing: true,
   isStudentsRecordsDataEntry: false,
   isAboutShowing: false,
   isSettingsShowing: false,
-
-  //for help
   isHelpShowing: false,
 
 
@@ -29,9 +23,8 @@ export default Ember.Component.extend({
       this.set('isHomeShowing', true);
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', false);
-
       this.set('isHelpShowing', false);
-     this.set('isSettingsShowing', false);
+      this.set('isSettingsShowing', false);
 
     },
 
@@ -49,7 +42,6 @@ export default Ember.Component.extend({
       this.set('isHomeShowing', false);
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', true);
-
       this.set('isHelpShowing', false);
     },
 
@@ -58,15 +50,14 @@ export default Ember.Component.extend({
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', false);
       this.set('isHelpShowing', true);
-
-       this.set('isSettingsShowing', false);
+      this.set('isSettingsShowing', false);
     },
 
       settings (){
       this.set('isHomeShowing', false);
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', false);
-        this.set('isSettingsShowing', true);
+      this.set('isSettingsShowing', true);
 
     }
   }
