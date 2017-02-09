@@ -5,10 +5,22 @@ export default Ember.Component.extend({
 
     isAddingResidency: false,
     isAddingGender: false,
-    ResidencyModel: null, //feed in through outlet in student data entry
-    GenderModel: null, //feed in through outlet in student data entry
+    ResidencyModel: null, 
+    GenderModel: null, 
     currentModel: null,
     store: Ember.inject.service(),
+
+
+ init() {
+    this._super(...arguments);
+    
+
+ // load Residency data model
+    this.set('ResidencyModel', this.get('store').findAll('residency'));
+
+       // load gender data model
+        this.set('GenderModel', this.get('store').findAll('gender'));
+ },
 
     actions: {
         removeItem(item) {

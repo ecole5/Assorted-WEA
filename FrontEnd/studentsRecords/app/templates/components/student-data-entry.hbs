@@ -30,12 +30,23 @@
   </a>
   <a class="item" {{action 'allStudents'}}>
     <i class="content icon"></i>
-    All Records
+    All
   </a>
   <a class="item" {{action 'findStudent'}}>
     <i class="search icon"></i>
-    Find Record
+    Find
   </a>
+
+  <a class="item" {{action 'removeStudent'}}>
+    <i class="remove circle icon"></i>
+    Remove
+  </a>
+
+  <a class="item" {{action 'addStudent'}}>
+    <i class="plus icon"></i>
+    Add
+  </a>
+ 
 </div>
 
 {{#if showFindStudent}}
@@ -59,9 +70,10 @@
     <div class="item" data-tab="registrationInfo">Registration Info</div>
     {{! Commented out old tabs
     <div class="item" data-tab="program">Program Record</div>
+
     <div class="item" data-tab="others">Other tabs</div>
     }}
-    <div class="item" data-tab="systemCode">Manage System Code</div>
+   
     
 
   </div>
@@ -236,12 +248,7 @@
     <!-- OLD TABS THAT WE ARE KEEPING FOR THE TIME BEING, probably wont need and isnt showing right now!-->
 
 
-   <div class="ui tab" data-tab="systemCode">
-    <!-- Manage System Code !-->
-    
-    {{manage-system-code ResidencyModel = residencyModel GenderModel = genderModel }}
-
-  </div>
+ 
 
 {{/if}}
 
