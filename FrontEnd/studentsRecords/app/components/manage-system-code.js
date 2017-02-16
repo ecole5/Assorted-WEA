@@ -24,18 +24,17 @@ export default Ember.Component.extend({
 
     actions: {
         removeItem(item) {
-            item.destroyRecord();
-
-            
+            item.destroyRecord();  
         },
 
+/*
         save(){
             this.get('ResidencyModel').forEach(obj => {
                 
                 obj.save();
             });
         },
-
+*/
         editItem(value) {
               var updatedItem = this.get('currentModel');
        
