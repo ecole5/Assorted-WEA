@@ -10,4 +10,5 @@ Router.map(function() {
   this.route('home', {path: '/'});
 });
 
+
 export default Router;

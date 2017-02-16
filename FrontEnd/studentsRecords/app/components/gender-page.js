@@ -2,41 +2,30 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
+  store: Ember.inject.service(),
+ 
 
-   
-    ResidencyModel: null, 
     GenderModel: null, 
     currentModel: null,
-    showGender: false,
-    store: Ember.inject.service(),
 
+  notDONE: null,
 
- init() {
+  init() {
     this._super(...arguments);
     
-
- // load Residency data model
-    this.set('ResidencyModel', this.get('store').findAll('residency'));
 
        // load gender data model
         this.set('GenderModel', this.get('store').findAll('gender'));
  },
 
-    actions: {
-        removeItem(item) {
+
+  actions: {
+       removeItem(item) {
             item.destroyRecord();
 
             
         },
-
-        save(){
-            this.get('ResidencyModel').forEach(obj => {
-                
-                obj.save();
-            });
-        },
-
-        editItem(value) {
+           editItem(value) {
               var updatedItem = this.get('currentModel');
        
         
@@ -52,25 +41,11 @@ export default Ember.Component.extend({
          updatedItem.set('name',temp);
          updatedItem.save();
         },
-
+        
          setCurrentModel(model) { //this deals with the problem 
             this.set('currentModel',model);
         },
-
-         showGender() { //this deals with the problem 
-            this.set('showGender',true);
-        },
-
-        addNewResidency() {
-             var myStore = this.get('store');
-            var newThing = myStore.createRecord('residency', {
-                name: 'Edit Me'
-            });
-            newThing.save();
-           
-        },
-        
-        addNewGender() {
+         addNewGender() {
             var myStore = this.get('store');
             var newThing = myStore.createRecord('gender', {
                 name: 'Edit Me'
@@ -79,9 +54,26 @@ export default Ember.Component.extend({
             
         },
 
-       
-    }
+  
 
+    exit: function () {
+      this.set('notDONE', false);
+      Ember.$('.ui.modal').modal('hide');
+      Ember.$('.ui.modal').remove();
+    }
+  },
+
+
+  didRender() {
+    console.log("created");  
+      Ember.$('.ui.modal')
+        .modal({
+          closable: false,
+        })
+        .modal('show')
+    
+        
+  },
 
 });
 

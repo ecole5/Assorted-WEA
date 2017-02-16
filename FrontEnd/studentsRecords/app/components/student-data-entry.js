@@ -235,7 +235,7 @@ export default Ember.Component.extend({
       });
     },
 
-    undoSave() {
+    /*undoSave() {
       this.get('currentStudent').rollbackAttributes();
 
       this.get('store').findAll('residency').then(function (records) {
@@ -248,7 +248,8 @@ export default Ember.Component.extend({
     });
    
     
-    },
+  },
+  */
 
     editBasisOfAdmission(newBasisOfAdmission){
        var updatedStudentComments = this.get('currentStudent');

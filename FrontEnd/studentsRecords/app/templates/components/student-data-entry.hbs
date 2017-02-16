@@ -102,6 +102,9 @@
                 <option value={{genderChoice.id}} selected={{eq currentStudent.genInfo.id
                                                                    genderChoice.id}}>{{genderChoice.name}} </option>
               {{/each}}
+              
+               <option value={{null}} selected={{eq currentStudent.genInfo.id
+                                                                   null}}>Null </option>
             </select>
           </div>
           <div class="inline field">
@@ -115,6 +118,9 @@
                 <option value={{residencyChoice.id}} selected={{eq currentStudent.resInfo.id
                                                                    residencyChoice.id}}>{{residencyChoice.name}} </option>
               {{/each}}
+              
+               <option value={{null}} selected={{eq currentStudent.resInfo.id
+                                                                   null}}>Null </option>
             </select>
           </div>
         </div>
