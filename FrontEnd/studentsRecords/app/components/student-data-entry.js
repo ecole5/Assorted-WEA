@@ -23,12 +23,14 @@ export default Ember.Component.extend({
   scholarshipRecords: null,
   registrationComments: null,
   basisOfAdmission: null,
-  admissionAverage: 0,
+  admissionAverage: -1,
   admissionComments: null,
   editingScholarship: null,
   RExist: true,
   advanceStandingRecords: null,
   advanceStandingEditing: null,
+  recordsToDelete: null,
+
 
 
   studentModel: Ember.observer('offset', function () {
@@ -92,6 +94,20 @@ export default Ember.Component.extend({
     var date = this.get('currentStudent').get('DOB');
     var datestring = date.toISOString().substring(0, 10);
     this.set('selectedDate', datestring);  
+
+    // Prevent users from creating data while looking at a student, then saving it while looking at a different student
+     if (this.get('advanceStandingRecords') != null){
+       this.get('advanceStandingRecords').forEach(function(model) {
+           model.rollbackAttributes();
+       });
+     }
+     
+     if (this.get('scholarshipRecords') != null){
+       this.get('scholarshipRecords').forEach(function(model) {
+         model.rollbackAttributes();
+       });
+     }
+
     this.updateScholarships();
     this.fetchAdanceStanding();
   },
@@ -103,10 +119,6 @@ export default Ember.Component.extend({
     }).then(function(records) {
         self.set('advanceStandingRecords', records);
     });
-  },
-
-  loadScholarshipsFromStore(){
-    //his.set('scholarshipRecords',this.get('store').peekAll('scholarship'));
   },
 
   // Gets the scholarships for currentStudent and saves them to scholarshipRecords
@@ -138,17 +150,33 @@ export default Ember.Component.extend({
       updatedStudent.set('DOB', new Date(this.get('selectedDate')));
       updatedStudent.set('resInfo', res);
       updatedStudent.set('genInfo', gen);
-     
+      var avg = this.get('admissionAverage');
+      var adminComments = this.get('admissionComments');
+      var basisOfAdmin = this.get('basisOfAdmission');
+      var regComments = this.get('registrationComments');
+      if (avg != -1){
+        updatedStudent.set('admissionAverage',avg);
+      }
+      if (adminComments != null){
+        updatedStudent.set('admissionComments',adminComments);
+      }
+      if (basisOfAdmin != null){
+        updatedStudent.set('basisOfAdmission',basisOfAdmin);
+      }
+      if (regComments != null){
+        updatedStudent.set('registrationComments',regComments);
+      }
       // Saves the student
       updatedStudent.save();
 
-      this.scholarshipRecords.forEach(obj => {
+      this.get('store').peekAll('scholarship').forEach(obj => {
                   obj.save();
             });
 
-     this.advanceStandingRecords.forEach(obj => {
+     this.get('store').peekAll('advancestanding').forEach(obj => {
                   obj.save();
             });
+
     },
 
     setCurrentAdvanceStanding(advancestanding){
@@ -201,25 +229,20 @@ export default Ember.Component.extend({
     },
 
     editRegistrationComments(newRegistrationComments){
-      var updatedStudentComments = this.get('currentStudent');
-      updatedStudentComments.set('registrationComments', newRegistrationComments);
+      this.set('registrationComments', newRegistrationComments);
     },
 
     editBasisOfAdmission(newBasisOfAdmission){
-       var updatedStudentComments = this.get('currentStudent');
-      updatedStudentComments.set('basisOfAdmission', newBasisOfAdmission);
+      this.set('basisOfAdmission', newBasisOfAdmission);
     },
 
     editAdmissionAverage(newAdmissionAverage){
-      var updatedStudentComments = this.get('currentStudent');
       newAdmissionAverage = this.checkGradeIsWithinRange(newAdmissionAverage);
-
-      updatedStudentComments.set('admissionAverage', newAdmissionAverage);
+      this.set('admissionAverage', newAdmissionAverage);
     },
 
     editAdmissionComments(newAdmissionComments){
-      var updatedStudentComments = this.get('currentStudent');
-      updatedStudentComments.set('admissionComments', newAdmissionComments);
+      this.set('admissionComments', newAdmissionComments);
     },
 
 
@@ -230,7 +253,7 @@ export default Ember.Component.extend({
         note: "Mock note for a scholarship",
         student: this.get('currentStudent'),
       });
-      // Manually adds the new record to the one we're displaying'
+      // Manually adds the new record to the ones we're displaying'
       this.get('scholarshipRecords').pushObject(scholarship._internalModel);  
     },
 
@@ -244,6 +267,7 @@ export default Ember.Component.extend({
         from: "Western University",
         student: this.get('currentStudent')
       });
+      //  Manually adds the new record to the ones we're displaying'
       this.get('advanceStandingRecords').pushObject(advanceStanding._internalModel);
     },
 
