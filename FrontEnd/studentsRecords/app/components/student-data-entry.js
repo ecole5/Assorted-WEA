@@ -71,8 +71,7 @@ export default Ember.Component.extend({
     var self = this;
     this.get('store').query('student', {
       limit: self.get('limit'),
-      offset: self.get('offset'),
-      include: 'scholarship'
+      offset: self.get('offset')
     }).then(function (records) {
       self.set('studentsRecords', records);
       self.set('firstIndex', records.indexOf(records.get("firstObject")));
@@ -86,8 +85,6 @@ export default Ember.Component.extend({
     
   },
 
-
-
   showStudentData: function (index) {
     var tempStudent  = this.get('studentsRecords').objectAt(index);
     this.set('currentStudent', tempStudent);
@@ -96,16 +93,20 @@ export default Ember.Component.extend({
     var datestring = date.toISOString().substring(0, 10);
     this.set('selectedDate', datestring);  
     this.updateScholarships();
-    this.updateAdanceStanding();
+    this.fetchAdanceStanding();
   },
 
-  updateAdanceStanding(){
+  fetchAdanceStanding(){
     var self = this;
     this.get('store').query('advancestanding', {
       student: self.get('currentStudent').id
     }).then(function(records) {
         self.set('advanceStandingRecords', records);
     });
+  },
+
+  loadScholarshipsFromStore(){
+    //his.set('scholarshipRecords',this.get('store').peekAll('scholarship'));
   },
 
   // Gets the scholarships for currentStudent and saves them to scholarshipRecords
@@ -117,21 +118,16 @@ export default Ember.Component.extend({
     }).then(function(records) {
         self.set('scholarshipRecords', records);
     });
-    try{
-      this.set('currentStudent', this.get('studentsRecords').objectAt(index));
-      this.set('studentPhoto', this.get('currentStudent').get('photo'));
-      var date = this.get('currentStudent').get('DOB');
-      var datestring = date.toISOString().substring(0, 10);
-      this.set('selectedDate', datestring);
-     // this.set('RExist',true);
-    }
-    catch(e){
-      //this.set('RExist',false);
-    }
   },
 
   didRender() {
     Ember.$('.menu .item').tab();
+  },
+
+  checkGradeIsWithinRange(grade){
+    grade = Math.max(0,grade);
+      grade = Math.min(100,grade);
+      return grade;
   },
 
   actions: {
@@ -142,14 +138,17 @@ export default Ember.Component.extend({
       updatedStudent.set('DOB', new Date(this.get('selectedDate')));
       updatedStudent.set('resInfo', res);
       updatedStudent.set('genInfo', gen);
-      //updatedStudent.save().then(() => {
-        //     this.set('isStudentFormEditing', false);
-
      
       // Saves the student
-      updatedStudent.save().then(() => {     
-      });
+      updatedStudent.save();
 
+      this.scholarshipRecords.forEach(obj => {
+                  obj.save();
+            });
+
+     this.advanceStandingRecords.forEach(obj => {
+                  obj.save();
+            });
     },
 
     setCurrentAdvanceStanding(advancestanding){
@@ -159,48 +158,31 @@ export default Ember.Component.extend({
     editAdvanceStandingUnits(advanceStandingUnits){
        var updatedAdvanceStanding = this.get('advanceStandingEditing');
       updatedAdvanceStanding.set('units', advanceStandingUnits);
-
-      updatedAdvanceStanding.save().then(() => {      
-      });
     },
 
     editAdvanceStandingGrade(advanceStandingGrade){
        var updatedAdvanceStanding = this.get('advanceStandingEditing');
 
-       if (advanceStandingGrade > 100){
-         advanceStandingGrade = 100;
-       } else if (advanceStandingGrade < 0){
-         advanceStandingGrade = 0;
-       }
+       // Ensure grade is between 0-100
+      advanceStandingGrade = this.checkGradeIsWithinRange(advanceStandingGrade);
       updatedAdvanceStanding.set('grade', advanceStandingGrade);
-
-      updatedAdvanceStanding.save().then(() => {      
-      });
     },
 
     editAdvanceStandingFrom(advanceStandingFrom){
       var updatedAdvanceStanding = this.get('advanceStandingEditing');
 
       updatedAdvanceStanding.set('from', advanceStandingFrom);
-
-      updatedAdvanceStanding.save().then(() => {      
-      });
     },
 
     editAdvanceStandingCourse(advanceStandingCourse){
       var updatedAdvanceStanding = this.get('advanceStandingEditing');
       updatedAdvanceStanding.set('course', advanceStandingCourse);
-
-      updatedAdvanceStanding.save().then(() => {      
-      });
     },
 
     editAdvanceStandingDescription(advanceStandingDescription){
       var updatedAdvanceStanding = this.get('advanceStandingEditing');
       updatedAdvanceStanding.set('description', advanceStandingDescription);
 
-      updatedAdvanceStanding.save().then(() => {      
-      });
     },
 
     setCurrentInputScholarship(scholarship){
@@ -210,76 +192,34 @@ export default Ember.Component.extend({
     editScholarshipID(newScholarshipID){
         var updatedScholarship = this.get('editingScholarship');
         updatedScholarship.set('scholarshipID',newScholarshipID);
-          // Saves the scholarship
-      updatedScholarship.save().then(() => {     
-        //this.updateScholarships();      
-      });
         
     },
 
     editScholarshipNote(newScholarshipNote){
         var updatedScholarship = this.get('editingScholarship');
         updatedScholarship.set('note',newScholarshipNote);
-//alert("here");
-        // Saves the scholarship
-      updatedScholarship.save().then(() => {     
-        //this.updateScholarships();      
-      });
     },
 
     editRegistrationComments(newRegistrationComments){
       var updatedStudentComments = this.get('currentStudent');
       updatedStudentComments.set('registrationComments', newRegistrationComments);
-      updatedStudentComments.save().then(() => {     
-        //this.updateScholarships();      
-      });
     },
-
-    /*undoSave() {
-      this.get('currentStudent').rollbackAttributes();
-
-      this.get('store').findAll('residency').then(function (records) {
-      self.set('residencyModel', records);
-    });
-
-       // load gender data model
-    this.get('store').findAll('gender').then(function (records) {
-      self.set('genderModel', records);
-    });
-   
-    
-  },
-  */
 
     editBasisOfAdmission(newBasisOfAdmission){
        var updatedStudentComments = this.get('currentStudent');
       updatedStudentComments.set('basisOfAdmission', newBasisOfAdmission);
-      updatedStudentComments.save().then(() => {     
-        //this.updateScholarships();      
-      });
     },
 
     editAdmissionAverage(newAdmissionAverage){
       var updatedStudentComments = this.get('currentStudent');
-      if (newAdmissionAverage > 100){
-        newAdmissionAverage = 100;
-      } else if (newAdmissionAverage < 0){
-        newAdmissionAverage = 0;
-      }
+      newAdmissionAverage = this.checkGradeIsWithinRange(newAdmissionAverage);
 
       updatedStudentComments.set('admissionAverage', newAdmissionAverage);
-      updatedStudentComments.save().then(() => {     
-        //this.updateScholarships();      
-      });
     },
 
     editAdmissionComments(newAdmissionComments){
       var updatedStudentComments = this.get('currentStudent');
       updatedStudentComments.set('admissionComments', newAdmissionComments);
-
-      updatedStudentComments.save().then(() => {     
-        //this.updateScholarships();      
-      });
     },
 
 
@@ -290,14 +230,12 @@ export default Ember.Component.extend({
         note: "Mock note for a scholarship",
         student: this.get('currentStudent'),
       });
-
-      // Saves the scholarship
-      scholarship.save().then(() => {     
-        this.updateScholarships();      
-      });
+      // Manually adds the new record to the one we're displaying'
+      this.get('scholarshipRecords').pushObject(scholarship._internalModel);  
     },
 
     createNewAdvanceStanding(){
+      // Need to create from the store because the model dosen't have a createRecord function'
       let advanceStanding = this.get('store').createRecord('advancestanding', {
         course: "Mock course name for advance standing",
         description: "Mock description for advance standing",
@@ -306,21 +244,21 @@ export default Ember.Component.extend({
         from: "Western University",
         student: this.get('currentStudent')
       });
-
-      // Saves the scholarship
-      advanceStanding.save().then(() => {     
-        this.updateAdanceStanding();     
-      });
+      this.get('advanceStandingRecords').pushObject(advanceStanding._internalModel);
     },
 
     deleteScholarship(scholarship){
-      // Delete from store, and will automatically do everything else like sending delete request
-      scholarship.destroyRecord();
+      // Delete from store, does not save
+      scholarship.deleteRecord();
+      // Removes the scholarship from the currently displaying records
+      this.get('scholarshipRecords').removeObject(scholarship);
     },
 
     deleteAdvanceStanding(advanceStanding){
-      // Delete from store, and will automatically do everything else like sending delete request
-      advanceStanding.destroyRecord();
+      // Delete from store,does not save
+      advanceStanding.deleteRecord();
+      // delete from current displaying records
+      this.get('advanceStandingRecords').removeObject(advanceStanding);
     },
 
     firstStudent() {
