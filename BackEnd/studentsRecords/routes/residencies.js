@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var models = require('../models/studentsRecordsDB');
+var models = require('../models/residency');
+var studentModel = require('../models/student');
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({extended: false});
 var parseJSON = bodyParser.json();
@@ -56,7 +57,23 @@ router.route('/:residency_id')
         })
     })
      .delete(parseUrlencoded, parseJSON, function (request, response) {
+        //Clean resInfo for all students
+        studentModel.Students.find({"resInfo": request.params.residency_id}, function (error, students) {
+                if (error) {response.send(error);}
+                else{
+                    
+                for (var i = 0; i < students.length; i++){
+                    
+                    students[i].resInfo = null;
+                    students[i].save();
+            }
+                }
+            });
+        
+       //Now delete the residency
         models.Residencies.findByIdAndRemove(request.params.residency_id,
+            
+            
             function (error, deleted) {
                 if (!error) {
                     response.json({residency: deleted});

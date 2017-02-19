@@ -8,12 +8,12 @@ export default DS.Model.extend({
   photo: DS.attr(),
   resInfo: DS.belongsTo('residency'),
   genInfo: DS.belongsTo('gender'),
-
-
   registrationComments: DS.attr(),
   basisOfAdmission: DS.attr(),
   admissionAverage: DS.attr('number'),
   admissionComments: DS.attr(),
   scholarshipInfo: DS.hasMany('scholarship', {async: true}),
-  advanceStanding: DS.hasMany('advancestanding', {async: true})
+  advanceStanding: DS.hasMany('advancestanding', {async: true}),
+  highSchoolGrades: DS.hasMany('hsgrade', {async: true}),
+  
 });

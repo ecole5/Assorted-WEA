@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var models = require('../models/studentsRecordsDB');
+var models = require('../models/student');
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({extended: false});
 var parseJSON = bodyParser.json();
@@ -70,13 +70,15 @@ router.route('/:student_id')
                 student.DOB = request.body.student.DOB;
                 student.photo = request.body.student.photo;
                 student.resInfo = request.body.student.resInfo;
-
-                 student.genInfo = request.body.student.genInfo; 
+                //I noticed this was missing from mine (scholerhsip info)- could be why it was breaking
+                student.scholarshipInfo = request.body.student.scholarshipInfo;
+                student.genInfo = request.body.student.genInfo; 
                 student.registrationComments = (request.body.student.registrationComments);
                 student.basisOfAdmission = (request.body.student.basisOfAdmission);
                 student.admissionAverage = (request.body.student.admissionAverage);
                 student.admissionComments = (request.body.student.admissionComments);
-                
+                student.highSchoolGrades = (request.body.student.highSchoolGrades);
+            
 
                 student.save(function (error) {
                     if (error) {
