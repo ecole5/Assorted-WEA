@@ -63,16 +63,13 @@
 
   <!-- This makes all the tabs visiable, this is not where they become clickable !-->
   <div class="ui top attached tabular menu">
-    <div class="active item" data-tab="basics">Basic Info</div>
+    <div class="active item" data-tab="basics">Profile</div>
     {{! These are the tabs we are currently showing}}
     <div class="item" data-tab="advanceStanding">Advance Standing</div>
-    <div class="item" data-tab="scholarshipsAwards">Scholarships And Awards</div>
+    <div class="item" data-tab="scholarshipsAwards">Scholarships/Awards</div>
     <div class="item" data-tab="registrationInfo">Registration Info</div>
-    {{! Commented out old tabs
-    <div class="item" data-tab="program">Program Record</div>
-
-  
-    }}
+    <div class="item" data-tab="secondarySchool">Secondary School</div>
+    <div class="item" data-tab="universityRecord">University Record</div>
    
     
 
@@ -184,16 +181,10 @@
 
   <div class="ui tab" data-tab="scholarshipsAwards">
     <h2>Information for Scholarships and Awards</h2>
-    {{#each scholarshipRecords as |scholarship|}}
-      <label> Name </label>
-      <br> {{scholarship.scholarshipID}}          
-      <br> note:
+    {{#each scholarshipRecords as |scholarship|}}       
+      note:
       <br> {{scholarship.note}}
       <br>
- 
-      <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
-      onchange={{action 'editScholarshipID' value="target.value"}}>
- 
  
       <input type="text" value={{scholarship.note}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
       onchange={{action 'editScholarshipNote' value="target.value"}}>
@@ -238,10 +229,15 @@
       autofocus="autofocus" onchange={{action 'editAdmissionComments' value="target.value"}}>
   </div>
 
+  <div class="ui tab" data-tab="secondarySchool">
+    <!-- Program records, courses and grades !-->
+    <br>
+    <h2>{{currentStudent.number}}</h2>
+      <h3> {{currentStudent.firstName}} {{currentStudent.lastName}}</h3>
+    <br><br><br>
+  </div>
 
-
-  <!-- OLD TABS THAT WE ARE KEEPING FOR THE TIME BEING, probably wont need!-->
-  <div class="ui tab" data-tab="program">
+   <div class="ui tab" data-tab="universityRecord">
     <!-- Program records, courses and grades !-->
     <br>
     <h2>{{currentStudent.number}}</h2>

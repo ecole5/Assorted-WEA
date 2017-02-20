@@ -170,6 +170,8 @@ export default Ember.Component.extend({
       updatedStudent.save();
 
       this.get('store').peekAll('scholarship').forEach(obj => {
+        // should probably add check to see if its dirty before saving, but ember dosent work nicely
+        // the method/property ember gives you isnt altways true and you may need to manually set it dirrty etc.
                   obj.save();
             });
 
@@ -177,6 +179,83 @@ export default Ember.Component.extend({
                   obj.save();
             });
 
+      let hsgrade = this.get('store').createRecord('hsgrade', {
+          mark:100,
+          source: null, // this mean hscourse
+      });
+
+      // might be able to remove
+      //hsgrade.save();
+
+       let secondaryschool = this.get('store').createRecord('secondaryschool', {
+         name: "This is default text for name",
+         courses: null,
+      });
+
+      // might be able to remove
+      //secondaryschool.save();
+
+       let hscourse = this.get('store').createRecord('hscourse', {
+          level:"This is a default level",
+          source: "This is a default source",
+          unit: "This is a default unit",
+          subject: hssubject,
+          school: secondaryschool,
+          grades: hsgrade,
+      });
+
+      hscourse.save();
+      secondaryschool.set('courses',hscourse);
+      secondaryschool.save();
+      hsgrade.set('courses',hscourse);
+      hsgrade.save();
+
+      let hssubject = this.get('store').createRecord('hssubject', {
+          name:"This is a default subject name",
+          description: "This is a default description",
+          courses: hscourse,
+      });
+
+      hssubject.save();
+
+      let plan = this.get('store').createRecord('plan', {
+          name: "This is a default name for the plan",
+      });
+
+      plan.save();
+
+      let term = this.get('store').createRecord('term', {
+          name: "This is default text for a name",
+      });
+
+      term.save();
+
+      let uniCourse = this.get('store').createRecord('course', {
+          courseLetter: "This is default text for courseLetter",
+          courseNumber: "This is default text for courseNumber",
+          name: "This is default text for course name",
+          unit: "This is default text for unit",
+      });
+
+      let program = this.get('store').createRecord('program', {
+          name: "This is a default name for the program",
+          level: 100,
+          load: "This is a default load for the program",
+          status: "This is a default status for the program",
+          term:term,
+          plan:plan,
+      });
+
+       let grade = this.get('store').createRecord('grade', {
+          mark:0,
+          note: "This is a default note",
+          student: this.get('currentStudent'),
+          program: program,
+          course: uniCourse,
+      });
+
+      grade.save();
+     
     },
 
     setCurrentAdvanceStanding(advancestanding){
