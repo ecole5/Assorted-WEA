@@ -1,85 +1,84 @@
 var express = require('express');
 var router = express.Router();
-var models = require('../models/gender');
-var studentModel = require('../models/student');
+var models = require('../models/plan');
+var programModel = require('../models/program');
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({extended: false});
 var parseJSON = bodyParser.json();
 
 router.route('/')
     .post(parseUrlencoded, parseJSON, function (request, response) {
-        var gender = new models.Genders(request.body.gender);
-        gender.save(function (error) {
+        var plan = new models.Plans(request.body.plan);
+        plan.save(function (error) {
             if (error) response.send(error);
-            response.json({gender: gender});
+            response.json({plan: plan});
         });
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
         var Student = request.query.filter;
         if (!Student) {
-            models.Genders.find(function (error, Genders) {
+            models.Plans.find(function (error, Plans) {
                 if (error) {response.send(error);}
-                else if (Genders[0] == null){
-                    response.json({gender: Genders});
+                else if (Plans[0] == null){
+                    response.json({plan: Plans});
                 }
 
                 else{
-                    response.json({gender: Genders});}
+                    response.json({plan: Plans});}
             });
         } else {
-            models.Genders.find({"student": Student.student}, function (error, students) {
+            models.Plans.find({"student": Student.student}, function (error, programs) {
                 if (error) response.send(error);
-                response.json({gender: students});
+                response.json({plan: programs});
             });
         }
     });
 
-router.route('/:gender_id')
+router.route('/:plan_id')
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        models.Genders.findById(request.params.gender_id, function (error, gender) {
+        models.Plans.findById(request.params.plan_id, function (error, plan) {
             if (error) response.send(error);
-            response.json({gender: gender});
+            response.json({plan: plan});
         })
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
-        models.Genders.findById(request.params.gender_id, function (error, gender) {
+        models.Plans.findById(request.params.plan_id, function (error, plan) {
             if (error) {
                 response.send({error: error});
             }
             else {
-                gender.name = request.body.gender.name;
-                gender.students = request.body.gender.students;
+                plan.name = request.body.plan.name;
 
-                gender.save(function (error) {
+                plan.save(function (error) {
                     if (error) {
                         response.send({error: error});
                     }
                     else {
-                        response.json({gender: gender});
+                        response.json({plan: plan});
                     }
                 });
             }
         })
     })
      .delete(parseUrlencoded, parseJSON, function (request, response) {
-        //When you delete a gender you need to make sure that the genInfo in all students is cleaned
-         studentModel.Students.find({"genInfo": request.params.gender_id}, function (error, students) {
+        //When you delete a plan you need to make sure that the plan in all programs is cleaned
+         programModel.Programs.find({"plan": request.params.plan_id}, function (error, programs) {
                 if (error) {response.send(error);}
                 else{
                     
-                for (var i = 0; i < students.length; i++){
+                for (var i = 0; i < programs.length; i++){
                     
-                    students[i].genInfo = null;
-                    students[i].save();
+                    programs[i].plan = null;
+                    programs[i].save();
             }
                 }
             });
         //Now actually clean a gneder
-        models.Genders.findByIdAndRemove(request.params.gender_id,
+        models.Plans.findByIdAndRemove(request.params.plan_id,
             function (error, deleted) {
                 if (!error) {
                    
-                    response.json({gender: deleted});
+                    response.json({plan: deleted});
                 }
             }
         );

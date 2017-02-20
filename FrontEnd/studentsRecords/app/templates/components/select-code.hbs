@@ -1,0 +1,76 @@
+<!--Grid for selecting all the diffrent system codes avaliable for edit-->
+  
+<div class="ui four column grid">
+
+  <div class="column">
+  
+      <div class="ui button" {{action "showGender"}}>
+        Gender
+    </div>
+  </div>
+  <!--end column-->
+  
+  <div class="column">
+      <div class="ui button" {{action "showResidency"}}>
+        Residency
+    </div>
+  </div>
+  <!--end column-->
+  
+
+
+  <div class="column">
+      <div class="ui button" {{action "showHsCourses"}}>
+        High Schools Courses
+    </div>
+  </div>
+  <!--end column-->
+
+  <div class="column">
+      <div class="ui button" {{action "showSecondary"}}>
+       Secondary Schools
+    </div>
+  </div>
+  <!--end column-->
+
+  <div class="column">
+      <div class="ui button" {{action "showHsSubjects"}}>
+        High School Subjects
+    </div>
+  </div>
+  <!--end column-->
+
+  <div class="column">
+      <div class="ui button" {{action "showCourseCode"}}>
+        University Courses
+    </div>
+  </div>
+  <!--end column-->
+
+
+  <div class="column">
+      <div class="ui button " {{action "showPlanCode"}}>
+       Plan Code
+    </div>
+  </div>
+  <!--end column-->
+
+
+  <div class="column">
+      <div class="ui button" {{action "showTermCode"}}>
+      Term Code
+    </div>
+  </div>
+  <!--end column-->
+
+</div>
+  <!--end grid-->
+
+    <!--Outlets for the modals where editing actually takes place-->
+{{#if showGender}} {{name-code-modal notDONE = showGender title = "Gender Names" modelName = "gender"}} {{/if}}
+{{#if showResidency}} {{name-code-modal notDONE = showResidency title = "Residency Names" modelName = "residency"}} {{/if}}
+{{#if showTermCode}} {{name-code-modal notDONE = showTermCode title = "Term Code Names" modelName = "term"}} {{/if}}
+{{#if showPlanCode}} {{name-code-modal notDONE = showPlanCode title = "Plan Code Names" modelName = "plan"}} {{/if}}
+{{#if showSecondary}} {{name-code-modal notDONE = showSecondary title = "Seconday School Names" modelName = "secondaryschool"}} {{/if}}
+{{#if showHsSubjects}} {{hssubject-modal notDONE = showHsSubjects}} {{/if}}
+{{#if showCourseCode}} {{course-modal notDONE = showCourseCode}} {{/if}}
