@@ -43,6 +43,7 @@ export default Ember.Component.extend({
   universityCoursesRecords: null,
   universityPlanCodesRecords: null,
   universityTermCodeRecords: null,
+  gradesToCheck: [],
 
 
 
@@ -181,7 +182,59 @@ export default Ember.Component.extend({
       student: self.get('currentStudent').id
     }).then(function(records) {
         self.set('gradeRecords', records);
+        // make sure all grades have a program associated
+        self.checkUniGradeForPrograms(null);
     });
+  },
+
+  checkUniGradeForPrograms(grade){
+      // Make sure it's empty '
+      this.gradesToCheck = [];
+      // Recently created a grade and need to create a program
+      if (grade != null){
+          this.gradesToCheck.push(grade);
+          this.updateGradesWithDefaultPrograms();
+      } else { // First opened page and need to make sure we dont have a null program
+        let timesToLoop = 0;
+        this.gradeRecords.forEach(function(element) {
+            // work-around to check if the related program object exists
+            
+            if (element.get('program').get('id') == undefined){
+              this.gradesToCheck.push(element);
+            }
+            timesToLoop++;
+            // Callback once we finish the for each loop
+            
+            if (timesToLoop == this.gradeRecords.get('length')){
+                this.updateGradesWithDefaultPrograms();
+            }
+          }, this);
+      }
+  },
+
+  updateGradesWithDefaultPrograms(){
+    var copyOfGrades = this.gradesToCheck;
+    //alert(copyOfGrades.get('length'));
+    let self = this;
+    copyOfGrades.forEach(function(iteratingGrade) {
+      // Work around to check if the project ojbect dosent exist
+      if (iteratingGrade.get('program').get('id') == undefined){
+          let programRecord = self.get('store').createRecord('program', {
+            name: "These are default values for a program",
+            level: 1, // first year
+            load: "F",
+            status: "Active in program",
+            term:null, // going to be selected from dropdown
+            plan:null // going to be selected from dropdown,
+          });
+
+          programRecord.save().then(function(savedProgramRecord){
+            iteratingGrade.set('program',programRecord);
+            iteratingGrade.save();
+          });
+      }
+        
+    }, this);
   },
 
   updateHighSchoolCourses(){
@@ -273,7 +326,7 @@ export default Ember.Component.extend({
                   obj.save();
             });
 
-
+      /*
       // Start testing for creating all models
       let hsgrade = this.get('store').createRecord('hsgrade', {
           mark:100,
@@ -359,6 +412,7 @@ export default Ember.Component.extend({
 
       grade.save();
       });
+      */
      
     },
 
@@ -484,7 +538,8 @@ export default Ember.Component.extend({
           course: null,
       });
 
-    this.gradeRecords.pushObject(uniGrade._internalModel);      
+    this.gradeRecords.pushObject(uniGrade._internalModel);
+    this.checkUniGradeForPrograms(uniGrade);
     },
     
 
@@ -559,12 +614,12 @@ nextStudent() {
     },
 
     selectedHighSchoolCourses (model){
+      alert(model);
         // Removes it from the map if it existed previously
         delete this.selctedInfoThatNeedsChanging[model];
         // hopefully ember will log its ember ID as the key
-        this.selctedInfoThatNeedsChanging[model] = hscourse;
+        this.selctedInfoThatNeedsChanging[model] = model;
 
-        alert("checking if map works " + (model in this.selctedInfoThatNeedsChanging));
     },
 
 /*

@@ -242,25 +242,40 @@
     <br>
     
               {{#each gradeRecords as |uniGrade|}}
+                <h3> Grade </h3>
                 {{uniGrade.mark}}
+                {{uniGrade.student.id}}
                 <br>
                 {{uniGrade.note}}
                 <br>
-                {{uniGrade.student}}
+                {{uniGrade.student.firstName}}
+                <br>
+                
+                <h3> Program </h3> 
+                {{uniGrade.program.name}}
+                <br>
+                {{uniGrade.program.level}}
+                <br>
+                {{uniGrade.program.load}}
+                <br>
+                {{uniGrade.program.status}}
                 <br>
 
-                {{/each}}
-                <!--
-                  <select onchange={{action 'selectedHighSchoolCourses' value="target.value"}}>
-                <option value={{hsCourse.id}} selected={{eq currentStudent.genInfo.id
-                                                                   genderChoice.id}}>{{genderChoice.name}} </option>
-                                                                  {{#each}}
+                <h3> Term </h3>
+                <select onchange={{action 'selectedHighSchoolCourses' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq uniGrade.term null}}>Null </option>
+                  {{#each universityTermCodeRecords as |termChoice|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{termChoice.id}} selected={{eq uniGrade.program.term termChoice}}>
+                      {{termChoice.name}} </option>
+                  {{/each}}
+                  {{! selects the null option if it's null'}}
+                 
+                </select>
 
-                                                                   {{/each}}
-              
-               <option value={{null}} selected={{eq currentStudent.genInfo.id null}}>Null </option>
-    </select>
-                                                                   !-->
+                {{/each}}
               
      <button {{action "createNewGradeForUni"}}>Create new grade for University</button>
      <button {{action "selectedHighSchoolCourses" currentStudent}}>Test maps function</button>

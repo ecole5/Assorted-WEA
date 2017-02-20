@@ -14,8 +14,9 @@ router.route('/')
         });
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        var Student = request.query.filter;
+        var Student = request.query.student;
         if (!Student) {
+            console.log("no student");
             models.Grades.find(function (error, Grades) {
                 if (error) {response.send(error);}
                 else if (Grades[0] == null){
@@ -26,8 +27,8 @@ router.route('/')
                     response.json({grade: Grades});}
             });
         } else {
-            // If i give it a student, it will try to find it?
-            models.Grades.find({"student": Student.student}, function (error, programs) {
+            console.log("found student");
+            models.Grades.find({"student": Student}, function (error, programs) {
                 if (error) response.send(error);
                 response.json({grade: programs});
             });
