@@ -179,6 +179,8 @@ export default Ember.Component.extend({
                   obj.save();
             });
 
+
+      // Start testing for creating all models
       let hsgrade = this.get('store').createRecord('hsgrade', {
           mark:100,
           source: null, // this mean hscourse
@@ -186,37 +188,41 @@ export default Ember.Component.extend({
 
       // might be able to remove
       //hsgrade.save();
-
        let secondaryschool = this.get('store').createRecord('secondaryschool', {
          name: "This is default text for name",
-         courses: null,
+         courses: [],
       });
 
       // might be able to remove
       //secondaryschool.save();
-
+      let hsGradeArray = [];
+      hsGradeArray.push(hsgrade);
        let hscourse = this.get('store').createRecord('hscourse', {
           level:"This is a default level",
           source: "This is a default source",
           unit: "This is a default unit",
           subject: hssubject,
           school: secondaryschool,
-          grades: hsgrade,
+          grades: hsGradeArray,
       });
 
       hscourse.save();
-      secondaryschool.set('courses',hscourse);
+      let hsCourseArray = [];
+      hsCourseArray.push(hscourse);
+      secondaryschool.set('courses',hsCourseArray);
       secondaryschool.save();
-      hsgrade.set('courses',hscourse);
+      hsgrade.set('courses',hsCourseArray);
       hsgrade.save();
 
       let hssubject = this.get('store').createRecord('hssubject', {
           name:"This is a default subject name",
           description: "This is a default description",
-          courses: hscourse,
+          courses: hsCourseArray,
       });
 
       hssubject.save();
+
+      // -------------------END OF HIGHSCHOOL MODELS----------------
 
       let plan = this.get('store').createRecord('plan', {
           name: "This is a default name for the plan",
@@ -232,12 +238,14 @@ export default Ember.Component.extend({
 
       let uniCourse = this.get('store').createRecord('course', {
           courseLetter: "This is default text for courseLetter",
-          courseNumber: "This is default text for courseNumber",
+          courseNumber: 100,
           name: "This is default text for course name",
           unit: "This is default text for unit",
       });
 
-      let program = this.get('store').createRecord('program', {
+      uniCourse.save();
+
+      let programRecord = this.get('store').createRecord('program', {
           name: "This is a default name for the program",
           level: 100,
           load: "This is a default load for the program",
@@ -245,16 +253,18 @@ export default Ember.Component.extend({
           term:term,
           plan:plan,
       });
-
-       let grade = this.get('store').createRecord('grade', {
+      let self = this;
+      programRecord.save().then(function(savedProgramRecord){
+           let grade = self.get('store').createRecord('grade', {
           mark:0,
           note: "This is a default note",
           student: this.get('currentStudent'),
-          program: program,
+          program: savedProgramRecord,
           course: uniCourse,
-      });
+        });
 
       grade.save();
+      });
      
     },
 
