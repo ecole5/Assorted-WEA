@@ -26,6 +26,7 @@ router.route('/')
                     response.json({grade: Grades});}
             });
         } else {
+            // If i give it a student, it will try to find it?
             models.Grades.find({"student": Student.student}, function (error, programs) {
                 if (error) response.send(error);
                 response.json({grade: programs});

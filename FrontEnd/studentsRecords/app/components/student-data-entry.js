@@ -30,6 +30,19 @@ export default Ember.Component.extend({
   advanceStandingRecords: null,
   advanceStandingEditing: null,
   recordsToDelete: null,
+  selctedInfoThatNeedsChanging: {},
+  selectedSecondarySchoolMap: {},
+  selectedHighSchoolSubjectMap: {},
+  selectedUniversityCoursesMap: {},
+  selectedPlanCodeMap: {},
+  selectedTermCodeMap: {},
+  gradeRecords: null,
+  highSchoolCoursesRecords: null,
+  higschoolSubjectsRecords: null,
+  secondarySchoolRecords: null,
+  universityCoursesRecords: null,
+  universityPlanCodesRecords: null,
+  universityTermCodeRecords: null,
 
 
 
@@ -66,6 +79,15 @@ export default Ember.Component.extend({
       self.set('genderModel', records);
     });
 
+    // load all the models needed for dropdowns
+    this.updateHighSchoolCourses();
+    this.updateSecondarySchools();
+    this.updatehighSchoolSubjects();
+    this.updateUniversityCourses();
+    this.updatePlanCodes();
+    this.updateTermCodes();
+    
+
     // load first page of the students records
     this.set('limit', 10);
     this.set('offset', 0);
@@ -94,8 +116,14 @@ export default Ember.Component.extend({
     var date = this.get('currentStudent').get('DOB');
     var datestring = date.toISOString().substring(0, 10);
     this.set('selectedDate', datestring);  
+    
+    this.revertChangesFromPreviousStudent();
 
-    // Prevent users from creating data while looking at a student, then saving it while looking at a different student
+    this.fetchStudentInformation();
+  },
+
+  revertChangesFromPreviousStudent(){
+     // Prevent users from creating data while looking at a student, then saving it while looking at a different student
      if (this.get('advanceStandingRecords') != null){
        this.get('advanceStandingRecords').forEach(function(model) {
            model.rollbackAttributes();
@@ -108,8 +136,24 @@ export default Ember.Component.extend({
        });
      }
 
+     this.clearSelectedMaps();
+  },
+
+  fetchStudentInformation(){
     this.updateScholarships();
     this.fetchAdanceStanding();
+    this.updateUniGrades();
+  },
+
+  clearSelectedMaps(){
+     // To determine if a student needs the following information updated, I check if it's empty or not'
+     // I set it to empty here so that things changed in previous students dont effect others
+      this.selectedHighSchoolCoursesMap =   {};
+      this.selectedSecondarySchoolMap=   {};
+      this.selectedHighSchoolSubjectMap = {};
+      this.selectedUniversityCoursesMap = {};
+      this.selectedPlanCodeMap = {};
+      this.selectedTermCodeMap = {};
   },
 
   fetchAdanceStanding(){
@@ -122,13 +166,63 @@ export default Ember.Component.extend({
   },
 
   // Gets the scholarships for currentStudent and saves them to scholarshipRecords
-  //fix what ever is going on with the RExist stuff. it should be in the above function
   updateScholarships(){
     var self = this;
     this.get('store').query('scholarship', {
       student: self.get('currentStudent').id
     }).then(function(records) {
         self.set('scholarshipRecords', records);
+    });
+  },
+
+  updateUniGrades(){
+    var self = this;
+    this.get('store').query('grade', {
+      student: self.get('currentStudent').id
+    }).then(function(records) {
+        self.set('gradeRecords', records);
+    });
+  },
+
+  updateHighSchoolCourses(){
+    var self = this;
+    this.get('store').findAll('hscourse').then(function(records) {
+        self.set('highSchoolCoursesRecords', records);
+    });
+  },
+
+  updateSecondarySchools(){
+    var self = this;
+    this.get('store').findAll('secondaryschool').then(function(records) {
+        self.set('secondarySchoolRecords', records);
+    });
+  },
+
+  updatehighSchoolSubjects(){
+    var self = this;
+    this.get('store').findAll('hssubject').then(function(records) {
+        self.set('higschoolSubjectsRecords', records);
+    });
+  },
+
+  updateUniversityCourses(){
+    var self = this;
+    this.get('store').findAll('course').then(function(records) {
+        self.set('universityCoursesRecords', records);
+    });
+  },
+
+  updatePlanCodes(){
+    var self = this;
+    this.get('store').findAll('plan').then(function(records) {
+        self.set('universityPlanCodesRecords', records);
+    });
+  },
+  
+  updateTermCodes(){
+    var self = this;
+    this.get('store').findAll('term').then(function(records) {
+        self.set('universityTermCodeRecords', records);
     });
   },
 
@@ -337,6 +431,9 @@ export default Ember.Component.extend({
 
     createNewScholarship(){
       // We only save one way because the default serializer/adapter that we use wont give us a one-to-many JSON
+
+      
+
       let scholarship = this.get('store').createRecord('scholarship', {
         scholarshipID: "Mock name for the scholarship",
         note: "Mock note for a scholarship",
@@ -378,7 +475,17 @@ export default Ember.Component.extend({
       this.set('currentIndex', this.get('firstIndex'));
     },
 
+     createNewGradeForUni(){
+      let uniGrade = this.get('store').createRecord('grade', {
+          mark: "Default Mark",
+          note: "Default note",
+          program: null,
+          student: this.get('currentStudent'),
+          course: null,
+      });
 
+    this.gradeRecords.pushObject(uniGrade._internalModel);      
+    },
     
 
     removeStudent(){
@@ -451,6 +558,24 @@ nextStudent() {
       this.set('selectedResidency', residency);
     },
 
+    selectedHighSchoolCourses (model){
+        // Removes it from the map if it existed previously
+        delete this.selctedInfoThatNeedsChanging[model];
+        // hopefully ember will log its ember ID as the key
+        this.selctedInfoThatNeedsChanging[model] = hscourse;
+
+        alert("checking if map works " + (model in this.selctedInfoThatNeedsChanging));
+    },
+
+/*
+selectedHighSchoolCoursesMap =  {};
+      selectedSecondarySchoolMap=  {};
+      selectedHighSchoolSubjectMap = {};
+      selectedUniversityCoursesMap = {};
+      selectedPlanCodeMap = {};
+      selectedTermCodeMap = {};
+*/
+
     assignDate (date){
       this.set('selectedDate', date);
     },
@@ -459,5 +584,6 @@ nextStudent() {
       //disabled until fixed
        // this.set('showFindStudent', true); 
     },
+
   }
 });

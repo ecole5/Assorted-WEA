@@ -240,9 +240,31 @@
    <div class="ui tab" data-tab="universityRecord">
     <!-- Program records, courses and grades !-->
     <br>
-    <h2>{{currentStudent.number}}</h2>
-      <h3> {{currentStudent.firstName}} {{currentStudent.lastName}}</h3>
-    <br><br><br>
+    
+              {{#each gradeRecords as |uniGrade|}}
+                {{uniGrade.mark}}
+                <br>
+                {{uniGrade.note}}
+                <br>
+                {{uniGrade.student}}
+                <br>
+
+                {{/each}}
+                <!--
+                  <select onchange={{action 'selectedHighSchoolCourses' value="target.value"}}>
+                <option value={{hsCourse.id}} selected={{eq currentStudent.genInfo.id
+                                                                   genderChoice.id}}>{{genderChoice.name}} </option>
+                                                                  {{#each}}
+
+                                                                   {{/each}}
+              
+               <option value={{null}} selected={{eq currentStudent.genInfo.id null}}>Null </option>
+    </select>
+                                                                   !-->
+              
+     <button {{action "createNewGradeForUni"}}>Create new grade for University</button>
+     <button {{action "selectedHighSchoolCourses" currentStudent}}>Test maps function</button>
+
   </div>
 
 {{/if}}
