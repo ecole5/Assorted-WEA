@@ -31,8 +31,12 @@ export default Ember.Component.extend({
         var tempOffset = this.get('offset');
        // try{
         console.log(stdid);
-        var stdret=myStore.query('student/'+stdid); //var peters = this.store.find('person', { name: "Peter" });
-        //console.log(stdret);
+        var stdret=myStore.query('student',1)//, {stuid: stdid, path:'/find'})
+        .then(function(student) {
+          
+        
+        
+        console.log(stdret);
       //}
       //catch(e){
        // stdret=-1;
@@ -75,7 +79,7 @@ export default Ember.Component.extend({
           this.send('exit');
         }
 
-
+}); 
         
     //loadNext: function () {
       //console.log(this.get("studentsModel"));

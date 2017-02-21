@@ -42,10 +42,12 @@ router.route('/')
         }
     });
 
-router.route('/:student_id')
-    .get(parseUrlencoded, parseJSON, function (request, response) {
+
+router.route('/find')
+.get(parseUrlencoded, parseJSON, function (request, response) {
         console.log("1111111111111111111111");
-        var Student = request.query.student;
+        var StudentID = request.query.stuid;
+        models.Students.find({number: StudentID}, function (error, student){
         //models.Students.findById(request.params.student_id, function (error, student) {
             
             if (error) {
@@ -55,7 +57,24 @@ router.route('/:student_id')
                 response.json({student: student});
                 console.log(student);
             }
-        //});
+        });
+    })
+
+router.route('/:student_id')
+    .get(parseUrlencoded, parseJSON, function (request, response) {
+        console.log("1111111111111111111111");
+        var StudentID = request.query.stuid;
+        models.Students.findById(request.params.student_id, function (error, student) {
+        //models.Students.findById(request.params.student_id, function (error, student) {
+            
+            if (error) {
+                response.send({error: error});
+            }
+            else {
+                response.json({student: student});
+                console.log(student);
+            }
+        });
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
      console.log("----------- Student");
