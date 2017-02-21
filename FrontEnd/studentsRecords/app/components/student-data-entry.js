@@ -485,6 +485,16 @@ export default Ember.Component.extend({
       updatedProgram.set('status', programNameText);
     },
 
+    editGradeMark(programNameText){
+      var updatedProgram = this.get('currentlySelectedProgramItem');
+      updatedProgram.set('mark', programNameText);
+    },
+
+    editGradeNote(programNameText){
+      var updatedProgram = this.get('currentlySelectedProgramItem');
+      updatedProgram.set('note', programNameText);
+    },
+
     editAdvanceStandingDescription(advanceStandingDescription){
       var updatedAdvanceStanding = this.get('advanceStandingEditing');
       updatedAdvanceStanding.set('description', advanceStandingDescription);

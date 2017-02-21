@@ -243,11 +243,15 @@
     
               {{#each gradeRecords as |uniGrade|}}
                 <h3> Grade </h3>
-                {{uniGrade.mark}}
+                Mark: {{uniGrade.mark}}
                 <br>
-                {{uniGrade.note}}
+                  <input type="text" value={{uniGrade.mark}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
+                    onchange={{action 'editGradeMark' value="target.value"}}>
                 <br>
-                {{uniGrade.student.firstName}}
+                Note: {{uniGrade.note}}
+                <br>
+                  <input type="text" value={{uniGrade.note}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
+                    onchange={{action 'editGradeNote' value="target.value"}}>
                 <br>
 
                 <h3> Course </h3>
