@@ -45,7 +45,8 @@ router.route('/')
 router.route('/:student_id')
     .get(parseUrlencoded, parseJSON, function (request, response) {
         console.log("1111111111111111111111");
-        models.Students.findById(request.params.student_id, function (error, student) {
+        var Student = request.query.student;
+        //models.Students.findById(request.params.student_id, function (error, student) {
             
             if (error) {
                 response.send({error: error});
@@ -54,7 +55,7 @@ router.route('/:student_id')
                 response.json({student: student});
                 console.log(student);
             }
-        });
+        //});
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
      console.log("----------- Student");

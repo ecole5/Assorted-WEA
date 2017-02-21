@@ -31,15 +31,15 @@ export default Ember.Component.extend({
         var tempOffset = this.get('offset');
        // try{
         console.log(stdid);
-        var stdret=myStore.find('student',{id: stdid}); //var peters = this.store.find('person', { name: "Peter" });
-        console.log(stdret);
+        var stdret=myStore.query('student/'+stdid); //var peters = this.store.find('person', { name: "Peter" });
+        //console.log(stdret);
       //}
       //catch(e){
        // stdret=-1;
        // console.log('found nothing');
       //}
         this.set("offset",0);
-        console.log(stdid);
+        //console.log(stdid);
         
         do{
           console.log('2');
