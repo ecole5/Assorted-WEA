@@ -244,45 +244,107 @@
               {{#each gradeRecords as |uniGrade|}}
                 <h3> Grade </h3>
                 {{uniGrade.mark}}
-                {{uniGrade.student.id}}
                 <br>
                 {{uniGrade.note}}
                 <br>
                 {{uniGrade.student.firstName}}
                 <br>
-                
-                <h3> Program </h3> 
-                {{uniGrade.program.name}}
+
+                <h3> Course </h3>
+
+                {{uniGrade.course.id}}
                 <br>
-                {{uniGrade.program.level}}
+                {{uniGrade.course.name}}
                 <br>
-                {{uniGrade.program.load}}
+                {{uniGrade.course.unit}}
                 <br>
-                {{uniGrade.program.status}}
+                {{uniGrade.course.courseNumber}}
+                <br>
+                {{uniGrade.course.courseLetter}}
                 <br>
 
+                <select onmouseover={{action 'currentlySelectedProgram' uniGrade.id}} onclick={{action 'currentlySelectedProgram' uniGrade.id}} 
+                 onchange={{action 'selectedGradeCourse' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq uniGrade.program.term.id null}}>Null </option>
+                  {{#each universityCoursesRecords as |uniChoice|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{uniChoice.id}} selected={{eq uniGrade.course.id uniChoice.id}}>
+                      {{uniChoice.name}} {{uniChoice.unit}} {{uniChoice.courseNumber}}
+                      {{uniChoice.courseLetter}} </option>
+                  {{/each}}
+                  {{! selects the null option if it's null'}}
+                 
+                </select>
+
+                
+                <h3> Program </h3> 
+        
+                <br>
+                Program name: {{uniGrade.program.name}}
+                <br>
+                  <input type="text" value={{uniGrade.program.name}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
+                    onchange={{action 'editProgramName' value="target.value"}}>
+                <br>
+                Program level:{{uniGrade.program.level}}
+                <br>
+                 <input type="text" value={{uniGrade.program.level}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
+                    onchange={{action 'editProgramLevel' value="target.value"}}>
+                <br>
+                Program load: {{uniGrade.program.load}}
+                <br>
+                 <input type="text" value={{uniGrade.program.load}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
+                    onchange={{action 'editProgramLoad' value="target.value"}}>
+                <br>
+                Program status: {{uniGrade.program.status}}
+                <br>
+                 <input type="text" value={{uniGrade.program.status}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
+                    onchange={{action 'editProgramStatus' value="target.value"}}>
+                <br>
+
+                
+
                 <h3> Term </h3>
-                {{uniGrade.program.term.id}}
-                <select onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
+                <select onmouseover={{action 'currentlySelectedProgram' uniGrade.program.id}} onclick={{action 'currentlySelectedProgram' uniGrade.program.id}} 
                  onchange={{action 'selectedProgramTerm' value="target.value"}}>
                   {{! show each term}}
                    <option value={{null}} selected={{eq uniGrade.program.term.id null}}>Null </option>
                   {{#each universityTermCodeRecords as |termChoice|}}
                    {{! needs to change it so that onclick i get the currently editing dropdown
                    then set it appropriatly }}
-                    <option value={{termChoice}} selected={{eq uniGrade.program.term.id termChoice.id}}>
+                    <option value={{termChoice.id}} selected={{eq uniGrade.program.term.id termChoice.id}}>
                       {{termChoice.name}} </option>
                   {{/each}}
                   {{! selects the null option if it's null'}}
                  
                 </select>
 
+
+                <h3> Plan </h3>
+
+                 <select onmouseover={{action 'currentlySelectedProgram' uniGrade.program.id}} onclick={{action 'currentlySelectedProgram' uniGrade.program.id}} 
+                 onchange={{action 'selectedProgramPlan' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq uniGrade.program.plan.id null}}>Null </option>
+                  {{#each universityPlanCodesRecords as |planChoice|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{planChoice.id}} selected={{eq uniGrade.program.plan.id planChoice.id}}>
+                      {{planChoice.name}} </option>
+                  {{/each}}
+                  {{! selects the null option if it's null'}}
+
+                      </select>
+
+                      <br> <br>
+                      <button {{action "deleteGrade" uniGrade}}>Delete grade</button>
+
+                      <h3> --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -- -- -- -- --</h3>
                 {{/each}}
               
      <button {{action "createNewGradeForUni"}}>Create new grade for University</button>
-     <button {{action "selectedHighSchoolCourses" currentStudent}}>Test maps function</button>
 
   </div>
 
 {{/if}}
-
