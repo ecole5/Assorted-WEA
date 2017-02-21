@@ -34,7 +34,11 @@ export default Ember.Component.extend({
 
     exit: function () {
       this.set('notDONE', false);
-      Ember.$('.ui.modal').modal('hide');
+      
+           
+      Ember.$('this').removeData('.ui.modal');     
+      Ember.$('.ui.modal').modal('hide'); 
+      Ember.$('.ui.modal').remove();
     }
   },
 
