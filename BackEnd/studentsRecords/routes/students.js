@@ -44,12 +44,15 @@ router.route('/')
 
 router.route('/:student_id')
     .get(parseUrlencoded, parseJSON, function (request, response) {
+        console.log("1111111111111111111111");
         models.Students.findById(request.params.student_id, function (error, student) {
+            
             if (error) {
                 response.send({error: error});
             }
             else {
                 response.json({student: student});
+                console.log(student);
             }
         });
     })

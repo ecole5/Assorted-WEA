@@ -26,7 +26,7 @@ export default Ember.Component.extend({
   admissionAverage: 0,
   admissionComments: null,
   editingScholarship: null,
-  RExist: true,
+  RExist: true,  //RExist disables the next student button if the current student is null
   advanceStandingRecords: null,
   advanceStandingEditing: null,
 
@@ -338,7 +338,7 @@ export default Ember.Component.extend({
     },
     
 nextStudent() {
-     if(this.get('RExist')===true){
+     if(this.get('RExist')===true){  
       this.set('movingBackword' , false);
         if (this.get('currentIndex') < this.get('lastIndex')) {
         this.set('currentIndex', this.get('currentIndex') + 1);
@@ -405,7 +405,7 @@ nextStudent() {
 
     findStudent(){
       //disabled until fixed
-       // this.set('showFindStudent', true); 
+       this.set('showFindStudent', true); 
     },
   }
 });
