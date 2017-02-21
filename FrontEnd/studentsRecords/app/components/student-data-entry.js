@@ -44,6 +44,7 @@ export default Ember.Component.extend({
   universityPlanCodesRecords: null,
   universityTermCodeRecords: null,
   gradesToCheck: [],
+  currentlySelectedProgramItem: null,
 
 
 
@@ -613,13 +614,32 @@ nextStudent() {
       this.set('selectedResidency', residency);
     },
 
-    selectedHighSchoolCourses (model){
-      alert(model);
-        // Removes it from the map if it existed previously
-        delete this.selctedInfoThatNeedsChanging[model];
-        // hopefully ember will log its ember ID as the key
-        this.selctedInfoThatNeedsChanging[model] = model;
+    selectedProgramTerm (model){
+      //alert(model);
+      var editingGrade= this.get('currentlySelectedProgramItem');
+      var programs = this.get('store').peekAll('program');
+      var editingProgram;
+      this.universityTermCodeRecords.forEach(obj => {
+          if (obj == model){
+            model = obj;
+            alert("found match for term");
+          }
+      });
+      alert(this.get('currentlySelectedProgramItem').get('id'));
+      programs.forEach(obj => {
+                  if (obj.get('id') == editingGrade.get('id')){
+                    alert("found amtching id");
+                    obj.set('term',model);
+                    obj.save();
+                  } 
+            });
+      
+    },
 
+    currentlySelectedProgram(item){
+      this.set('currentlySelectedProgramItem', item);
+      //alert(this.get('currentlySelectedProgramItem'));
+       //alert(this.get('currentlySelectedProgramItem').get());
     },
 
 /*
