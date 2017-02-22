@@ -71,6 +71,8 @@ export default Ember.Component.extend({
         cancelNewGender() {
             this.set('isAddingGender', false);
         }
+
+        
     }
 
 

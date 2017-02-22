@@ -17,6 +17,8 @@ export default Ember.Component.extend({
       Ember.$('.ui.modal').modal('hide');
       this.set('offset', this.get('offset') + this.get('pageSize'));
       Ember.$('.ui.modal').modal('show');
+            console.log(this.get('offset') +" "+ this.get('INDEX'));
+
     },
 
     loadPrevious: function () {
@@ -24,18 +26,22 @@ export default Ember.Component.extend({
         Ember.$('.ui.modal').modal('hide');
         this.set('offset', this.get('offset') - this.get('pageSize'));
         Ember.$('.ui.modal').modal('show');
+              console.log(this.get('offset') +" "+ this.get('INDEX'));
+
       }
     },
 
     getStudent: function (student) {
         var index = this.get('studentsModel').indexOf(student);
-        console.log(this.get('studentsModel'));
         this.set('INDEX', index);
+              console.log(this.get('offset') +" "+ this.get('INDEX'));
+
     },
 
     exit: function () {
       this.set('notDONE', false);
-      
+      console.log(this.get('offset') +" "+ this.get('INDEX'));
+
            
       Ember.$('this').removeData('.ui.modal');     
       Ember.$('.ui.modal').modal('hide'); 
