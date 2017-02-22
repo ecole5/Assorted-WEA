@@ -29,7 +29,7 @@ router.route('/')
             });
         } else {
             //{"student": Student},
-            console.log("here");
+           // console.log("here");
             models.AdvancedStandings.find({"student": Student}, function (error, students) {
                 if (error) response.send(error);
                 response.json({advancestanding: students});

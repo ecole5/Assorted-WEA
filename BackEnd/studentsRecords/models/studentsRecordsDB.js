@@ -63,12 +63,14 @@ var scholarshipsSchema = mongoose.Schema(
         student: {type: mongoose.Schema.ObjectId, ref: 'Students'}
     }
 );
+var findstudentSchema = mongoose.Schema({});
 
 var Students = mongoose.model('student', studentsSchema);
 var Residencies = mongoose.model('residency', residencySchema);
 var Genders = mongoose.model('gender', genderSchema);
 var Scholarships = mongoose.model('scholarship', scholarshipsSchema);
 var AdvancedStandings = mongoose.model('advancedstanding', advancedStandingSchema);
+var findstudents = mongoose.model('findStudent', findstudentSchema);
 
 mongoose.connect('mongodb://localhost/studentsRecords');
 var db = mongoose.connection;
@@ -80,7 +82,7 @@ db.once('open', function() {
     exports.Genders = Genders;
     exports.Scholarships =  Scholarships;
     exports.AdvancedStandings = AdvancedStandings;
-
+    exports.findstudents = findstudents;
 
 });
 

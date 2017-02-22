@@ -29,6 +29,7 @@ export default Ember.Component.extend({
 
     getStudent: function (student) {
         var index = this.get('studentsModel').indexOf(student);
+        console.log(this.get('studentsModel'));
         this.set('INDEX', index);
     },
 

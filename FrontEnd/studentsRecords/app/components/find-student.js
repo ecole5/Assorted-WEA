@@ -5,19 +5,29 @@ export default Ember.Component.extend({
     store: Ember.inject.service(),
     notDONE: null,
     limit: 10,
-    //offset: 0,
+    offset: null,
     pageSize: 10,
     result: "",
     studentID: null,
-
+    studentRecord: null,
     studentsModel: null,
     INDEX: null,
+    firstIndex: null,
+    lastIndex: null,
+    currentIndex: null,
 
+  didRender() {
+      Ember.$('.ui.modal')
+              .modal({
+          closable: false,
+        })
+        .modal('show');
+  },
 
     actions:{
     exit: function () {
       this.set('notDONE', false);
-      
+      this.set('result',"");
            
       Ember.$('this').removeData('.ui.modal');     
       Ember.$('.ui.modal').modal('hide'); 
@@ -26,89 +36,64 @@ export default Ember.Component.extend({
     search: function(){
         var myStore =this.get('store');
         var stdid = this.get('studentID');
-        var found = false;
-        var tempIndex = this.get('INDEX');
-        var tempOffset = this.get('offset');
-       // try{
-        console.log(stdid);
-        var stdret=myStore.query('student',1)//, {stuid: stdid, path:'/find'})
-        .then(function(student) {
-          
-        
-        
-        console.log(stdret);
-      //}
-      //catch(e){
-       // stdret=-1;
-       // console.log('found nothing');
-      //}
-        this.set("offset",0);
-        //console.log(stdid);
-        
-        do{
-          console.log('2');
-          var index = this.get('studentsModel').indexOf(stdret);
-          console.log('3');
-          if(this.get('studentsModel').length===0){
-            console.log('4');
-            this.set('offset', tempOffset);
-            
-            found=false;
-            break;
-          }
-          else if(index===-1){
-            console.log('5');
-            this.set('offset', this.get('offset') + this.get('pageSize'));
-          }
-          else{
-            console.log('6');
-            found=true;
-            this.set('INDEX', index);
-          }
-          console.log('7');
-        }while(!found);
-        //this.set('INDEX', index);
-        console.log('8');
-        if(found === false){
-          console.log('9');
-          this.set("result","No student found");
+        var located = false;
+        var tempIndex = 0;
+        var tempOffset = 0;
+        var notFound=false;
+        var stuRec=this.get('studentRecords');
+
+console.log('0');
+
+var self =this;
+console.log(stdid);
+       this.get('store').query('student',{stuid: stdid,student:true,find:true}).then(function(student) { 
+       console.log(student.get('length'));
+      if(student.get('length')==0){
+        notFound=true;
+      }
+      console.log(notFound);
+
+console.log('0');
+
+         console.log(student);
+         var tempStudent  = student;
+        console.log('1');
+
+        if(!notFound){
+          //do{
+           console.log('2');
+           console.log(student.get('firstObject'));
+           var index = self.get('studentsModel').indexOf(student.get('firstObject'));
+           console.log(self.get('studentsModel'));
+
+           console.log(index);
+           console.log(self.get('studentsModel').get('length'));
+           console.log('3');
+           if(index===-1){
+             console.log('5');
+             self.set('offset', self.get('offset') + self.get('pageSize'));
+           }
+           else{
+             console.log('6');
+             located=true;
+             self.set('INDEX', index);
+           }
+           console.log('7');
+          //}while(!located);
+          console.log('10');
+          self.set("result","");
+          self.send('exit');
         }
         else{
-          console.log('10');
-          this.set("result","");
-          this.send('exit');
+          console.log('8');
+          self.set("result","No student found");
         }
 
-}); 
-        
-    //loadNext: function () {
-      //console.log(this.get("studentsModel"));
-      //Ember.$('.ui.modal').modal('hide');
-      //this.set('offset', this.get('offset') + this.get('pageSize'));
-      //Ember.$('.ui.modal').modal('show');
-    //}
 
-    //getStudent: function (student) {
-        //var index = this.get('studentsModel').indexOf(student);
-        //this.set('INDEX', index);
-    //},
+    });
+  
 
-
-
-
-       // var index = this.get('studentsModel').indexOf(studentID);
-     //   this.set('INDEX', index);
-
-
+    },
     }
-  },
-
-
-  didRender() {
-      Ember.$('.ui.modal')
-              .modal({
-          closable: false,
-        })
-        .modal('show');
-  }
+    
 });

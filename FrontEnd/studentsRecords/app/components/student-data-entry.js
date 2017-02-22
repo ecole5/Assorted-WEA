@@ -78,7 +78,6 @@ export default Ember.Component.extend({
       self.set('firstIndex', records.indexOf(records.get("firstObject")));
       self.set('lastIndex', records.indexOf(records.get("lastObject")));
 
-
       // Show first student data
       self.set('currentIndex', self.get('firstIndex'));
       
@@ -404,7 +403,6 @@ nextStudent() {
     },
 
     findStudent(){
-      //disabled until fixed
        this.set('showFindStudent', true); 
     },
   }

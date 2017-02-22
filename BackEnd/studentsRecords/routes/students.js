@@ -17,6 +17,8 @@ router.route('/')
         var l = parseInt(request.query.limit) ;
         var o = parseInt(request.query.offset);
         var Student = request.query.student;
+        var StudentID = request.query.stuid;
+        var StudentFind = request.query.find;
         if (!Student) {
 
             //models.Students.find(function (error, students) {
@@ -25,6 +27,7 @@ router.route('/')
             //});
             models.Students.paginate({}, { offset: o, limit: l },
                 function (error, students) {
+                    //console.log(students);
                     //if (students.docs.length) {console.log('g')};
                     //console.log(students.docs.length);
                     if (error) {
@@ -32,46 +35,36 @@ router.route('/')
                     };
                     response.json({student: students.docs});
                 });
-        } else {
-
+        }else
+        {
+            if(StudentFind){
+                //models.Students.find({},function(student){console.log(student);})
+            models.Students.find({"number": request.query.stuid}, function (error, students) {
+                console.log(request.query.stuid);
+                console.log(students);
+                if (error) response.send(error);
+                response.json({student: students});
+            });
+            }else{
             //        if (Student == "residency")
             models.Students.find({"residency": request.query.residency}, function (error, students) {
                 if (error) response.send(error);
                 response.json({student: students});
             });
+            }
         }
     });
 
-
-router.route('/find')
-.get(parseUrlencoded, parseJSON, function (request, response) {
-        console.log("1111111111111111111111");
-        var StudentID = request.query.stuid;
-        models.Students.find({number: StudentID}, function (error, student){
-        //models.Students.findById(request.params.student_id, function (error, student) {
-            
-            if (error) {
-                response.send({error: error});
-            }
-            else {
-                response.json({student: student});
-                console.log(student);
-            }
-        });
-    })
-
 router.route('/:student_id')
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        console.log("1111111111111111111111");
-        var StudentID = request.query.stuid;
+        //var StudentID = request.params.student_id;
+        //models.Students.find({number: StudentID}, function (error, student){
         models.Students.findById(request.params.student_id, function (error, student) {
-        //models.Students.findById(request.params.student_id, function (error, student) {
-            
             if (error) {
                 response.send({error: error});
             }
             else {
-                response.json({student: student});
+                response.json({student: student[0]});
                 console.log(student);
             }
         });
