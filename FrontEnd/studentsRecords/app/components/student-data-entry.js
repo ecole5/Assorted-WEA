@@ -801,7 +801,8 @@ nextStudent() {
       var foundCourse = this.get('store').peekRecord('hscourse', this.get('currentlySelectedProgramItem'));
       // I can't save directly from the iterating model, I need to find the associated model in the store'
       var foundSchool = this.get('store').peekRecord('secondaryschool', model);
-      foundCourse.set('secondaryschool',foundSchool);
+      foundCourse.set('school',foundSchool);
+      foundCourse.save();
     },   
 
     selectedGradeCourse (model){

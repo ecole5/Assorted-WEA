@@ -236,6 +236,13 @@
     <h3> Grade </h3>
     Grade:{{hsGrade.mark}}
     <h3> Course </h3>
+    <br>
+        level: {{hsGrade.source.level}}
+    <br>
+    source: {{hsGrade.source.source}}
+    <br>
+    unit: {{hsGrade.source.unit}}
+    <br>
 
     <select onmouseover={{action 'currentlySelectedProgram' hsGrade.id}} 
     onclick={{action 'currentlySelectedProgram' hsGrade.id}} 
@@ -252,12 +259,6 @@
 
      </select>
 
-    level: {{hsGrade.source.level}}
-    <br>
-    source: {{hsGrade.source.source}}
-    <br>
-    unit: {{hsGrade.source.unit}}
-    <br>
 
     <h3>Subject </h3>
 
