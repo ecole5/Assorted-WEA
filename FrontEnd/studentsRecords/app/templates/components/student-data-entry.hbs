@@ -244,7 +244,7 @@
     unit: {{hsGrade.source.unit}}
     <br>
 
-    <select onmouseover={{action 'currentlySelectedProgram' hsGrade.id}} 
+    <select class="dropDownSelection" onmouseover={{action 'currentlySelectedProgram' hsGrade.id}} 
     onclick={{action 'currentlySelectedProgram' hsGrade.id}} 
                  onchange={{action 'selectedProgramCourses' value="target.value"}}>
                   {{! show each term}}
@@ -253,8 +253,13 @@
                    {{! needs to change it so that onclick i get the currently editing dropdown
                    then set it appropriatly }}
                     <option value={{courseChoice.id}} selected={{eq hsGrade.source.id courseChoice.id}}>
-                      level:{{courseChoice.level}} source:{{courseChoice.description}}
-                      unit: {{courseChoice.unit}} </option>
+                      {{courseChoice.level}} <br>
+                      {{courseChoice.source}} <br>
+                      {{courseChoice.school.name}}   <br>
+                      {{courseChoice.unit}} <br>
+                      {{courseChoice.subject.name}} <br>
+                      {{courseChoice.subject.description}} <br>
+                      </option>
                   {{/each}}
 
      </select>
