@@ -14,8 +14,10 @@ router.route('/')
         });
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        var Student = request.query.filter;
+        console.log("Get for hsgrades no params");
+        var Student = request.query.student;
         if (!Student) {
+            console.log("Get for hsgrades no params no student");
             models.HSgrades.find(function (error, HSgrades) {
                 if (error) {response.send(error);}
                 else if (HSgrades[0] == null){
@@ -26,22 +28,22 @@ router.route('/')
                     response.json({hsgrade: HSgrades});}
             });
         } else {
-            console.log("found student");
+            console.log("Get for hsgrades no params found student");
             models.HSgrades.find({"student": Student}, function (error, programs) {
                 if (error) response.send(error);
-                response.json({grade: programs});
+                response.json({hsgrade: programs});
             });
         }
     });
 
 router.route('/:hsgrade_id')
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        models.HSgrades.findById(request.params.hsgrade_id, function (error, hsgrade) {
+       models.HSgrades.findById(request.params.hsgrade_id, function (error, hsgrade) {
             console.log(hsgrade);
             console.log("above");
             if (error) response.send(error);
             response.json({hsgrade: hsgrade});
-        })  
+        })
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
 

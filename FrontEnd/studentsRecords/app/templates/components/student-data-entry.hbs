@@ -235,6 +235,9 @@
     {{#each hsGradeRecords as |hsGrade|}}
     <h3> Grade </h3>
     Grade:{{hsGrade.mark}}
+    <br>
+     <input type="text" value={{hsGrade.mark}} onclick={{action 'currentlySelectedProgram' hsGrade}} 
+                    onchange={{action 'editHSGradeMark' value="target.value"}}>
     <h3> Course </h3>
     <br>
         level: {{hsGrade.source.level}}
@@ -244,7 +247,7 @@
     unit: {{hsGrade.source.unit}}
     <br>
 
-    <select class="dropDownSelection" onmouseover={{action 'currentlySelectedProgram' hsGrade.id}} 
+    <select class=" ui scrolling dropdown selection" onmouseover={{action 'currentlySelectedProgram' hsGrade.id}} 
     onclick={{action 'currentlySelectedProgram' hsGrade.id}} 
                  onchange={{action 'selectedProgramCourses' value="target.value"}}>
                   {{! show each term}}
@@ -267,6 +270,10 @@
 
     <h3>Subject </h3>
 
+    <br> 
+    Subject name: {{hsGrade.source.subject.name}} <br>
+    Subject description: {{hsGrade.source.subject.description}} <br>
+    <!-- THIS IS ONLY HERE FOR DEBUGGING RELATIONSHIPS AND CAN BE DELETED IF SYSTEM CODE IS WORKING
     <select onmouseover={{action 'currentlySelectedProgram' hsGrade.source.id}} 
     onclick={{action 'currentlySelectedProgram' hsGrade.source.id}} 
                  onchange={{action 'selectedProgramSubject' value="target.value"}}>
@@ -281,9 +288,13 @@
                   {{! selects the null option if it's null'}}
                  
                 </select>
-
+                -->
     <h3>School </h3>
+    <br>
 
+    School name: {{hsGrade.source.school.name}} <br>
+
+    <!-- THIS IS ONLY HERE FOR DEBUGGING RELATIONSHIPS AND CAN BE DELETED IF SYSTEM CODE IS WORKING
     <select onmouseover={{action 'currentlySelectedProgram' hsGrade.source.id}} 
     onclick={{action 'currentlySelectedProgram' hsGrade.source.id}} 
                  onchange={{action 'selectedSecondarySchool' value="target.value"}}>
@@ -298,9 +309,10 @@
                   {{! selects the null option if it's null'}}
                  
                 </select>
+    -->
+    <button {{action "deleteHSGrade" hsGrade}}>Delete highschool grade</button>
 
     {{/each}}
-
     <button {{action "createNewGradeForHS"}}>Create new grade for High School</button>
 
   </div>

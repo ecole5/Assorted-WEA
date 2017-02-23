@@ -1,5 +1,5 @@
 .dropDownSelection{
-    width: 600px;
+    width: 1000px !important;
     text-overflow: ellipsis;
     height:20px;
 }

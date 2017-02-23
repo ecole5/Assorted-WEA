@@ -15,7 +15,7 @@ router.route('/')
         });
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        var Student = request.query.filter;
+        var Student = request.query.student;
         
         if (!Student) {
             models.HScourses.find(function (error, HScourses) {

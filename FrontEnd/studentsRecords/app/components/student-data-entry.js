@@ -157,6 +157,10 @@ export default Ember.Component.extend({
                   obj.rollbackAttributes();
             });
 
+       this.get('store').peekAll('hsgrade').forEach(obj => {
+                  obj.rollbackAttributes();
+            });
+
      this.clearSelectedMaps();
   },
 
@@ -577,6 +581,11 @@ export default Ember.Component.extend({
       updatedProgram.set('status', programNameText);
     },
 
+    editHSGradeMark(programNameText){
+      var updatedProgram = this.get('currentlySelectedProgramItem');
+      updatedProgram.set('mark', programNameText);
+    },
+
     editGradeMark(programNameText){
       var updatedProgram = this.get('currentlySelectedProgramItem');
       updatedProgram.set('mark', programNameText);
@@ -674,6 +683,14 @@ export default Ember.Component.extend({
       this.get('advanceStandingRecords').removeObject(advanceStanding);
     },
 
+    deleteHSGrade(grade){
+      // Delete from store,does not save
+      grade.deleteRecord();
+      
+      // delete from current displaying records
+      this.get('hsGradeRecords').removeObject(grade);
+    },
+
     firstStudent() {
       this.set('currentIndex', this.get('firstIndex'));
     },
@@ -699,7 +716,7 @@ export default Ember.Component.extend({
       });
 
     this.hsGradeRecords.pushObject(hsGrade._internalModel);
-    this.checkHSGradeForCourse(hsGrade);
+    //this.checkHSGradeForCourse(hsGrade);
     },
 
     removeStudent(){
