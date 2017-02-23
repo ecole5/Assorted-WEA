@@ -218,60 +218,8 @@ export default Ember.Component.extend({
       student: self.get('currentStudent').id
     }).then(function(records) {
         self.set('hsGradeRecords', records);
-        // make sure all grades have a program associated
-
-       
     });
   },
-/* this can be deleted
-  checkHSGradeForCourse(grade){
-      // Make sure it's empty '
-      this.hsGradesToCheck = [];
-      // Recently created a grade and need to create a program
-      if (grade != null){ 
-          this.hsGradesToCheck.push(grade);
-          this.updateGradesWithDefaultCourses();
-      } else { // First opened page and need to make sure we dont have a null program
-        let timesToLoop = 0;
-        this.hsGradeRecords.forEach(function(element) {
-            // work-around to check if the related program object exists
-            if (element.get('source').get('id') == undefined){
-              this.hsGradesToCheck.push(element);
-            }
-            timesToLoop++;
-            // Callback once we finish the for each loop
-            
-            if (timesToLoop == this.hsGradeRecords.get('length')){
-                this.updateGradesWithDefaultCourses();
-            }
-          }, this);
-      }
-  },
-
-  updateGradesWithDefaultCourses(){
-    var copyOfGrades = this.hsGradesToCheck;
-    //alert(copyOfGrades.get('length'));
-    let self = this;
-    copyOfGrades.forEach(function(iteratingGrade) {
-      // Work around to check if the project ojbect dosent exist
-      if (iteratingGrade.get('source').get('id') == undefined){
-           let hscourse = this.get('store').createRecord('hscourse', {
-          level:"This is a default level",
-          source: "This is a default source",
-          unit: "This is a default unit",
-          subject: null,
-          school: null,
-          grades: [],
-           });
-
-          hscourse.save().then(function(savedHScoursed){
-            iteratingGrade.set('source',savedHScoursed);
-            iteratingGrade.save();
-          });
-      }
-        
-    }, this);
-  }, */
 
   checkUniGradeForPrograms(grade){
       // Make sure it's empty '
@@ -327,14 +275,6 @@ export default Ember.Component.extend({
     var self = this;
     this.get('store').findAll('hscourse').then(function(records) {
         self.set('highSchoolCoursesRecords', records);
-
-        /* search here for delete all, you can delete the code if you see it
-        self.highSchoolCoursesRecords.forEach(function(element) {
-            // work-around to check if the related program object exists
-            element.deleteRecord();
-            element.save();
-          }, this);
-          */
     });
   },
 
@@ -413,6 +353,7 @@ export default Ember.Component.extend({
       this.get('store').peekAll('scholarship').forEach(obj => {
         // should probably add check to see if its dirty before saving, but ember dosent work nicely
         // the method/property ember gives you isnt altways true and you may need to manually set it dirrty etc.
+                
                   obj.save();
             });
 
@@ -439,97 +380,6 @@ export default Ember.Component.extend({
              this.get('store').peekAll('hsgrade').forEach(obj => {
                   obj.save();
             });
-
-      
-      /*
-      // Start testing for creating all models
-      let hsgrade = this.get('store').createRecord('hsgrade', {
-          mark:100,
-          student: this.get('currentStudent'),
-          source: null, // this mean hscourse
-      });
-      hsgrade.save();
-
-      // might be able to remove
-      //hsgrade.save();
-       let secondaryschool = this.get('store').createRecord('secondaryschool', {
-         name: "This is default text for name",
-         courses: [],
-      });
-
-      // might be able to remove
-      //secondaryschool.save();
-      let hsGradeArray = [];
-      hsGradeArray.push(hsgrade);
-       let hscourse = this.get('store').createRecord('hscourse', {
-          level:"This is a default level",
-          source: "This is a default source",
-          unit: "This is a default unit",
-          subject: hssubject,
-          school: secondaryschool,
-          grades: hsGradeArray,
-      });
-
-      hscourse.save();
-      let hsCourseArray = [];
-      hsCourseArray.push(hscourse);
-      secondaryschool.set('courses',hsCourseArray);
-      secondaryschool.save();
-      hsgrade.set('courses',hsCourseArray);
-      hsgrade.save();
-
-      let hssubject = this.get('store').createRecord('hssubject', {
-          name:"This is a default subject name",
-          description: "This is a default description",
-          courses: hsCourseArray,
-      });
-
-      hssubject.save();
-
-      // -------------------END OF HIGHSCHOOL MODELS----------------
-
-      let plan = this.get('store').createRecord('plan', {
-          name: "This is a default name for the plan",
-      });
-
-      plan.save();
-
-      let term = this.get('store').createRecord('term', {
-          name: "This is default text for a name",
-      });
-
-      term.save();
-
-      let uniCourse = this.get('store').createRecord('course', {
-          courseLetter: "This is default text for courseLetter",
-          courseNumber: 100,
-          name: "This is default text for course name",
-          unit: "This is default text for unit",
-      });
-
-      uniCourse.save();
-
-      let programRecord = this.get('store').createRecord('program', {
-          name: "This is a default name for the program",
-          level: 100,
-          load: "This is a default load for the program",
-          status: "This is a default status for the program",
-          term:term,
-          plan:plan,
-      });
-      let self = this;
-      programRecord.save().then(function(savedProgramRecord){
-           let grade = self.get('store').createRecord('grade', {
-          mark:0,
-          note: "This is a default note",
-          student: this.get('currentStudent'),
-          program: savedProgramRecord,
-          course: uniCourse,
-        });
-
-      grade.save();
-      });
-      */
      
     },
 
