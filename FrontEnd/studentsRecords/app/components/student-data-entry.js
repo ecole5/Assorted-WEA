@@ -632,7 +632,6 @@ nextStudent() {
 
     selectGender (gender){
       this.set('selectedGender', gender);
-      console.log(gender);
     },
 
     selectResidency (residency){
