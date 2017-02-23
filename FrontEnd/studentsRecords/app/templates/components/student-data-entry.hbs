@@ -51,7 +51,7 @@
 
 {{#if showFindStudent}}
 
- {{find-student notDONE = showFindStudent INDEX = currentIndex offset = offset studentsModel = studentsRecords jump = jumpingRecords}}
+ {{find-student notDONE = showFindStudent}}
  
 {{/if}}
 
@@ -178,58 +178,82 @@
 
   <div class="ui tab" data-tab="scholarshipsAwards">
     <h2>Information for Scholarships and Awards</h2>
+   <div align = "center">
     {{#each scholarshipRecords as |scholarship|}}
-      <label> Name </label>
-      <br> {{scholarship.scholarshipID}}          
-      <br> note:
-      <br> {{scholarship.note}}
       <br>
- 
-      <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
+      <div class="ui label">
+      <label> Name : </label>
+      </div>
+      {{scholarship.scholarshipID}}   
+       <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
       onchange={{action 'editScholarshipID' value="target.value"}}>
- 
- 
+       
+       <br>
+       <br>
+      <div class="ui label">
+      <label> Notes :      </label>   
+      </div> 
+      {{scholarship.note}}
+
       <input type="text" value={{scholarship.note}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
       onchange={{action 'editScholarshipNote' value="target.value"}}>
+      <br>
+      <br>
       
-      
-      <button {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
+      <button class = "ui button " {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
+
+      <br>
     {{/each}}
 
     <br>
-    <button {{action "createNewScholarship"}}>Create new scholarship</button>
+
+    <button  class = "ui button " {{action "createNewScholarship"}}>Create new scholarship</button>
+   </div>
   </div>
 
   <div class="ui tab" data-tab="registrationInfo">
      <br>
     {{! Put information here}}
-      Registration Comments:  
+      <div align="center">
+      <div class="ui label">
+      <label>Admission Comments: </label> 
+      </div>  
       <br>
       {{currentStudent.registrationComments}}
       <br>
        <input type="text" value={{currentStudent.registrationComments}}  class="form-control" placeholder="Registration comments" 
        autofocus="autofocus" onchange={{action 'editRegistrationComments' value="target.value"}}>
       <br>
-      Basis Of Admission: 
+      <br>
+      <div class="ui label">
+      <label>Basis Of Admission:</label>
+      </div>  
       <br>
       {{currentStudent.basisOfAdmission}}
       <br>
       <input type="text" value={{currentStudent.basisOfAdmission}} class="form-control" placeholder="Basis of admission" 
       autofocus="autofocus" onchange={{action 'editBasisOfAdmission' value="target.value"}}>
-      <br>    
-      Admission average
+      <br> 
+      <br> 
+      <div class="ui label">   
+      <label>Admission average</label> 
+      </div>
       <br>
       {{currentStudent.admissionAverage}}
       <br>
       <input type="number" value={{currentStudent.admissionAverage}} class="form-control" placeholder="Admission average" 
       autofocus="autofocus" onchange={{action 'editAdmissionAverage' value="target.value"}}>
       <br>
-      Admission Comments
+        <br> 
+      <div class="ui label">
+      <label>Admission Comments</label> 
+      </div>
       <br>
       {{currentStudent.admissionComments}}
       <br>  
       <input type="text" value={{currentStudent.admissionComments}} class="form-control" placeholder="Admission comments" 
       autofocus="autofocus" onchange={{action 'editAdmissionComments' value="target.value"}}>
+      </div>
   </div>
 
 
