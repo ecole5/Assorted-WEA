@@ -232,9 +232,71 @@
   <div class="ui tab" data-tab="secondarySchool">
     <!-- Program records, courses and grades !-->
     <br>
-    <h2>{{currentStudent.number}}</h2>
-      <h3> {{currentStudent.firstName}} {{currentStudent.lastName}}</h3>
-    <br><br><br>
+    {{#each hsGradeRecords as |hsGrade|}}
+    <h3> Grade </h3>
+    Grade:{{hsGrade.mark}}
+    <h3> Course </h3>
+
+    <select onmouseover={{action 'currentlySelectedProgram' hsGrade.id}} 
+    onclick={{action 'currentlySelectedProgram' hsGrade.id}} 
+                 onchange={{action 'selectedProgramCourses' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq hsGrade.source.id null}}>Null </option>
+                  {{#each highSchoolCoursesRecords as |courseChoice|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{courseChoice.id}} selected={{eq hsGrade.source.id courseChoice.id}}>
+                      level:{{courseChoice.level}} source:{{courseChoice.description}}
+                      unit: {{courseChoice.unit}} </option>
+                  {{/each}}
+
+     </select>
+
+    level: {{hsGrade.source.level}}
+    <br>
+    source: {{hsGrade.source.source}}
+    <br>
+    unit: {{hsGrade.source.unit}}
+    <br>
+
+    <h3>Subject </h3>
+
+    <select onmouseover={{action 'currentlySelectedProgram' hsGrade.source.id}} 
+    onclick={{action 'currentlySelectedProgram' hsGrade.source.id}} 
+                 onchange={{action 'selectedProgramSubject' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq hsGrade.source.subject.id null}}>Null </option>
+                  {{#each higschoolSubjectsRecords as |subjectChoice|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{subjectChoice.id}} selected={{eq hsGrade.source.subject.id subjectChoice.id}}>
+                      {{subjectChoice.name}}:{{subjectChoice.description}} </option>
+                  {{/each}}
+                  {{! selects the null option if it's null'}}
+                 
+                </select>
+
+    <h3>School </h3>
+
+    <select onmouseover={{action 'currentlySelectedProgram' hsGrade.source.id}} 
+    onclick={{action 'currentlySelectedProgram' hsGrade.source.id}} 
+                 onchange={{action 'selectedSecondarySchool' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq hsGrade.source.school.id null}}>Null </option>
+                  {{#each secondarySchoolRecords as |secondarySchool|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{secondarySchool.id}} selected={{eq hsGrade.source.school.id secondarySchool.id}}>
+                      {{secondarySchool.name}}</option>
+                  {{/each}}
+                  {{! selects the null option if it's null'}}
+                 
+                </select>
+
+    {{/each}}
+
+    <button {{action "createNewGradeForHS"}}>Create new grade for High School</button>
+
   </div>
 
    <div class="ui tab" data-tab="universityRecord">

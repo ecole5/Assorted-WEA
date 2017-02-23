@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models/hscourse');
+var grademodels = require('../models/hsgrade');
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 var parseJSON = bodyParser.json();
@@ -15,6 +16,7 @@ router.route('/')
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
         var Student = request.query.filter;
+        
         if (!Student) {
             models.HScourses.find(function (error, HScourses) {
                 if (error) { response.send(error); }
@@ -31,13 +33,13 @@ router.route('/')
 
 router.route('/:hscourse_id')
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        models.HScourses.findById(request.params.gender_id, function (error, hscourse) {
+        models.HScourses.findById(request.params.hscourse_id, function (error, hscourse) {
             if (error) response.send(error);
             response.json({ hscourse: hscourse });
         })
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
-        models.HScourses.findById(request.params.gender_id, function (error, hscourse) {
+        models.HScourses.findById(request.params.hscourse_id, function (error, hscourse) {
             if (error) {
                 response.send({ error: error });
             }
@@ -65,7 +67,7 @@ router.route('/:hscourse_id')
 
 
      //When you delte a course you need to delete all the marks associated with it   
-     models.HSgrades.find({"source": request.params.hscourse_id}, function (error, grades) {
+     grademodels.HSgrades.find({"source": request.params.hscourse_id}, function (error, grades) {
             if (error) {response.send(error);}
             else{
                 

@@ -9,6 +9,7 @@ var parseJSON = bodyParser.json();
 router.route('/')
     .post(parseUrlencoded, parseJSON, function (request, response) {
         var course = new models.Courses(request.body.course);
+        console.log(course);
         course.save(function (error) {
             if (error) response.send(error);
             response.json({course: course});
@@ -47,10 +48,19 @@ router.route('/:course_id')
                 response.send({error: error});
             }
             else {
-                course.letter = request.body.course.name;
-                course.number = request.body.course.level;
-                course.name = request.body.course.load;
-                course.unit = request.body.course.status;
+                // What is going on over here?
+                console.log(course);
+                course.courseLetter = request.body.course.courseLetter;
+                course.courseNumber = request.body.course.courseNumber;
+                course.name = request.body.course.name;
+                course.unit = request.body.course.unit;
+                console.log(course);
+                /*
+                    courseLetter: String,
+        courseNumber: Number,
+        name: String,
+        unit: String,
+                */
 
                 course.save(function (error) {
                     if (error) {

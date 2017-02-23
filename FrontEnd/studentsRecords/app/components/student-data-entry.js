@@ -37,6 +37,7 @@ export default Ember.Component.extend({
   selectedPlanCodeMap: {},
   selectedTermCodeMap: {},
   gradeRecords: null,
+  hsGradeRecords: null,
   highSchoolCoursesRecords: null,
   higschoolSubjectsRecords: null,
   secondarySchoolRecords: null,
@@ -44,6 +45,7 @@ export default Ember.Component.extend({
   universityPlanCodesRecords: null,
   universityTermCodeRecords: null,
   gradesToCheck: [],
+  hsGradesToCheck: [],
   currentlySelectedProgramItem: null,
 
 
@@ -147,6 +149,14 @@ export default Ember.Component.extend({
             });
 
 
+     this.get('store').peekAll('hscourse').forEach(obj => {
+                  obj.rollbackAttributes();
+            });
+
+            this.get('store').peekAll('secondaryschool').forEach(obj => {
+                  obj.rollbackAttributes();
+            });
+
      this.clearSelectedMaps();
   },
 
@@ -154,6 +164,7 @@ export default Ember.Component.extend({
     this.updateScholarships();
     this.fetchAdanceStanding();
     this.updateUniGrades();
+    this.updateHSGrades();
   },
 
   clearSelectedMaps(){
@@ -196,6 +207,67 @@ export default Ember.Component.extend({
         self.checkUniGradeForPrograms(null);
     });
   },
+
+  updateHSGrades(){
+    var self = this;
+    this.get('store').query('hsgrade', {
+      student: self.get('currentStudent').id
+    }).then(function(records) {
+        self.set('hsGradeRecords', records);
+        // make sure all grades have a program associated
+
+       
+    });
+  },
+/* this can be deleted
+  checkHSGradeForCourse(grade){
+      // Make sure it's empty '
+      this.hsGradesToCheck = [];
+      // Recently created a grade and need to create a program
+      if (grade != null){ 
+          this.hsGradesToCheck.push(grade);
+          this.updateGradesWithDefaultCourses();
+      } else { // First opened page and need to make sure we dont have a null program
+        let timesToLoop = 0;
+        this.hsGradeRecords.forEach(function(element) {
+            // work-around to check if the related program object exists
+            if (element.get('source').get('id') == undefined){
+              this.hsGradesToCheck.push(element);
+            }
+            timesToLoop++;
+            // Callback once we finish the for each loop
+            
+            if (timesToLoop == this.hsGradeRecords.get('length')){
+                this.updateGradesWithDefaultCourses();
+            }
+          }, this);
+      }
+  },
+
+  updateGradesWithDefaultCourses(){
+    var copyOfGrades = this.hsGradesToCheck;
+    //alert(copyOfGrades.get('length'));
+    let self = this;
+    copyOfGrades.forEach(function(iteratingGrade) {
+      // Work around to check if the project ojbect dosent exist
+      if (iteratingGrade.get('source').get('id') == undefined){
+           let hscourse = this.get('store').createRecord('hscourse', {
+          level:"This is a default level",
+          source: "This is a default source",
+          unit: "This is a default unit",
+          subject: null,
+          school: null,
+          grades: [],
+           });
+
+          hscourse.save().then(function(savedHScoursed){
+            iteratingGrade.set('source',savedHScoursed);
+            iteratingGrade.save();
+          });
+      }
+        
+    }, this);
+  }, */
 
   checkUniGradeForPrograms(grade){
       // Make sure it's empty '
@@ -251,6 +323,14 @@ export default Ember.Component.extend({
     var self = this;
     this.get('store').findAll('hscourse').then(function(records) {
         self.set('highSchoolCoursesRecords', records);
+
+        /* search here for delete all, you can delete the code if you see it
+        self.highSchoolCoursesRecords.forEach(function(element) {
+            // work-around to check if the related program object exists
+            element.deleteRecord();
+            element.save();
+          }, this);
+          */
     });
   },
 
@@ -347,12 +427,24 @@ export default Ember.Component.extend({
             this.get('store').peekAll('course').forEach(obj => {
                   obj.save();
             });
+
+            this.get('store').peekAll('hscourse').forEach(obj => {
+                  obj.save();
+            });
+
+             this.get('store').peekAll('hsgrade').forEach(obj => {
+                  obj.save();
+            });
+
+      
       /*
       // Start testing for creating all models
       let hsgrade = this.get('store').createRecord('hsgrade', {
           mark:100,
+          student: this.get('currentStudent'),
           source: null, // this mean hscourse
       });
+      hsgrade.save();
 
       // might be able to remove
       //hsgrade.save();
@@ -599,6 +691,16 @@ export default Ember.Component.extend({
     this.checkUniGradeForPrograms(uniGrade);
     },
     
+    createNewGradeForHS(){
+      let hsGrade = this.get('store').createRecord('hsgrade', {
+          mark: 100,
+          student: this.get('currentStudent'),
+          source: null,
+      });
+
+    this.hsGradeRecords.pushObject(hsGrade._internalModel);
+    this.checkHSGradeForCourse(hsGrade);
+    },
 
     removeStudent(){
       var temp =  this.get('currentStudent');
@@ -677,6 +779,30 @@ nextStudent() {
       var foundRecord = this.get('store').peekRecord('term', model);
       foundProgram.set('term',foundRecord);
     },
+
+    selectedProgramSubject (model){
+      // grabs the associated program from the id that I got from the other function
+      var foundCourse = this.get('store').peekRecord('hscourse', this.get('currentlySelectedProgramItem'));
+      // I can't save directly from the iterating model, I need to find the associated model in the store'
+      var foundSubject = this.get('store').peekRecord('hssubject', model);
+      foundCourse.set('subject',foundSubject);
+    },
+
+    selectedProgramCourses (model){
+      // grabs the associated program from the id that I got from the other function
+      var foundGrade = this.get('store').peekRecord('hsgrade', this.get('currentlySelectedProgramItem'));
+      // I can't save directly from the iterating model, I need to find the associated model in the store'
+      var foundCourse = this.get('store').peekRecord('hscourse', model);
+      foundGrade.set('source',foundCourse);
+    },
+
+    selectedSecondarySchool (model){
+      // grabs the associated program from the id that I got from the other function
+      var foundCourse = this.get('store').peekRecord('hscourse', this.get('currentlySelectedProgramItem'));
+      // I can't save directly from the iterating model, I need to find the associated model in the store'
+      var foundSchool = this.get('store').peekRecord('secondaryschool', model);
+      foundCourse.set('secondaryschool',foundSchool);
+    },   
 
     selectedGradeCourse (model){
       // grabs the associated program from the id that I got from the other function

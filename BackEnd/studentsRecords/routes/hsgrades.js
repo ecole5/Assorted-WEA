@@ -22,26 +22,36 @@ router.route('/')
                     response.json({hsgrade: HSgrades});
                 }
 
-                else{
+                else{ 
                     response.json({hsgrade: HSgrades});}
             });
-        } 
+        } else {
+            console.log("found student");
+            models.HSgrades.find({"student": Student}, function (error, programs) {
+                if (error) response.send(error);
+                response.json({grade: programs});
+            });
+        }
     });
 
 router.route('/:hsgrade_id')
     .get(parseUrlencoded, parseJSON, function (request, response) {
         models.HSgrades.findById(request.params.hsgrade_id, function (error, hsgrade) {
+            console.log(hsgrade);
+            console.log("above");
             if (error) response.send(error);
             response.json({hsgrade: hsgrade});
-        })
+        })  
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
-        models.HSgrades.findById(request.params.hsgrades_id, function (error, hsgrade) {
+
+        models.HSgrades.findById(request.params.hsgrade_id, function (error, hsgrade) {
             if (error) {
                 response.send({error: error});
             }
             else {
                 hsgrade.mark = request.body.hsgrade.mark;
+                hsgrade.student = request.body.hsgrade.student;
                 hsgrade.source = request.body.hsgrade.source;
 
                 hsgrade.save(function (error) {
