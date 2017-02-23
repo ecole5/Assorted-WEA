@@ -19,8 +19,10 @@ to add a new field -->
                 {{#each codeModel as |codeChoice|}}
                 <div class="item">
 
+                  
+
                   <!--On select will set target model context, but onchange will pass the value of the field -->
-                   <select onchange={{action 'selectSchool' value="target.value"}} onclick={{action 'setCurrentModel' codeChoice}}>
+                   <select class="ui dropdown" onchange={{action 'selectSchool' value="target.value"}} onclick={{action 'setCurrentModel' codeChoice}}>
               {{#each schoolModel as |schoolChoice|}}
                 <option value={{schoolChoice.id}} selected={{eq codeModel.school.id
                                                                    schoolChoice.id}}>{{schoolChoice.name}} </option>
