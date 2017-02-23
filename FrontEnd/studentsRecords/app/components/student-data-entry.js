@@ -29,6 +29,7 @@ export default Ember.Component.extend({
   RExist: true,  //RExist disables the next student button if the current student is null
   advanceStandingRecords: null,
   advanceStandingEditing: null,
+  jumpingRecords: false,
 
 
   studentModel: Ember.observer('offset', function () {
@@ -42,15 +43,25 @@ export default Ember.Component.extend({
       self.set('lastIndex', records.indexOf(records.get("lastObject")));
       if (self.get('movingBackword')) {
         self.set('currentIndex', records.indexOf(records.get("lastObject")));
+      } else if(self.get('jumpingRecords')){
+
+        //don't change currentIndex, currentIndex is changed in the function that changed offset
+          //manually trigger observable
+        //self.notifyPropertyChange('currentIndex');
+          //manually effect observable
+        self.showStudentData(self.get('currentIndex'));
+        self.set('jumpingRecords',false);
       } else {
         self.set('currentIndex', records.indexOf(records.get("firstObject")));
       }
+
     });
   }),
 
   fetchStudent: Ember.observer('currentIndex', function () {
     this.showStudentData(this.get('currentIndex'));
   }),
+
  
   init() {
     this._super(...arguments);
@@ -116,22 +127,14 @@ export default Ember.Component.extend({
     }).then(function(records) {
         self.set('scholarshipRecords', records);
     });
-    try{
-      this.set('currentStudent', this.get('studentsRecords').objectAt(index));
-      this.set('studentPhoto', this.get('currentStudent').get('photo'));
-      var date = this.get('currentStudent').get('DOB');
-      var datestring = date.toISOString().substring(0, 10);
-      this.set('selectedDate', datestring);
-     // this.set('RExist',true);
-    }
-    catch(e){
-      //this.set('RExist',false);
-    }
+
   },
 
   didRender() {
     Ember.$('.menu .item').tab();
   },
+
+  
 
   actions: {
     saveStudent () {
@@ -383,6 +386,28 @@ nextStudent() {
 
         });
       newThing.save();
+
+//move student view to the new student
+//this is done by loading all the student records
+
+        var self=this;
+        this.get('store').query('student',{
+            student:true,
+            len:true
+          }
+        ).then(function (records){
+//  getting the length of the array
+          var length = records.indexOf(records.get("lastObject"));
+          var quotientTimes10 = Math.floor(length/10) * 10;
+          var remainder = length % 10;
+//  and moving to the last object in that array
+          self.set('jumpingRecords',true);
+          self.set('offset',quotientTimes10);
+          self.set('currentIndex',remainder);
+
+
+
+        });     
     },
 
     allStudents() {
@@ -403,6 +428,7 @@ nextStudent() {
     },
 
     findStudent(){
+      this.set('jumpingRecords',true);
        this.set('showFindStudent', true); 
     },
   }

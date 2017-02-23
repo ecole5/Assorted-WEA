@@ -19,6 +19,8 @@ router.route('/')
         var Student = request.query.student;
         var StudentID = request.query.stuid;
         var StudentFind = request.query.find;
+        var getLen = request.query.len;
+
         if (!Student) {
 
             //models.Students.find(function (error, students) {
@@ -37,14 +39,22 @@ router.route('/')
                 });
         }else
         {
+
             if(StudentFind){
                 //models.Students.find({},function(student){console.log(student);})
-            models.Students.find({"number": request.query.stuid}, function (error, students) {
-                console.log(request.query.stuid);
-                console.log(students);
-                if (error) response.send(error);
-                response.json({student: students});
-            });
+                models.Students.find({"number": request.query.stuid}, function (error, students) {
+                 if (error) response.send(error);
+                    response.json({student: students});
+                 });
+            }else if(getLen){
+                //cant's send stuff that isn't a model so this doesn't work
+                models.Students.find().then(function(students, error){
+                    console.log('length: ' + students.length);
+                            
+
+                    if (error) response.send(error);
+                    response.json({student: students});
+                });
             }else{
             //        if (Student == "residency")
             models.Students.find({"residency": request.query.residency}, function (error, students) {
