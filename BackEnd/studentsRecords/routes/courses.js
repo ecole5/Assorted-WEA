@@ -49,12 +49,12 @@ router.route('/:course_id')
             }
             else {
                 // What is going on over here?
-                console.log(course);
+               
                 course.courseLetter = request.body.course.courseLetter;
                 course.courseNumber = request.body.course.courseNumber;
                 course.name = request.body.course.name;
                 course.unit = request.body.course.unit;
-                console.log(course);
+               
                 /*
                     courseLetter: String,
         courseNumber: Number,

@@ -15,7 +15,7 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments);
     // get all documents of type modelName
-    this.set('codeModel', this.get('store').findAll("hssubject"));
+    this.set('codeModel', this.get('store').findAll("course"));
   },
 
 
@@ -29,16 +29,12 @@ export default Ember.Component.extend({
     //edit a code option (sometimes we have a race condition, where model is null and thus it wont set)
     editLetter(value) {
       var current = this.get('currentModel');
-      
-  
-        
         current.set('courseLetter', value);
         current.save();
     },
 
     editNumber(value) {
       var current = this.get('currentModel');
-        
         current.set('courseNumber', value);
         current.save();
     },
@@ -63,11 +59,11 @@ export default Ember.Component.extend({
     //Create new document
     newCode() {
       var myStore = this.get('store');
-      var newCode = myStore.createRecord("hssubject", {
-        courseNumber: 'Edit Me Number',
-        courseLetter: 'Edit Me Letter',
-        name: 'Edit me Name',
-        unit: 'Edit me unit'
+      var newCode = myStore.createRecord("course", {
+        courseNumber: 'NEW NUMBER',
+        courseLetter: 'NEW LETTER',
+        name: 'NEW NAME',
+        unit: 'NEW UNIT'
       });
       newCode.save();
 

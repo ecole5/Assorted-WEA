@@ -31,7 +31,7 @@ export default Ember.Component.extend({
       var current = this.get('currentModel');
       
       if (!value){
-         value = "Edit Me";
+         value = "NEW NAME";
          alert("Name can not be empty!");
       }
         
@@ -55,8 +55,8 @@ export default Ember.Component.extend({
     newCode() {
       var myStore = this.get('store');
       var newCode = myStore.createRecord("hssubject", {
-        name: 'Edit Me',
-        description: 'Edit Me',
+        name: 'NEW NAME',
+        description: 'NEW DESCRIPTION',
       });
       newCode.save();
 
