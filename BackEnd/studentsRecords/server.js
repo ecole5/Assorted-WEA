@@ -20,6 +20,7 @@ var terms = require('./routes/terms');
 var courses = require('./routes/courses');
 
 
+
 app.use(function (request, response, next) {
     response.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -47,6 +48,7 @@ app.use('/terms', terms);
 app.use('/plans', plans);
 app.use('/courses', courses);
 app.use('/programs', programs);
+
 
 app.listen(3700, function () {
     console.log('Listening on port 3700');

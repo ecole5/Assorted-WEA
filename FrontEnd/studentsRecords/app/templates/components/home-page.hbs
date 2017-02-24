@@ -24,6 +24,11 @@
         <i class="large help icon"></i>
         Help
       </a>
+      
+      <a class="item " {{action "uploadFile"}}>
+        <i class="large help icon"></i>
+        Upload File
+      </a>
 
     </div>
   </div>
@@ -45,6 +50,10 @@
        {{#if isSettingsShowing}}
         {{select-code}}
 
+      {{/if}}
+      {{#if isUploading}}
+        <input type='file' id='file-field'/>
+        <button class="ui button" {{action "submitUpload"}}>Upload</button>
       {{/if}}
     </div>
   </div>

@@ -4,13 +4,20 @@
   <div class="header">
     Profile Picture
   </div>
+Input Student ID: 
+<div class="ui input">
+  {{input value=studentID}}
+</div>
+<div>
+  {{result}}
+</div>
 
   <div class="actions">
-    <div class="ui black deny button" action="exit">
-      Nope
+    <div class="ui button" {{action 'search'}}>
+      Search
     </div>
-    <div class="ui positive right labeled icon button" >
-      Yep, that's me
+    <div class="ui button" {{action 'exit' move=false}}>
+      Exit
     </div>
   </div>
 </div>

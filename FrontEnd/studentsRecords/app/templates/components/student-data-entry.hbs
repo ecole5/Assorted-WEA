@@ -51,7 +51,7 @@
 
 {{#if showFindStudent}}
 
- {{find-student notDONE = showFindStudent }}
+ {{find-student notDONE = showFindStudent}}
  
 {{/if}}
 
@@ -134,99 +134,147 @@
   {{!Information to be shown inside of a tab}}
 
   <div class="ui tab" data-tab="advanceStanding"> 
+    <div align = "center">
     <br>
     <h2>Information for Advance Standing</h2>
     {{#each advanceStandingRecords as |advanceStanding|}}
+    <br><br>
     {{! Put information here}}
-      Course
-      <br>
+    <div class = "ui label">
+      <label>Course</label>>
+    </div>
       {{advanceStanding.course}}
       <br>
       <input type="text" value={{advanceStanding.course}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
       onchange={{action 'editAdvanceStandingCourse' value="target.value"}}>
-      <br>
-      Description
-      <br>
+      <br><br>
+      <div class = "ui label">
+      <label>Description </label>
+      </div>
       {{advanceStanding.description}}
       <br>
        <input type="text" value={{advanceStanding.description}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
       onchange={{action 'editAdvanceStandingDescription' value="target.value"}}>
-      <br>
-      Units
-      <br>
+      <br><br>
+    <div class = "ui label"> 
+     <label>  Units</label>
+    </div>
+    
       {{advanceStanding.units}}
-      <br>
       <input type="text" value={{advanceStanding.units}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
       onchange={{action 'editAdvanceStandingUnits' value="target.value"}}>
-      <br>
-      Grade
-      <br>
+      <br><br>
+      <div class = "ui label"> 
+     <label>  Grade </label>
+      </div>
+  
       {{advanceStanding.grade}}
-      <br>
+     
       <input type="text" value={{advanceStanding.grade}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
       onchange={{action 'editAdvanceStandingGrade' value="target.value"}}>
-      <br>
-      From
-      <br>
+      <br><br>
+
+       <div class = "ui label"> 
+     <label> From </label>
+       </div>
+      
       {{advanceStanding.from}}
-      <br>
+     
        <input type="text" value={{advanceStanding.from}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
       onchange={{action 'editAdvanceStandingFrom' value="target.value"}}>
-      <br>
-    <button {{action "deleteAdvanceStanding" advanceStanding}}>Delete advance standing</button>
+      <br><br>
+    <button class = "ui button"{{action "deleteAdvanceStanding" advanceStanding}}>Delete advance standing</button>
     {{/each}}
-    <button {{action "createNewAdvanceStanding"}}>Create new advance standing</button>
+    <br>
+    <br>
+   
+    <button class = "ui button" {{action "createNewAdvanceStanding"}}>Create new advance standing</button>
     <br><br><br>
+    </div>
   </div>
 
   <div class="ui tab" data-tab="scholarshipsAwards">
     <h2>Information for Scholarships and Awards</h2>
-    {{#each scholarshipRecords as |scholarship|}}       
-      note:
-      <br> {{scholarship.note}}
+
+   <div align = "center">
+    {{#each scholarshipRecords as |scholarship|}}
+    <br>
       <br>
- 
+      <div class="ui label">
+      <label> Name : </label>
+      </div>
+      {{scholarship.scholarshipID}}   
+       <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
+      onchange={{action 'editScholarshipID' value="target.value"}}>
+       
+       <br>
+       <br>
+      <div class="ui label">
+      <label> Notes :      </label>   
+      </div> 
+      {{scholarship.note}}
+
+
       <input type="text" value={{scholarship.note}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
       onchange={{action 'editScholarshipNote' value="target.value"}}>
+      <br>
+      <br>
       
-      
-      <button {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
+      <button class = "ui button " {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
+
+      <br>
     {{/each}}
 
-    <br>
-    <button {{action "createNewScholarship"}}>Create new scholarship</button>
+    <br><br>
+
+    <button  class = "ui button " {{action "createNewScholarship"}}>Create new scholarship</button>
+   </div>
   </div>
 
   <div class="ui tab" data-tab="registrationInfo">
      <br>
     {{! Put information here}}
-      Registration Comments:  
+      <div align="center">
+      <div class="ui label">
+      <label>Admission Comments: </label> 
+      </div>  
       <br>
       {{currentStudent.registrationComments}}
       <br>
        <input type="text" value={{currentStudent.registrationComments}}  class="form-control" placeholder="Registration comments" 
        autofocus="autofocus" onchange={{action 'editRegistrationComments' value="target.value"}}>
       <br>
-      Basis Of Admission: 
+      <br>
+      <div class="ui label">
+      <label>Basis Of Admission:</label>
+      </div>  
       <br>
       {{currentStudent.basisOfAdmission}}
       <br>
       <input type="text" value={{currentStudent.basisOfAdmission}} class="form-control" placeholder="Basis of admission" 
       autofocus="autofocus" onchange={{action 'editBasisOfAdmission' value="target.value"}}>
-      <br>    
-      Admission average
+      <br> 
+      <br> 
+      <div class="ui label">   
+      <label>Admission average</label> 
+      </div>
       <br>
       {{currentStudent.admissionAverage}}
       <br>
       <input type="number" value={{currentStudent.admissionAverage}} class="form-control" placeholder="Admission average" 
       autofocus="autofocus" onchange={{action 'editAdmissionAverage' value="target.value"}}>
       <br>
-      Admission Comments
+        <br> 
+      <div class="ui label">
+      <label>Admission Comments</label> 
+      </div>
       <br>
       {{currentStudent.admissionComments}}
       <br>  
       <input type="text" value={{currentStudent.admissionComments}} class="form-control" placeholder="Admission comments" 
       autofocus="autofocus" onchange={{action 'editAdmissionComments' value="target.value"}}>
+      <br><br>
+      </div>
   </div>
 
   <div class="ui tab" data-tab="secondarySchool">

@@ -26,7 +26,7 @@ export default Ember.Component.extend({
   admissionAverage: -1,
   admissionComments: null,
   editingScholarship: null,
-  RExist: true,
+  RExist: true,  //RExist disables the next student button if the current student is null
   advanceStandingRecords: null,
   advanceStandingEditing: null,
   recordsToDelete: null,
@@ -47,6 +47,7 @@ export default Ember.Component.extend({
   gradesToCheck: [],
   hsGradesToCheck: [],
   currentlySelectedProgramItem: null,
+  jumpingRecords: false,
 
 
 
@@ -61,15 +62,25 @@ export default Ember.Component.extend({
       self.set('lastIndex', records.indexOf(records.get("lastObject")));
       if (self.get('movingBackword')) {
         self.set('currentIndex', records.indexOf(records.get("lastObject")));
+      } else if(self.get('jumpingRecords')){
+
+        //don't change currentIndex, currentIndex is changed in the function that changed offset
+          //manually trigger observable
+        //self.notifyPropertyChange('currentIndex');
+          //manually effect observable
+        self.showStudentData(self.get('currentIndex'));
+        self.set('jumpingRecords',false);
       } else {
         self.set('currentIndex', records.indexOf(records.get("firstObject")));
       }
+
     });
   }),
 
   fetchStudent: Ember.observer('currentIndex', function () {
     this.showStudentData(this.get('currentIndex'));
   }),
+
  
   init() {
     this._super(...arguments);
@@ -104,7 +115,6 @@ export default Ember.Component.extend({
       self.set('studentsRecords', records);
       self.set('firstIndex', records.indexOf(records.get("firstObject")));
       self.set('lastIndex', records.indexOf(records.get("lastObject")));
-
 
       // Show first student data
       self.set('currentIndex', self.get('firstIndex'));
@@ -199,6 +209,7 @@ export default Ember.Component.extend({
     }).then(function(records) {
         self.set('scholarshipRecords', records);
     });
+
   },
 
   updateUniGrades(){
@@ -311,17 +322,20 @@ export default Ember.Component.extend({
     this.get('store').findAll('term').then(function(records) {
         self.set('universityTermCodeRecords', records);
     });
+
   },
 
   didRender() {
     Ember.$('.menu .item').tab();
   },
 
+
   checkGradeIsWithinRange(grade){
     grade = Math.max(0,grade);
       grade = Math.min(100,grade);
       return grade;
   },
+
 
   actions: {
     saveStudent () {
@@ -578,7 +592,7 @@ export default Ember.Component.extend({
     },
     
 nextStudent() {
-     if(this.get('RExist')===true){
+     if(this.get('RExist')===true){  
       this.set('movingBackword' , false);
         if (this.get('currentIndex') < this.get('lastIndex')) {
         this.set('currentIndex', this.get('currentIndex') + 1);
@@ -624,6 +638,28 @@ nextStudent() {
 
         });
       newThing.save();
+
+//move student view to the new student
+//this is done by loading all the student records
+
+        var self=this;
+        this.get('store').query('student',{
+            student:true,
+            len:true
+          }
+        ).then(function (records){
+//  getting the length of the array
+          var length = records.indexOf(records.get("lastObject"));
+          var quotientTimes10 = Math.floor(length/10) * 10;
+          var remainder = length % 10;
+//  and moving to the last object in that array
+          self.set('jumpingRecords',true);
+          self.set('offset',quotientTimes10);
+          self.set('currentIndex',remainder);
+
+
+
+        });     
     },
 
     allStudents() {
@@ -695,8 +731,8 @@ nextStudent() {
     },
 
     findStudent(){
-      //disabled until fixed
-       // this.set('showFindStudent', true); 
+      this.set('jumpingRecords',true);
+       this.set('showFindStudent', true); 
     },
 
   }
