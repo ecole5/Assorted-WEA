@@ -1,0 +1,482 @@
+<div class="ui center aligned header">
+  <h2>Students Records Data Entry</h2>
+</div>
+
+<!-- Show the menu bar-->
+<div class="ui inverted menu">
+  <a class="item" {{action 'saveStudent'}}>
+    <i class="save icon"></i>
+    Save
+  </a>
+  <a class="item" {{action 'undoSave'}}>
+    <i class="undo icon"></i>
+    Undo
+  </a>
+  <a class="item" {{action 'firstStudent'}}>
+    <i class="step backward icon"></i>
+    First
+  </a>
+  <a class="item" {{action 'previousStudent'}}>
+    <i class="arrow left icon"></i>
+    Previous
+  </a>
+  <a class="item" {{action 'nextStudent'}}>
+    <i class="arrow right icon"></i>
+    Next
+  </a>
+  <a class="item" {{action 'lastStudent'}}>
+    <i class="step forward icon"></i>
+    Last
+  </a>
+  <a class="item" {{action 'allStudents'}}>
+    <i class="content icon"></i>
+    All
+  </a>
+  <a class="item" {{action 'findStudent'}}>
+    <i class="search icon"></i>
+    Find
+  </a>
+
+  <a class="item" {{action 'removeStudent'}}>
+    <i class="remove circle icon"></i>
+    Remove
+  </a>
+
+  <a class="item" {{action 'addStudent'}}>
+    <i class="plus icon"></i>
+    Add
+  </a>
+ 
+</div>
+
+{{#if showFindStudent}}
+
+ {{find-student notDONE = showFindStudent}}
+ 
+{{/if}}
+
+{{#if showAllStudents}}
+  <!-- Note that offset is an "in" and "out" parameter !-->
+ {{all-students INDEX = currentIndex notDONE = showAllStudents offset = offset studentsModel = studentsRecords}}
+{{else}}
+  <!-- Show data entry form -->
+
+  <!-- This makes all the tabs visiable, this is not where they become clickable !-->
+  <div class="ui top attached tabular menu">
+    <div class="active item" data-tab="basics">Profile</div>
+    {{! These are the tabs we are currently showing}}
+    <div class="item" data-tab="advanceStanding">Advance Standing</div>
+    <div class="item" data-tab="scholarshipsAwards">Scholarships/Awards</div>
+    <div class="item" data-tab="registrationInfo">Registration Info</div>
+    <div class="item" data-tab="secondarySchool">Secondary School</div>
+    <div class="item" data-tab="universityRecord">University Record</div>
+   
+    
+
+  </div>
+  <div class="ui bottom attached active tab segment"data-tab="basics">
+    <!-- student basic information !-->
+
+    <div class="ui grid">
+      <div class="ui right aligned  seven wide column">
+        <div class="ui form">
+          <div class="inline field">
+            <label>Student Number</label>
+            {{input size="10" type="text"  value = currentStudent.number}}
+          </div>
+          <div class="inline field">
+            <label>First Name</label>
+            {{input type="text"  value = currentStudent.firstName}}
+          </div>
+          <div class="inline field">
+            <label>Last Name</label>
+            {{input type="text" value = currentStudent.lastName }}
+          </div>
+          <div class="inline field">
+            <label>Gender</label>
+             <select onchange={{action 'selectGender' value="target.value"}}>
+              {{#each genderModel as |genderChoice|}}
+                <option value={{genderChoice.id}} selected={{eq currentStudent.genInfo.id
+                                                                   genderChoice.id}}>{{genderChoice.name}} </option>
+              {{/each}}
+              
+               <option value={{null}} selected={{eq currentStudent.genInfo.id
+                                                                   null}}>Null </option>
+            </select>
+          </div>
+          <div class="inline field">
+            <label>Date of Birth</label>
+            <input value={{selectedDate}} type="date" onchange={{action 'assignDate' value="target.value"}}>
+          </div>
+          <div class="inline field">
+            <label>Residency</label>      
+            <select onchange={{action 'selectResidency' value="target.value"}}>
+              {{#each residencyModel as |residencyChoice|}}
+                <option value={{residencyChoice.id}} selected={{eq currentStudent.resInfo.id
+                                                                   residencyChoice.id}}>{{residencyChoice.name}} </option>
+              {{/each}}
+              
+               <option value={{null}} selected={{eq currentStudent.resInfo.id
+                                                                   null}}>Null </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- Show student photo -->
+      <div class="ui center aligned  seven wide column segment">
+        <img  src={{studentPhoto}}>
+      </div>
+    </div>
+
+
+  </div>
+
+  {{!Information to be shown inside of a tab}}
+
+  <div class="ui tab" data-tab="advanceStanding"> 
+    <div align = "center">
+    <br>
+    <h2>Information for Advance Standing</h2>
+    {{#each advanceStandingRecords as |advanceStanding|}}
+    <br><br>
+    {{! Put information here}}
+    <div class = "ui label">
+      <label>Course</label>>
+    </div>
+      {{advanceStanding.course}}
+      <br>
+      <input type="text" value={{advanceStanding.course}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+      onchange={{action 'editAdvanceStandingCourse' value="target.value"}}>
+      <br><br>
+      <div class = "ui label">
+      <label>Description </label>
+      </div>
+      {{advanceStanding.description}}
+      <br>
+       <input type="text" value={{advanceStanding.description}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+      onchange={{action 'editAdvanceStandingDescription' value="target.value"}}>
+      <br><br>
+    <div class = "ui label"> 
+     <label>  Units</label>
+    </div>
+    
+      {{advanceStanding.units}}
+      <input type="text" value={{advanceStanding.units}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+      onchange={{action 'editAdvanceStandingUnits' value="target.value"}}>
+      <br><br>
+      <div class = "ui label"> 
+     <label>  Grade </label>
+      </div>
+  
+      {{advanceStanding.grade}}
+     
+      <input type="text" value={{advanceStanding.grade}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+      onchange={{action 'editAdvanceStandingGrade' value="target.value"}}>
+      <br><br>
+
+       <div class = "ui label"> 
+     <label> From </label>
+       </div>
+      
+      {{advanceStanding.from}}
+     
+       <input type="text" value={{advanceStanding.from}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+      onchange={{action 'editAdvanceStandingFrom' value="target.value"}}>
+      <br><br>
+    <button class = "ui button"{{action "deleteAdvanceStanding" advanceStanding}}>Delete advance standing</button>
+    {{/each}}
+    <br>
+    <br>
+   
+    <button class = "ui button" {{action "createNewAdvanceStanding"}}>Create new advance standing</button>
+    <br><br><br>
+    </div>
+  </div>
+
+  <div class="ui tab" data-tab="scholarshipsAwards">
+    <h2>Information for Scholarships and Awards</h2>
+
+   <div align = "center">
+    {{#each scholarshipRecords as |scholarship|}}
+    <br>
+      <br>
+      <div class="ui label">
+      <label> Name : </label>
+      </div>
+      {{scholarship.scholarshipID}}   
+       <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
+      onchange={{action 'editScholarshipID' value="target.value"}}>
+       
+       <br>
+       <br>
+      <div class="ui label">
+      <label> Notes :      </label>   
+      </div> 
+      {{scholarship.note}}
+
+
+      <input type="text" value={{scholarship.note}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
+      onchange={{action 'editScholarshipNote' value="target.value"}}>
+      <br>
+      <br>
+      
+      <button class = "ui button " {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
+
+      <br>
+    {{/each}}
+
+    <br><br>
+
+    <button  class = "ui button " {{action "createNewScholarship"}}>Create new scholarship</button>
+   </div>
+  </div>
+
+  <div class="ui tab" data-tab="registrationInfo">
+     <br>
+    {{! Put information here}}
+      <div align="center">
+      <div class="ui label">
+      <label>Admission Comments: </label> 
+      </div>  
+      <br>
+      {{currentStudent.registrationComments}}
+      <br>
+       <input type="text" value={{currentStudent.registrationComments}}  class="form-control" placeholder="Registration comments" 
+       autofocus="autofocus" onchange={{action 'editRegistrationComments' value="target.value"}}>
+      <br>
+      <br>
+      <div class="ui label">
+      <label>Basis Of Admission:</label>
+      </div>  
+      <br>
+      {{currentStudent.basisOfAdmission}}
+      <br>
+      <input type="text" value={{currentStudent.basisOfAdmission}} class="form-control" placeholder="Basis of admission" 
+      autofocus="autofocus" onchange={{action 'editBasisOfAdmission' value="target.value"}}>
+      <br> 
+      <br> 
+      <div class="ui label">   
+      <label>Admission average</label> 
+      </div>
+      <br>
+      {{currentStudent.admissionAverage}}
+      <br>
+      <input type="number" value={{currentStudent.admissionAverage}} class="form-control" placeholder="Admission average" 
+      autofocus="autofocus" onchange={{action 'editAdmissionAverage' value="target.value"}}>
+      <br>
+        <br> 
+      <div class="ui label">
+      <label>Admission Comments</label> 
+      </div>
+      <br>
+      {{currentStudent.admissionComments}}
+      <br>  
+      <input type="text" value={{currentStudent.admissionComments}} class="form-control" placeholder="Admission comments" 
+      autofocus="autofocus" onchange={{action 'editAdmissionComments' value="target.value"}}>
+      <br><br>
+      </div>
+  </div>
+
+  <div class="ui tab" data-tab="secondarySchool">
+    <!-- Program records, courses and grades !-->
+    <br>
+    {{#each hsGradeRecords as |hsGrade|}}
+    <h3> Grade </h3>
+    Grade:{{hsGrade.mark}}
+    <br>
+     <input type="text" value={{hsGrade.mark}} onclick={{action 'currentlySelectedProgram' hsGrade}} 
+                    onchange={{action 'editHSGradeMark' value="target.value"}}>
+    <h3> Course </h3>
+    <br>
+        level: {{hsGrade.source.level}}
+    <br>
+    source: {{hsGrade.source.source}}
+    <br>
+    unit: {{hsGrade.source.unit}}
+    <br>
+
+    <select class=" ui scrolling dropdown selection" onmouseover={{action 'currentlySelectedProgram' hsGrade.id}} 
+    onclick={{action 'currentlySelectedProgram' hsGrade.id}} 
+                 onchange={{action 'selectedProgramCourses' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq hsGrade.source.id null}}>Null </option>
+                  {{#each highSchoolCoursesRecords as |courseChoice|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{courseChoice.id}} selected={{eq hsGrade.source.id courseChoice.id}}>
+                      {{courseChoice.level}} <br>
+                      {{courseChoice.source}} <br>
+                      {{courseChoice.school.name}}   <br>
+                      {{courseChoice.unit}} <br>
+                      {{courseChoice.subject.name}} <br>
+                      {{courseChoice.subject.description}} <br>
+                      </option>
+                  {{/each}}
+
+     </select>
+
+
+    <h3>Subject </h3>
+
+    <br> 
+    Subject name: {{hsGrade.source.subject.name}} <br>
+    Subject description: {{hsGrade.source.subject.description}} <br>
+    <!-- THIS IS ONLY HERE FOR DEBUGGING RELATIONSHIPS AND CAN BE DELETED IF SYSTEM CODE IS WORKING
+    <select onmouseover={{action 'currentlySelectedProgram' hsGrade.source.id}} 
+    onclick={{action 'currentlySelectedProgram' hsGrade.source.id}} 
+                 onchange={{action 'selectedProgramSubject' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq hsGrade.source.subject.id null}}>Null </option>
+                  {{#each higschoolSubjectsRecords as |subjectChoice|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{subjectChoice.id}} selected={{eq hsGrade.source.subject.id subjectChoice.id}}>
+                      {{subjectChoice.name}}:{{subjectChoice.description}} </option>
+                  {{/each}}
+                  {{! selects the null option if it's null'}}
+                 
+                </select>
+                -->
+    <h3>School </h3>
+    <br>
+
+    School name: {{hsGrade.source.school.name}} <br>
+
+    <!-- THIS IS ONLY HERE FOR DEBUGGING RELATIONSHIPS AND CAN BE DELETED IF SYSTEM CODE IS WORKING
+    <select onmouseover={{action 'currentlySelectedProgram' hsGrade.source.id}} 
+    onclick={{action 'currentlySelectedProgram' hsGrade.source.id}} 
+                 onchange={{action 'selectedSecondarySchool' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq hsGrade.source.school.id null}}>Null </option>
+                  {{#each secondarySchoolRecords as |secondarySchool|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{secondarySchool.id}} selected={{eq hsGrade.source.school.id secondarySchool.id}}>
+                      {{secondarySchool.name}}</option>
+                  {{/each}}
+                  {{! selects the null option if it's null'}}
+                 
+                </select>
+    -->
+    <button {{action "deleteHSGrade" hsGrade}}>Delete highschool grade</button>
+
+    {{/each}}
+    <button {{action "createNewGradeForHS"}}>Create new grade for High School</button>
+
+  </div>
+
+   <div class="ui tab" data-tab="universityRecord">
+    <!-- Program records, courses and grades !-->
+    <br>
+    
+              {{#each gradeRecords as |uniGrade|}}
+                <h3> Grade </h3>
+                Mark: {{uniGrade.mark}}
+                <br>
+                  <input type="text" value={{uniGrade.mark}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
+                    onchange={{action 'editGradeMark' value="target.value"}}>
+                <br>
+                Note: {{uniGrade.note}}
+                <br>
+                  <input type="text" value={{uniGrade.note}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
+                    onchange={{action 'editGradeNote' value="target.value"}}>
+                <br>
+
+                <h3> Course </h3>
+
+                {{uniGrade.course.id}}
+                <br>
+                {{uniGrade.course.name}}
+                <br>
+                {{uniGrade.course.unit}}
+                <br>
+                {{uniGrade.course.courseNumber}}
+                <br>
+                {{uniGrade.course.courseLetter}}
+                <br>
+
+                <select onmouseover={{action 'currentlySelectedProgram' uniGrade.id}} onclick={{action 'currentlySelectedProgram' uniGrade.id}} 
+                 onchange={{action 'selectedGradeCourse' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq uniGrade.program.term.id null}}>Null </option>
+                  {{#each universityCoursesRecords as |uniChoice|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{uniChoice.id}} selected={{eq uniGrade.course.id uniChoice.id}}>
+                      {{uniChoice.name}} {{uniChoice.unit}} {{uniChoice.courseNumber}}
+                      {{uniChoice.courseLetter}} </option>
+                  {{/each}}
+                  {{! selects the null option if it's null'}}
+                 
+                </select>
+
+                
+                <h3> Program </h3> 
+        
+                <br>
+                Program name: {{uniGrade.program.name}}
+                <br>
+                  <input type="text" value={{uniGrade.program.name}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
+                    onchange={{action 'editProgramName' value="target.value"}}>
+                <br>
+                Program level:{{uniGrade.program.level}}
+                <br>
+                 <input type="text" value={{uniGrade.program.level}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
+                    onchange={{action 'editProgramLevel' value="target.value"}}>
+                <br>
+                Program load: {{uniGrade.program.load}}
+                <br>
+                 <input type="text" value={{uniGrade.program.load}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
+                    onchange={{action 'editProgramLoad' value="target.value"}}>
+                <br>
+                Program status: {{uniGrade.program.status}}
+                <br>
+                 <input type="text" value={{uniGrade.program.status}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
+                    onchange={{action 'editProgramStatus' value="target.value"}}>
+                <br>
+
+                
+
+                <h3> Term </h3>
+                <select onmouseover={{action 'currentlySelectedProgram' uniGrade.program.id}} onclick={{action 'currentlySelectedProgram' uniGrade.program.id}} 
+                 onchange={{action 'selectedProgramTerm' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq uniGrade.program.term.id null}}>Null </option>
+                  {{#each universityTermCodeRecords as |termChoice|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{termChoice.id}} selected={{eq uniGrade.program.term.id termChoice.id}}>
+                      {{termChoice.name}} </option>
+                  {{/each}}
+                  {{! selects the null option if it's null'}}
+                 
+                </select>
+
+
+                <h3> Plan </h3>
+
+                 <select onmouseover={{action 'currentlySelectedProgram' uniGrade.program.id}} onclick={{action 'currentlySelectedProgram' uniGrade.program.id}} 
+                 onchange={{action 'selectedProgramPlan' value="target.value"}}>
+                  {{! show each term}}
+                   <option value={{null}} selected={{eq uniGrade.program.plan.id null}}>Null </option>
+                  {{#each universityPlanCodesRecords as |planChoice|}}
+                   {{! needs to change it so that onclick i get the currently editing dropdown
+                   then set it appropriatly }}
+                    <option value={{planChoice.id}} selected={{eq uniGrade.program.plan.id planChoice.id}}>
+                      {{planChoice.name}} </option>
+                  {{/each}}
+                  {{! selects the null option if it's null'}}
+
+                      </select>
+
+                      <br> <br>
+                      <button {{action "deleteGrade" uniGrade}}>Delete grade</button>
+
+                      <h3> --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -- -- -- -- --</h3>
+                {{/each}}
+              
+     <button {{action "createNewGradeForUni"}}>Create new grade for University</button>
+
+  </div>
+
+{{/if}}

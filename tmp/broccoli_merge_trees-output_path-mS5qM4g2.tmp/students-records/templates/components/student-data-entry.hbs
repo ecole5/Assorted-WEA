@@ -1,0 +1,247 @@
+<div class="ui center aligned header">
+  <h2>Students Records Data Entry</h2>
+</div>
+
+<!-- Show the menu bar-->
+<div class="ui inverted menu">
+  <a class="item" {{action 'saveStudent'}}>
+    <i class="save icon"></i>
+    Save
+  </a>
+  <a class="item" {{action 'undoSave'}}>
+    <i class="undo icon"></i>
+    Undo
+  </a>
+  <a class="item" {{action 'firstStudent'}}>
+    <i class="step backward icon"></i>
+    First
+  </a>
+  <a class="item" {{action 'previousStudent'}}>
+    <i class="arrow left icon"></i>
+    Previous
+  </a>
+  <a class="item" {{action 'nextStudent'}}>
+    <i class="arrow right icon"></i>
+    Next
+  </a>
+  <a class="item" {{action 'lastStudent'}}>
+    <i class="step forward icon"></i>
+    Last
+  </a>
+  <a class="item" {{action 'allStudents'}}>
+    <i class="content icon"></i>
+    All Records
+  </a>
+  <a class="item" {{action 'findStudent'}}>
+    <i class="search icon"></i>
+    Find Record
+  </a>
+</div>
+
+{{#if showFindStudent}}
+
+ {{find-student notDONE = showFindStudent }}
+ 
+{{/if}}
+
+{{#if showAllStudents}}
+  <!-- Note that offset is an "in" and "out" parameter !-->
+ {{all-students INDEX = currentIndex notDONE = showAllStudents offset = offset studentsModel = studentsRecords}}
+{{else}}
+  <!-- Show data entry form -->
+
+  <!-- This makes all the tabs visiable, this is not where they become clickable !-->
+  <div class="ui top attached tabular menu">
+    <div class="active item" data-tab="basics">Basic Info</div>
+    {{! These are the tabs we are currently showing}}
+    <div class="item" data-tab="advanceStanding">Advance Standing</div>
+    <div class="item" data-tab="scholarshipsAwards">Scholarships And Awards</div>
+    <div class="item" data-tab="registrationInfo">Registration Info</div>
+    {{! Commented out old tabs
+    <div class="item" data-tab="program">Program Record</div>
+    <div class="item" data-tab="others">Other tabs</div>
+    }}
+    <div class="item" data-tab="systemCode">Manage System Code</div>
+    
+
+  </div>
+  <div class="ui bottom attached active tab segment"data-tab="basics">
+    <!-- student basic information !-->
+
+    <div class="ui grid">
+      <div class="ui right aligned  seven wide column">
+        <div class="ui form">
+          <div class="inline field">
+            <label>Student Number</label>
+            {{input size="10" type="text"  value = currentStudent.number}}
+          </div>
+          <div class="inline field">
+            <label>First Name</label>
+            {{input type="text"  value = currentStudent.firstName}}
+          </div>
+          <div class="inline field">
+            <label>Last Name</label>
+            {{input type="text" value = currentStudent.lastName }}
+          </div>
+          <div class="inline field">
+            <label>Gender</label>
+             <select onchange={{action 'selectGender' value="target.value"}}>
+              {{#each genderModel as |genderChoice|}}
+                <option value={{genderChoice.id}} selected={{eq currentStudent.genInfo.id
+                                                                   genderChoice.id}}>{{genderChoice.name}} </option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="inline field">
+            <label>Date of Birth</label>
+            <input value={{selectedDate}} type="date" onchange={{action 'assignDate' value="target.value"}}>
+          </div>
+          <div class="inline field">
+            <label>Residency</label>      
+            <select onchange={{action 'selectResidency' value="target.value"}}>
+              {{#each residencyModel as |residencyChoice|}}
+                <option value={{residencyChoice.id}} selected={{eq currentStudent.resInfo.id
+                                                                   residencyChoice.id}}>{{residencyChoice.name}} </option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- Show student photo -->
+      <div class="ui center aligned  seven wide column segment">
+        <img  src={{studentPhoto}}>
+      </div>
+    </div>
+
+
+  </div>
+
+  {{!Information to be shown inside of a tab}}
+
+  <div class="ui tab" data-tab="advanceStanding"> 
+    <br>
+    <h2>Information for Advance Standing</h2>
+    {{#each advanceStandingRecords as |advanceStanding|}}
+    {{! Put information here}}
+      Course
+      <br>
+      {{advanceStanding.course}}
+      <br>
+      <input type="text" value={{advanceStanding.course}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+      onchange={{action 'editAdvanceStandingCourse' value="target.value"}}>
+      <br>
+      Description
+      <br>
+      {{advanceStanding.description}}
+      <br>
+       <input type="text" value={{advanceStanding.description}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+      onchange={{action 'editAdvanceStandingDescription' value="target.value"}}>
+      <br>
+      Units
+      <br>
+      {{advanceStanding.units}}
+      <br>
+      <input type="text" value={{advanceStanding.units}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+      onchange={{action 'editAdvanceStandingUnits' value="target.value"}}>
+      <br>
+      Grade
+      <br>
+      {{advanceStanding.grade}}
+      <br>
+      <input type="text" value={{advanceStanding.grade}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+      onchange={{action 'editAdvanceStandingGrade' value="target.value"}}>
+      <br>
+      From
+      <br>
+      {{advanceStanding.from}}
+      <br>
+       <input type="text" value={{advanceStanding.from}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+      onchange={{action 'editAdvanceStandingFrom' value="target.value"}}>
+      <br>
+    <button {{action "deleteAdvanceStanding" advanceStanding}}>Delete advance standing</button>
+    {{/each}}
+    <button {{action "createNewAdvanceStanding"}}>Create new advance standing</button>
+    <br><br><br>
+  </div>
+
+  <div class="ui tab" data-tab="scholarshipsAwards">
+    <h2>Information for Scholarships and Awards</h2>
+    {{#each scholarshipRecords as |scholarship|}}
+      <br> Name:
+      <br> {{scholarship.scholarshipID}}          
+      <br> note:
+      <br> {{scholarship.note}}
+      <br>
+
+      <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
+      onchange={{action 'editScholarshipID' value="target.value"}}>
+
+      <input type="text" value={{scholarship.note}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
+      onchange={{action 'editScholarshipNote' value="target.value"}}>
+      
+      <button {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
+    {{/each}}
+
+    <br>
+    <button {{action "createNewScholarship"}}>Create new scholarship</button>
+  </div>
+
+  <div class="ui tab" data-tab="registrationInfo">
+     <br>
+    {{! Put information here}}
+      Registration Comments:  
+      <br>
+      {{currentStudent.registrationComments}}
+      <br>
+       <input type="text" value={{currentStudent.registrationComments}}  class="form-control" placeholder="Registration comments" 
+       autofocus="autofocus" onchange={{action 'editRegistrationComments' value="target.value"}}>
+      <br>
+      Basis Of Admission: 
+      <br>
+      {{currentStudent.basisOfAdmission}}
+      <br>
+      <input type="text" value={{currentStudent.basisOfAdmission}} class="form-control" placeholder="Basis of admission" 
+      autofocus="autofocus" onchange={{action 'editBasisOfAdmission' value="target.value"}}>
+      <br>    
+      Admission average
+      <br>
+      {{currentStudent.admissionAverage}}
+      <br>
+      <input type="number" value={{currentStudent.admissionAverage}} class="form-control" placeholder="Admission average" 
+      autofocus="autofocus" onchange={{action 'editAdmissionAverage' value="target.value"}}>
+      <br>
+      Admission Comments
+      <br>
+      {{currentStudent.admissionComments}}
+      <br>  
+      <input type="text" value={{currentStudent.admissionComments}} class="form-control" placeholder="Admission comments" 
+      autofocus="autofocus" onchange={{action 'editAdmissionComments' value="target.value"}}>
+  </div>
+
+
+
+  <!-- OLD TABS THAT WE ARE KEEPING FOR THE TIME BEING, probably wont need!-->
+  <div class="ui tab" data-tab="program">
+    <!-- Program records, courses and grades !-->
+    <br>
+    <h2>{{currentStudent.number}}</h2>
+      <h3> {{currentStudent.firstName}} {{currentStudent.lastName}}</h3>
+    <br><br><br>
+  </div>
+
+  <div class="ui tab" data-tab="others">
+    <!-- Others !-->
+    <h2>Other data</h2>
+  </div>
+    <!-- OLD TABS THAT WE ARE KEEPING FOR THE TIME BEING, probably wont need and isnt showing right now!-->
+
+
+   <div class="ui tab" data-tab="systemCode">
+    <!-- Manage System Code !-->
+    
+    {{manage-system-code ResidencyModel = residencyModel GenderModel = genderModel }}
+
+  </div>
+
+{{/if}}
+

@@ -1,0 +1,23 @@
+
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Profile Picture
+  </div>
+Input Student ID: 
+<div class="ui input">
+  {{input value=studentID}}
+</div>
+<div>
+  {{result}}
+</div>
+
+  <div class="actions">
+    <div class="ui button" {{action 'search'}}>
+      Search
+    </div>
+    <div class="ui button" {{action 'exit' move=false}}>
+      Exit
+    </div>
+  </div>
+</div>

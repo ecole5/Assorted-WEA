@@ -1,0 +1,1 @@
+{"modulePrefix":"students-records","environment":"development","rootURL":"/","locationType":"auto","EmberENV":{"FEATURES":{},"EXTEND_PROTOTYPES":{"Date":false}},"APP":{"name":"students-records","version":"0.0.0+7f9c6ac2"},"contentSecurityPolicy":{"connect-src":"'self' http://localhost:3700"},"exportApplicationGlobal":true}

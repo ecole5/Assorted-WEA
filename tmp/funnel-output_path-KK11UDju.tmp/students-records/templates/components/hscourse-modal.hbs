@@ -1,0 +1,71 @@
+<!-- This is the template for name-code, it is a modal that has a varying number of editable,
+field. Each field has a delete buttton. Fields are populated with code names. There is an add button
+to add a new field -->
+
+<div class="ui modal">
+  <div class="header">High School Courses</div>
+  <div class="content">
+    <div class="ui grid">
+      <div class="fifteen wide column">
+        <div class="actions">
+          <div class="ui form">
+           
+            <div class="grouped fields">
+
+              <div class="ui list">
+
+
+                <!--Editing option for each name -->
+                {{#each codeModel as |codeChoice|}}
+                <div class="item">
+
+                  
+
+                  <!--On select will set target model context, but onchange will pass the value of the field -->
+                   <select class="ui dropdown" onchange={{action 'selectSchool' value="target.value"}} onclick={{action 'setCurrentModel' codeChoice}}>
+              {{#each schoolModel as |schoolChoice|}}
+                <option value={{schoolChoice.id}} selected={{eq codeModel.school.id
+                                                                   schoolChoice.id}}>{{schoolChoice.name}} </option>
+              {{/each}}
+              
+               <option value={{null}} selected={{eq codeModel.school.id
+                                                                   null}}>Null </option>
+            </select>
+
+          
+
+
+                  <!--Remove Button -->
+                  <button class="ui icon button" {{action 'removeCode' codeChoice }}>
+                <i class="remove circle icon"></i>
+                </button>
+
+                </div>
+                <!-- end of list element !-->
+
+                {{/each}}
+              </div>
+              <!-- end of entire list!-->
+
+  <!-- Add button !-->
+              <button class="ui button" {{action 'newCode'}}>
+     <i class="plus icon"></i>
+  </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="six wide column">
+      </div>
+    </div>
+
+    <div class="actions">
+      <br>
+      <hr>
+  <!-- Close Button !-->
+      <div class="ui button" {{action "exit"}}>Ok</div>
+    </div>
+
+  </div>
+</div>
