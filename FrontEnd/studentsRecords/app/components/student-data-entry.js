@@ -63,7 +63,6 @@ export default Ember.Component.extend({
       if (self.get('movingBackword')) {
         self.set('currentIndex', records.indexOf(records.get("lastObject")));
       } else if(self.get('jumpingRecords')){
-
         //don't change currentIndex, currentIndex is changed in the function that changed offset
           //manually trigger observable
         //self.notifyPropertyChange('currentIndex');

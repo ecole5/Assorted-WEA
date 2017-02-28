@@ -1,9 +1,0 @@
-define('students-records/tests/components/student-data-entry_BACKUP_9676.jshint', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSHint | components/student-data-entry_BACKUP_9676.js');
-  QUnit.test('should pass jshint', function (assert) {
-    assert.expect(1);
-    assert.ok(false, 'components/student-data-entry_BACKUP_9676.js should pass jshint.\ncomponents/student-data-entry_BACKUP_9676.js: line 71, col 9, Unexpected \'1\'.\ncomponents/student-data-entry_BACKUP_9676.js: line 67, col 1, Expected an identifier and instead saw \'<<\'.\ncomponents/student-data-entry_BACKUP_9676.js: line 67, col 3, Expected an operator and instead saw \'<<\'.\ncomponents/student-data-entry_BACKUP_9676.js: line 67, col 5, Expected an operator and instead saw \'<<\'.\ncomponents/student-data-entry_BACKUP_9676.js: line 67, col 7, Expected an operator and instead saw \'<\'.\ncomponents/student-data-entry_BACKUP_9676.js: line 67, col 7, Expected an assignment or function call and instead saw an expression.\ncomponents/student-data-entry_BACKUP_9676.js: line 67, col 8, Missing semicolon.\ncomponents/student-data-entry_BACKUP_9676.js: line 69, col 1, Misleading line break before \'===\'; readers may interpret this as an expression boundary.\ncomponents/student-data-entry_BACKUP_9676.js: line 69, col 4, Expected an identifier and instead saw \'===\'.\ncomponents/student-data-entry_BACKUP_9676.js: line 69, col 4, Unrecoverable syntax error. (31% scanned).\n\n10 errors');
-  });
-});
