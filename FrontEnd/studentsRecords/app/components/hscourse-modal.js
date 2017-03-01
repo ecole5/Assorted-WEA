@@ -43,15 +43,21 @@ export default Ember.Component.extend({
         current.save();
     },
 
-    editName(value) {
+    editLevel(value) {
       var current = this.get('currentModel');
-      
-      if (!value){
-         value = "NEW NAME";
-         alert("Name can not be empty!");
-      }
-        
-        current.set('name', value);
+        current.set('level', value);
+        current.save();
+    },
+    
+    editSource(value) {
+      var current = this.get('currentModel');
+        current.set('source', value);
+        current.save();
+    },
+    
+    editUnit(value) {
+      var current = this.get('currentModel');
+        current.set('unit', value);
         current.save();
     },
     //Set context of what is being currently edited

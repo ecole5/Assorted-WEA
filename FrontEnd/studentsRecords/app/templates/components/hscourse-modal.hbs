@@ -13,7 +13,7 @@ to add a new field -->
 
               <!--Editing option for each name -->
               {{#each codeModel as |codeChoice|}}
-                        <div class="four fields">
+                        <div class= "six fields">
 
               <div class="field">
 
@@ -43,13 +43,31 @@ to add a new field -->
                   </select>
               </div>
               <div class="field">
-                <label>Name</label>
+                <label>Level</label>
                 <!--On select will set target model context, but onchange will pass the value of the field -->
                 <div class="ui input">
-                  <input type="text" value={{codeChoice.name}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editName'
+                  <input type="text" value={{codeChoice.level}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editLevel'
                     value="target.value" }}>
                 </div>
                 </div>
+
+                 <div class="field">
+                <label>Source</label>
+                <!--On select will set target model context, but onchange will pass the value of the field -->
+                <div class="ui input">
+                  <input type="text" value={{codeChoice.source}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editSource'
+                    value="target.value" }}>
+                </div>
+                </div>
+    <div class="field">
+                <label>Unit</label>
+                <!--On select will set target model context, but onchange will pass the value of the field -->
+                <div class="ui input">
+                  <input type="text" value={{codeChoice.unit}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editUnit'
+                    value="target.value" }}>
+                </div>
+                </div>
+
 
 
       <div class="field">
