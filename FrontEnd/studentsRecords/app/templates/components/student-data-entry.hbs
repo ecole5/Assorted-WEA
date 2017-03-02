@@ -279,20 +279,35 @@
 
   <div class="ui tab" data-tab="secondarySchool">
     <!-- Program records, courses and grades !-->
+    <div align = "center">
     <br>
     {{#each hsGradeRecords as |hsGrade|}}
     <h3> Grade </h3>
-    Grade:{{hsGrade.mark}}
+    <div class = "ui label">
+    <label>Grade:</label>
+    </div>
+    {{hsGrade.mark}}
+    
     <br>
      <input type="text" value={{hsGrade.mark}} onclick={{action 'currentlySelectedProgram' hsGrade}} 
                     onchange={{action 'editHSGradeMark' value="target.value"}}>
     <h3> Course </h3>
     <br>
-        level: {{hsGrade.source.level}}
+    <div class = "ui label">
+        <label> level:</label>
+    </div>
+         {{hsGrade.source.level}}
     <br>
-    source: {{hsGrade.source.source}}
+    <div class = "ui label">
+    <label> source:</label>
+    </div>
+
+    {{hsGrade.source.source}}
     <br>
-    unit: {{hsGrade.source.unit}}
+    <div class = "ui label">
+    <label> unit: </label> 
+    </div>
+    {{hsGrade.source.unit}}
     <br>
 
     <select class=" ui scrolling dropdown selection" onmouseover={{action 'currentlySelectedProgram' hsGrade.id}} 
@@ -318,9 +333,15 @@
 
     <h3>Subject </h3>
 
-    <br> 
-    Subject name: {{hsGrade.source.subject.name}} <br>
-    Subject description: {{hsGrade.source.subject.description}} <br>
+    <br>
+    <div class = "ui label"> 
+    <label> Subject name: </label>
+    </div>
+    {{hsGrade.source.subject.name}} <br>
+    <div class = "ui label">
+    <label> Subject description: </label> 
+    </div>
+    {{hsGrade.source.subject.description}} <br>
     <!-- THIS IS ONLY HERE FOR DEBUGGING RELATIONSHIPS AND CAN BE DELETED IF SYSTEM CODE IS WORKING
     <select onmouseover={{action 'currentlySelectedProgram' hsGrade.source.id}} 
     onclick={{action 'currentlySelectedProgram' hsGrade.source.id}} 
@@ -339,8 +360,10 @@
                 -->
     <h3>School </h3>
     <br>
-
-    School name: {{hsGrade.source.school.name}} <br>
+    <div class = "ui label">
+    <label> School name: </label>
+    </div>
+    {{hsGrade.source.school.name}} <br>
 
     <!-- THIS IS ONLY HERE FOR DEBUGGING RELATIONSHIPS AND CAN BE DELETED IF SYSTEM CODE IS WORKING
     <select onmouseover={{action 'currentlySelectedProgram' hsGrade.source.id}} 
@@ -358,25 +381,33 @@
                  
                 </select>
     -->
-    <button {{action "deleteHSGrade" hsGrade}}>Delete highschool grade</button>
+    <br>
+    <br>
+    <button class = "ui button" {{action "deleteHSGrade" hsGrade}}>Delete highschool grade</button>
 
     {{/each}}
-    <button {{action "createNewGradeForHS"}}>Create new grade for High School</button>
-
+    <button class = "ui button" {{action "createNewGradeForHS"}}>Create new grade for High School</button>
+    </div>
   </div>
 
    <div class="ui tab" data-tab="universityRecord">
     <!-- Program records, courses and grades !-->
     <br>
-    
+            <div align = "center">
               {{#each gradeRecords as |uniGrade|}}
                 <h3> Grade </h3>
-                Mark: {{uniGrade.mark}}
+                <div class = "ui label">
+                <label>Mark:</label>{{uniGrade.mark}}
+                </div>
                 <br>
                   <input type="text" value={{uniGrade.mark}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
                     onchange={{action 'editGradeMark' value="target.value"}}>
                 <br>
-                Note: {{uniGrade.note}}
+                <div class = "ui label">
+                <label> Note:</label>
+            </div> 
+                  
+                  {{uniGrade.note}}
                 <br>
                   <input type="text" value={{uniGrade.note}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
                     onchange={{action 'editGradeNote' value="target.value"}}>
@@ -414,22 +445,34 @@
                 <h3> Program </h3> 
         
                 <br>
-                Program name: {{uniGrade.program.name}}
+                <div class = "ui label">
+                  <label>
+                Program name: </label></div>
+                
+                {{uniGrade.program.name}}
                 <br>
                   <input type="text" value={{uniGrade.program.name}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
                     onchange={{action 'editProgramName' value="target.value"}}>
                 <br>
-                Program level:{{uniGrade.program.level}}
+                <div class = "ui label">
+                  <label>
+                Program level:</label></div>
+                {{uniGrade.program.level}}
                 <br>
                  <input type="text" value={{uniGrade.program.level}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
                     onchange={{action 'editProgramLevel' value="target.value"}}>
                 <br>
-                Program load: {{uniGrade.program.load}}
+                <div class = "ui label">
+                  <label>
+                Program load: </label></div>{{uniGrade.program.load}}
                 <br>
                  <input type="text" value={{uniGrade.program.load}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
                     onchange={{action 'editProgramLoad' value="target.value"}}>
                 <br>
-                Program status: {{uniGrade.program.status}}
+                <div class = "ui label">
+                  <label>
+                Program status: 
+                  </label></div>{{uniGrade.program.status}}
                 <br>
                  <input type="text" value={{uniGrade.program.status}} onclick={{action 'currentlySelectedProgram' uniGrade.program}} 
                     onchange={{action 'editProgramStatus' value="target.value"}}>
@@ -470,13 +513,12 @@
                       </select>
 
                       <br> <br>
-                      <button {{action "deleteGrade" uniGrade}}>Delete grade</button>
-
-                      <h3> --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -- -- -- -- --</h3>
+                      <button class = "ui button" {{action "deleteGrade" uniGrade}}>Delete grade</button>
+                      <hr>
                 {{/each}}
               
-     <button {{action "createNewGradeForUni"}}>Create new grade for University</button>
-
+     <button class = "ui button" {{action "createNewGradeForUni"}}>Create new grade for University</button>
+            </div>
   </div>
 
 {{/if}}

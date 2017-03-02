@@ -79,7 +79,7 @@ var self =this;
           self.set('offset',0);
 
        this.get('store').query('student',{
-         stuid: stdid,
+         stuid: parseInt(self.get('studentID')),
          student:true,
          find:true})
        .then(function(student) { 

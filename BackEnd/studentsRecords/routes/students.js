@@ -42,8 +42,10 @@ router.route('/')
 
             if(StudentFind){
                 //models.Students.find({},function(student){console.log(student);})
+                console.log(StudentID);
                 models.Students.find({"number": request.query.stuid}, function (error, students) {
                  if (error) response.send(error);
+                 console.log(students);
                     response.json({student: students});
                  });
             }else if(getLen){

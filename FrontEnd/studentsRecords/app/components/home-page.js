@@ -84,6 +84,7 @@ this.set('isUploading', false);
     submitUpload(){
       let uploadedFile = this.store.createRecord('upfile',this.get('newFile'));
       var file = document.getElementById('file-field').files[0];
+      
       uploadedFile.set('file', file);
       uploadedFile.set('fileName',file.name);
       console.log(uploadedFile);
