@@ -9,86 +9,103 @@ to add a new field -->
       <div class="fifteen wide column">
         <div class="actions">
           <div class="ui form">
-  
 
-              <!--Editing option for each name -->
-              {{#each codeModel as |codeChoice|}}
-                        <div class= "six fields">
+            <div class="six fields">
+              <div class="field">
+                <label>School</label>
+              </div>
+              <div class="field">
+                <label>Subject</label>
+              </div>
+              <div class="field">
+                <label>Level</label>
+              </div>
+              <div class="field">
+                <label>Source</label>
+              </div>
+              <div class="field">
+                <label>Unit</label>
+              </div>
+
+
+            </div>
+            <!--Editing option for each name -->
+            {{#each codeModel as |codeChoice|}}
+            <div class="six fields">
 
               <div class="field">
 
-                <label>School</label>
+
                 <!--On select will set target model context, but onchange will pass the value of the field -->
-                <select width="100px" onchange={{action 'selectSchool' value="target.value" }} onclick={{action 'setCurrentModel' codeChoice}}>
+                <select class = "ui dropdown" onchange={{action 'selectSchool' value="target.value" }} onclick={{action 'setCurrentModel' codeChoice}}>
               {{#each schoolModel as |schoolChoice|}}
-                <option value={{schoolChoice.id}} selected={{eq codeModel.school.id
+                <option value={{schoolChoice.id}} selected={{eq codeChoice.school.id
                                                                    schoolChoice.id}}>{{schoolChoice.name}} </option>
               {{/each}}
               
-               <option value={{null}} selected={{eq codeModel.school.id
+               <option value={{null}} selected={{eq codeChoice.school.id
                                                                    null}}>Null </option>
             </select>
               </div>
               <div class="field">
-                <label>Subject</label>
 
                 <!--On select will set target model context, but onchange will pass the value of the field -->
                 <select class="ui dropdown" onchange={{action 'selectSubject' value="target.value" }} onclick={{action 'setCurrentModel'
                   codeChoice}}>
                   {{#each subjectModel as |subjectChoice|}}
-                  <option value={{subjectChoice.id}} selected={{eq codeModel.subject.id subjectChoice.id}}>{{subjectChoice.name}} </option>
+                  <option value={{subjectChoice.id}} selected={{eq codeChoice.subject.id subjectChoice.id}}>{{subjectChoice.name}} </option>
                   {{/each}}
 
-                  <option value={{null}} selected={{eq codeModel.subject.id null}}>Null </option>
+                  <option value={{null}} selected={{eq codeChoice.subject.id null}}>Null </option>
                   </select>
               </div>
               <div class="field">
-                <label>Level</label>
-                <!--On select will set target model context, but onchange will pass the value of the field -->
-                <div class="ui input">
-                  <input type="text" value={{codeChoice.level}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editLevel'
-                    value="target.value" }}>
-                </div>
-                </div>
 
-                 <div class="field">
-                <label>Source</label>
                 <!--On select will set target model context, but onchange will pass the value of the field -->
                 <div class="ui input">
-                  <input type="text" value={{codeChoice.source}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editSource'
-                    value="target.value" }}>
+                  <input type="text" value={{codeChoice.level}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action
+                    'editLevel' value="target.value" }}>
                 </div>
+              </div>
+
+              <div class="field">
+
+                <!--On select will set target model context, but onchange will pass the value of the field -->
+                <div class="ui input">
+                  <input type="text" value={{codeChoice.source}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action
+                    'editSource' value="target.value" }}>
                 </div>
-    <div class="field">
-                <label>Unit</label>
+              </div>
+              <div class="field">
+
                 <!--On select will set target model context, but onchange will pass the value of the field -->
                 <div class="ui input">
                   <input type="text" value={{codeChoice.unit}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editUnit'
                     value="target.value" }}>
                 </div>
-                </div>
+              </div>
 
 
 
-      <div class="field">
+              <div class="field">
 
                 <!--Remove Button -->
                 <button class="ui icon button" {{action 'removeCode' codeChoice }}>
                 <i class="remove circle icon"></i>
                 </button>
-                  </div>
-             <br>
-             </div>
-              {{/each}}
-  
-  <div class="field">
+              </div>
+              <br>
+            </div>
+            {{/each}}
+
+            <div class="field">
               <!-- Add button !-->
               <button class="ui button" {{action 'newCode'}}>
      <i class="plus icon"></i>
   </button>
-</div>
+            </div>
 
-          
+
           </div>
         </div>
         <div class="six wide column">

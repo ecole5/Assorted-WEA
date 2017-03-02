@@ -10,46 +10,52 @@ to add a new field -->
         <div class="actions">
           <div class="ui form">
             <div class="grouped fields">
-<div class="ui disabled input">
-          <input placeholder="Name" type="text">
-            </div>
-          
-           <div class="ui disabled input">
-          <input placeholder="Description" type="text">
-            </div>
-            <br>
-           
-              <div class="ui list">
 
-                <!--Editing option for each name -->
-                {{#each codeModel as |codeChoice|}}
-                <div class="item">
+              <div class="three fields">
+                <div class="field">
+                  <label>Name</label>
+                </div>
+                <div class="field">
+                  <label>Description</label>
+                </div>
 
+              </div>
+
+
+              <!--Editing option for each name -->
+              {{#each codeModel as |codeChoice|}}
+              <div class="three fields">
+
+                <div class="field">
                   <!--On select will set target model context, but onchange will pass the value of the field -->
                   <div class="ui input">
                     <input type="text" value={{codeChoice.name}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editName'
                       value="target.value" }}>
                   </div>
+                </div>
 
+                <div class="field">
                   <!--On select will set target model context, but onchange will pass the value of the field -->
                   <div class="ui input">
-                    <input type="text" value={{codeChoice.description}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editDescription'
-                      value="target.value" }}>
+                    <input type="text" value={{codeChoice.description}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action
+                      'editDescription' value="target.value" }}>
                   </div>
+                </div>
 
+                <div class="field">
                   <!--Remove Button -->
                   <button class="ui icon button" {{action 'removeCode' codeChoice }}>
                 <i class="remove circle icon"></i>
                 </button>
-
                 </div>
-                <!-- end of list element !-->
 
-                {{/each}}
+                <!-- end of list element !-->
               </div>
+              {{/each}}
+
               <!-- end of entire list!-->
 
-  <!-- Add button !-->
+              <!-- Add button !-->
               <button class="ui button" {{action 'newCode'}}>
      <i class="plus icon"></i>
   </button>
@@ -65,7 +71,7 @@ to add a new field -->
     <div class="actions">
       <br>
       <hr>
-  <!-- Close Button !-->
+      <!-- Close Button !-->
       <div class="ui button" {{action "exit"}}>Ok</div>
     </div>
 

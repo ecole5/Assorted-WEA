@@ -32,13 +32,15 @@ export default Ember.Component.extend({
     //edit a code option (sometimes we have a race condition, where model is null and thus it wont set)
     selectSchool(value) {
       var current = this.get('currentModel');
-        current.set('school', value);
+      var school = this.get('store').peekRecord('secondaryschool', value);
+        current.set('school', school);
         current.save();
     },
 
    //edit a code option (sometimes we have a race condition, where model is null and thus it wont set)
     selectSubject(value) {
-      var current = this.get('currentModel');
+        var current = this.get('currentModel');
+        var subject = this.get('store').peekRecord('hssubject', value);
         current.set('subject', value);
         current.save();
     },
