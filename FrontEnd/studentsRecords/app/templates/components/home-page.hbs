@@ -25,9 +25,11 @@
         Help
       </a>
       
-      <a class="item " {{action "uploadFile"}}>
-        <i class="large help icon"></i>
+      <a class="item " >   
+        {{!--{{action "uploadFile"}}--}}
+        {{#link-to 'import'}}
         Upload File
+        {{/link-to}}
       </a>
 
     </div>

@@ -43,6 +43,11 @@
     "ember-truth-helpers": "1.2.0",
     "ember-welcome-page": "^1.0.3",
     "loader.js": "^4.0.10",
-    "semantic-ui-ember": "2.0.0"
+    "semantic-ui-ember": "2.0.0",
+       
+    "crypto-browserify": "^3.11.0",
+    
+    "ember-browserify": "^1.1.13"
+  
   }
 }

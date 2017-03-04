@@ -1,0 +1,33 @@
+
+  <h2>{{selectedPost.title}}</h2>
+  {{#if isLoading}}
+
+      <table class="ui celled table">
+        <thead>
+        <tr>
+          {{#each tableHeader as |header|}}
+            <th>{{header}}</th>
+          {{/each}}
+        </tr>
+        </thead>
+
+        <tbody>
+        {{#each tableData as |oneRow|}}
+          <tr>
+            {{#each oneRow as |oneCol|}}
+              <td>{{oneCol}}</td>
+            {{/each}}
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+      <button class="ui button" {{action 'done'}}> Done</button>
+
+  {{else}}
+    <div>
+      <button class="ui button">{{#file-picker fileLoaded="fileImported" accept=".xlsx" readAs="readAsBinaryString"}}
+        Select Excel File
+      {{/file-picker}}</button>
+    </div>
+  {{/if}}
+
