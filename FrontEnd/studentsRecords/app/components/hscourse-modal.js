@@ -7,21 +7,36 @@ where these components have outlets*/
 export default Ember.Component.extend({
 
   store: Ember.inject.service(),
-  codeModel: null, //all documents in collection of type modelName
-  schoolModel: null,
   currentModel: null, //current document in collection
   notDONE: null, //tied to the appropriate show boolean in select-code
+  subjectModel: null,
+  codeModel: null,
+  lock: false,
 
 
-  init() {
-    this._super(...arguments);
+ 
+   
+  init(){
+      this._super(...arguments);
     // get all documents of type modelName
-    this.set('codeModel', this.get('store').findAll("hscourse"));
-      this.set('schoolModel', this.get('store').findAll("secondaryschool"));
-      this.set('subjectModel', this.get('store').findAll("hssubject"));
+
+    self = this;
+     this.get('store').findAll('hssubject').then(function(records) {
+        self.set('subjectModel', records);
+    });
+
+     this.get('store').findAll('hscourse').then(function(records) {
+        self.set('codeModel', records);
+         
+    });
+    
+   
+  
+  
   },
 
-
+  
+  
   actions: {
 
     //Removes a code option
@@ -32,39 +47,64 @@ export default Ember.Component.extend({
     //edit a code option (sometimes we have a race condition, where model is null and thus it wont set)
     selectSchool(value) {
       var current = this.get('currentModel');
+      this.set('currentModel', null);
+      
       var school = this.get('store').peekRecord('secondaryschool', value);
         current.set('school', school);
         current.save();
+        this.set('lock',false);
     },
 
    //edit a code option (sometimes we have a race condition, where model is null and thus it wont set)
     selectSubject(value) {
+   
         var current = this.get('currentModel');
         var subject = this.get('store').peekRecord('hssubject', value);
-        current.set('subject', value);
+        current.set('subject', subject);
         current.save();
+        this.set('lock',false);
+    
+        
+
     },
 
     editLevel(value) {
       var current = this.get('currentModel');
         current.set('level', value);
         current.save();
+        this.set('lock',false);
+       
     },
     
     editSource(value) {
+
       var current = this.get('currentModel');
-        current.set('source', value);
-        current.save();
+      current.set('source', value);
+      current.save();
+      this.set('lock',false);
+      
     },
     
     editUnit(value) {
       var current = this.get('currentModel');
-        current.set('unit', value);
-        current.save();
+      current.set('unit', value);
+      current.save();
+      this.set('lock',false);
+  
     },
     //Set context of what is being currently edited
     setCurrentModel(model) {
-      this.set('currentModel', model);
+        if (this.get('lock')){
+          console.log("Tried to acsses lock");
+        }
+        else{
+            this.set('currentModel',model);
+              this.set('lock',true);
+               console.log("got lock");
+        }
+       
+     
+     
     },
 
     //Create new document
@@ -86,6 +126,7 @@ export default Ember.Component.extend({
       this.set('notDONE', false); //component control in select-code
       Ember.$('.ui.modal').modal('hide');
       Ember.$('.ui.modal').remove(); //fixes layering problem
+
     },
   },
 
@@ -97,6 +138,9 @@ export default Ember.Component.extend({
       .modal('show');
 
   },
+  willDestroyElement() {
+    console.log("Being destroyed");
+  }
 
 });
 

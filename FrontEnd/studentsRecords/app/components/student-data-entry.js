@@ -339,11 +339,19 @@ export default Ember.Component.extend({
   actions: {
     saveStudent () {
       var updatedStudent = this.get('currentStudent');
-      var res = this.get('store').peekRecord('residency', this.get('selectedResidency'));
-      var gen = this.get('store').peekRecord('gender', this.get('selectedGender'));
+      if (this.get('selectedResidency')){
+        var res = this.get('store').peekRecord('residency', this.get('selectedResidency'));
+           updatedStudent.set('resInfo', res);
+      }
+      if (this.get('selectedGender')){
+          var gen = this.get('store').peekRecord('gender', this.get('selectedGender'));
+           updatedStudent.set('genInfo', gen);
+      }
+      
+    
       updatedStudent.set('DOB', new Date(this.get('selectedDate')));
-      updatedStudent.set('resInfo', res);
-      updatedStudent.set('genInfo', gen);
+   
+     
       var avg = this.get('admissionAverage');
       var adminComments = this.get('admissionComments');
       var basisOfAdmin = this.get('basisOfAdmission');
@@ -360,6 +368,8 @@ export default Ember.Component.extend({
       if (regComments != null){
         updatedStudent.set('registrationComments',regComments);
       }
+
+
       // Saves the student
       updatedStudent.save();
 

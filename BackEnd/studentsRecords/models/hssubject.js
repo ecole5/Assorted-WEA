@@ -5,7 +5,7 @@ var HSsubjectSchema = mongoose.Schema(
     {
        name:String,
        description:String,
-        courses: [{type: mongoose.Schema.ObjectId, ref: ('HScourses')}],
+    courses: [{type: mongoose.Schema.ObjectId, ref: ('HScourses')}],
     }
 );
 
