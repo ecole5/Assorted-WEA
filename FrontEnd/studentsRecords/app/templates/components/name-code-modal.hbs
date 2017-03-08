@@ -24,9 +24,9 @@ to add a new field -->
               <div class="two fields">
 
                 <div class="field">
-                  <!--On select will set target model context, but onchange will pass the value of the field -->
+                  <!--On select will set target model context, but onblur will pass the value of the field -->
                   <div class="ui input">
-                    <input type="text" value={{codeChoice.name}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editCode'
+                    <input type="text" value={{codeChoice.name}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action 'editCode'
                       value="target.value" }}>
                   </div>
                 </div>

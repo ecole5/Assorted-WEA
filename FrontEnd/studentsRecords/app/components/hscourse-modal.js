@@ -1,42 +1,37 @@
 import Ember from 'ember';
 
-/*This is a general edit code modal. It deals with modals that just have one property name. 
-It is reusable. You can add, edit and delete codes from this panel. Data is feed in through select-code
-where these components have outlets*/
-
 export default Ember.Component.extend({
 
   store: Ember.inject.service(),
-  currentModel: null, //current document in collection
   notDONE: null, //tied to the appropriate show boolean in select-code
   subjectModel: null,
+  schoolModel: null,
   codeModel: null,
-  lock: false,
+  schoolModel: null,
+  currentModel: null,
 
 
- 
-   
-  init(){
-      this._super(...arguments);
+  init() {
+    this._super(...arguments);
     // get all documents of type modelName
 
-    self = this;
-     this.get('store').findAll('hssubject').then(function(records) {
-        self.set('subjectModel', records);
+    var self = this;
+    this.get('store').findAll('hssubject').then(function (records) {
+      self.set('subjectModel', records);
+    });
+    this.get('store').findAll('secondaryschool').then(function (records) {
+      self.set('schoolModel', records);
     });
 
-     this.get('store').findAll('hscourse').then(function(records) {
-        self.set('codeModel', records);
-         
+    this.get('store').findAll('hscourse').then(function (records) {
+      self.set('codeModel', records);
+
     });
-    
-   
-  
-  
+
   },
 
-  
-  
+
+
   actions: {
 
     //Removes a code option
@@ -44,67 +39,45 @@ export default Ember.Component.extend({
       item.destroyRecord();
     },
 
-    //edit a code option (sometimes we have a race condition, where model is null and thus it wont set)
     selectSchool(value) {
-      var current = this.get('currentModel');
-      this.set('currentModel', null);
-      
-      var school = this.get('store').peekRecord('secondaryschool', value);
-        current.set('school', school);
-        current.save();
-        this.set('lock',false);
+        var model = this.get('currentModel');
+        var school = this.get('store').peekRecord('secondaryschool', value);
+        model.set('school', school);
+        model.save();
     },
 
-   //edit a code option (sometimes we have a race condition, where model is null and thus it wont set)
     selectSubject(value) {
-   
-        var current = this.get('currentModel');
+        var model = this.get('currentModel');
         var subject = this.get('store').peekRecord('hssubject', value);
-        current.set('subject', subject);
-        current.save();
-        this.set('lock',false);
-    
-        
-
+        model.set('subject', subject);
+        model.save();
     },
 
     editLevel(value) {
-      var current = this.get('currentModel');
-        current.set('level', value);
-        current.save();
-        this.set('lock',false);
-       
+      var model = this.get('currentModel');
+      model.set('level', value);
+      model.save();
     },
-    
-    editSource(value) {
 
-      var current = this.get('currentModel');
-      current.set('source', value);
-      current.save();
-      this.set('lock',false);
-      
+    editSource(value) {
+      var model = this.get('currentModel');
+      model.set('source', value);
+      model.save();
     },
-    
+
     editUnit(value) {
-      var current = this.get('currentModel');
-      current.set('unit', value);
-      current.save();
-      this.set('lock',false);
-  
+      var model = this.get('currentModel');
+      model.set('unit', value);
+      model.save();
+
     },
-    //Set context of what is being currently edited
+ 
     setCurrentModel(model) {
-        if (this.get('lock')){
-          console.log("Tried to acsses lock");
-        }
-        else{
-            this.set('currentModel',model);
-              this.set('lock',true);
-               console.log("got lock");
-        }
-       
-     
-     
+      var interval = 50;
+      Ember.run.later(this, function () {
+        this.set('currentModel', model);
+      }, interval);
+
     },
 
     //Create new document
@@ -120,7 +93,7 @@ export default Ember.Component.extend({
       newCode.save();
 
     },
-    
+
     //finish editing and close the modal
     exit: function () {
       this.set('notDONE', false); //component control in select-code
@@ -136,11 +109,7 @@ export default Ember.Component.extend({
         closable: false, //cant click out 
       })
       .modal('show');
-
+    
   },
-  willDestroyElement() {
-    console.log("Being destroyed");
-  }
-
 });
 

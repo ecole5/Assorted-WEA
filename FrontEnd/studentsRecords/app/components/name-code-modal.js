@@ -17,7 +17,10 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments);
     // get all documents of type modelName
-    this.set('codeModel', this.get('store').findAll(this.get('modelName')));
+    var self = this;
+    this.get('store').findAll(this.get('modelName')).then(function (records) {
+      self.set('codeModel', records);
+    });
   },
 
 
@@ -43,7 +46,10 @@ export default Ember.Component.extend({
 
     //Set context of what is being currently edited
     setCurrentModel(model) {
-      this.set('currentModel', model);
+          var interval = 50;
+      Ember.run.later(this, function () {
+        this.set('currentModel', model);
+      }, interval);
     },
 
     //Create new document

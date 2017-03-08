@@ -33,35 +33,35 @@ to add a new field -->
               {{#each codeModel as |codeChoice|}}
               <div class="five fields">
 
-                <!--On select will set target model context, but onchange will pass the value of the field -->
+                <!--On select will set target model context, but onblur will pass the value of the field -->
                 <div class="field">
                   <div class="ui input">
-                    <input type="text" value={{codeChoice.courseLetter}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action
+                    <input type="text" value={{codeChoice.courseLetter}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action
                       'editLetter' value="target.value" }}>
                   </div>
                 </div>
 
-                <!--On select will set target model context, but onchange will pass the value of the field -->
+                <!--On select will set target model context, but onblur will pass the value of the field -->
                 <div class="field">
                   <div class="ui input">
 
-                    <input type="text" value={{codeChoice.courseNumber}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action
+                    <input type="text" value={{codeChoice.courseNumber}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action
                       'editNumber' value="target.value" }}>
                   </div>
                 </div>
-                <!--On select will set target model context, but onchange will pass the value of the field -->
+                <!--On select will set target model context, but onblur will pass the value of the field -->
                 <div class="field">
                   <div class="ui input">
 
-                    <input type="text" value={{codeChoice.name}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editName'
+                    <input type="text" value={{codeChoice.name}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action 'editName'
                       value="target.value" }}>
                   </div>
                 </div>
-                <!--On select will set target model context, but onchange will pass the value of the field -->
+                <!--On select will set target model context, but onblur will pass the value of the field -->
                 <div class="field">
                   <div class="ui input">
 
-                    <input type="text" value={{codeChoice.unit}} onclick={{action 'setCurrentModel' codeChoice}} onchange={{action 'editUnit'
+                    <input type="text" value={{codeChoice.unit}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action 'editUnit'
                       value="target.value" }}>
                   </div>
                 </div>
