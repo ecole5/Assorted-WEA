@@ -744,5 +744,9 @@ nextStudent() {
        this.set('showFindStudent', true); 
     },
 
+    undoSave(){
+      this.showStudentData(this.get('currentIndex'));
+    },
+
   }
 });
