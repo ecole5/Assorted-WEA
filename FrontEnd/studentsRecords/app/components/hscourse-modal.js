@@ -7,7 +7,6 @@ export default Ember.Component.extend({
   subjectModel: null,
   schoolModel: null,
   codeModel: null,
-  schoolModel: null,
   currentModel: null,
 
 
