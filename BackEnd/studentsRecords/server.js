@@ -19,6 +19,16 @@ var plans = require('./routes/plans');
 var terms = require('./routes/terms');
 var courses = require('./routes/courses');
 
+// OudaAuth
+var posts = require('./routes/posts');
+var comments = require('./routes/comments');
+var users = require('./routes/users');
+var passwords = require('./routes/passwords');
+var roleCodes = require('./routes/roleCodes');
+var userRoles = require('./routes/usersRoles');
+var rolePermissions = require('./routes/rolePermissions');
+var logins = require('./routes/logins');
+var roots = require('./routes/roots');
 
 
 app.use(function (request, response, next) {
@@ -48,6 +58,17 @@ app.use('/terms', terms);
 app.use('/plans', plans);
 app.use('/courses', courses);
 app.use('/programs', programs);
+
+// Ouda Auth
+app.use('/posts', posts);
+app.use('/comments', comments);
+app.use('/users', users);
+app.use('/passwords', passwords);
+app.use('/roleCodes', roleCodes);
+app.use('/userRoles', userRoles);
+app.use('/rolePermissions', rolePermissions);
+app.use('/logins', logins);
+app.use('/roots', roots);
 
 
 app.listen(3700, function () {
