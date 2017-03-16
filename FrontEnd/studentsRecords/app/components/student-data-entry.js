@@ -576,7 +576,7 @@ export default Ember.Component.extend({
           student: this.get('currentStudent'),
           course: null,
       });
-
+    
     this.gradeRecords.pushObject(uniGrade._internalModel);
     this.checkUniGradeForPrograms(uniGrade);
     },
