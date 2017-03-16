@@ -1,3 +1,31 @@
+{{#if oudaAuth.isAuthenticated }}
+
+
+ <!-- Ouda auth stuff-->
+  <div class="ui segment ">
+    <img class="ui small centered  image" src="/assets/images/UWO Stacked.png">
+    <h4> Logged in as:  {{oudaAuth.getName}}</h4>
+    <div class="ui inverted menu">
+      <a class="item">
+        <i class="home icon"></i>
+        {{#link-to 'home'}}Home{{/link-to}}
+      </a>
+      <a class="item">{{#link-to 'posts'}}Posts{{/link-to}}</a>
+      <a class="item">{{#link-to 'contact'}}Contact{{/link-to}}</a>
+      <a class="item">{{#link-to 'import'}}Import Data{{/link-to}}</a>
+      <div class="right menu">
+        <a class="item">{{#link-to 'user'}}User Profile{{/link-to}}</a>
+        <a class="item">{{#link-to 'admin-portal'}}Admin Portal{{/link-to}}</a>
+        <a class="item">{{#link-to 'about'}}About{{/link-to}} </a>
+        <a class="item">{{log-out name=oudaAuth.getName}} </a>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
 <div class="ui segment container">
   <div class="ui secondary center aligned grid padded segment">
     <div class="three wide column">
@@ -26,3 +54,10 @@
   </footer>
 
 </div>
+{{else}}
+<div>
+    {{#unless oudaAuth.getName}}
+      {{outlet "login"}}
+    {{/unless}}
+  </div>
+{{/if}}
