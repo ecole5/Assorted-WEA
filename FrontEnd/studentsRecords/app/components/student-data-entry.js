@@ -243,13 +243,13 @@ export default Ember.Component.extend({
         this.gradeRecords.forEach(function(element) {
             // work-around to check if the related program object exists
             
-            if (element.get('program').get('id') == undefined){
+            if (element.get('program').get('id') === undefined){
               this.gradesToCheck.push(element);
             }
             timesToLoop++;
             // Callback once we finish the for each loop
             
-            if (timesToLoop == this.gradeRecords.get('length')){
+            if (timesToLoop === this.gradeRecords.get('length')){
                 this.updateGradesWithDefaultPrograms();
             }
           }, this);
@@ -262,7 +262,7 @@ export default Ember.Component.extend({
     let self = this;
     copyOfGrades.forEach(function(iteratingGrade) {
       // Work around to check if the project ojbect dosent exist
-      if (iteratingGrade.get('program').get('id') == undefined){
+      if (iteratingGrade.get('program').get('id') === undefined){
           let programRecord = self.get('store').createRecord('program', {
             name: "These are default values for a program",
             level: 1, // first year
@@ -272,7 +272,7 @@ export default Ember.Component.extend({
             plan:null // going to be selected from dropdown,
           });
 
-          programRecord.save().then(function(savedProgramRecord){
+          programRecord.save().then(function(){
             iteratingGrade.set('program',programRecord);
             iteratingGrade.save();
           });
@@ -356,7 +356,7 @@ export default Ember.Component.extend({
       var adminComments = this.get('admissionComments');
       var basisOfAdmin = this.get('basisOfAdmission');
       var regComments = this.get('registrationComments');
-      if (avg != -1){
+      if (avg !== -1){
         updatedStudent.set('admissionAverage',avg);
       }
       if (adminComments != null){
