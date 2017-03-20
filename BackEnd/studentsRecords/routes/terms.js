@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models/term');
-var programModel = require('../models/program');
+var gradeModel = require('../models/grade');
+var adjudicationModel = require('../models/adjudication');
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({extended: false});
 var parseJSON = bodyParser.json();
@@ -61,15 +62,26 @@ router.route('/:term_id')
         })
     })
      .delete(parseUrlencoded, parseJSON, function (request, response) {
-        //When you delete a term you need to make sure that the term in all programs is cleaned
-         programModel.Programs.find({"term": request.params.term_id}, function (error, programs) {
+             //When you delete a term you need to clean plan from grades
+                gradeModel.Grades.find({"term": request.params.term_id}, function (error, grades) {
                 if (error) {response.send(error);}
                 else{
                     
-                for (var i = 0; i < programs.length; i++){
+                for (var i = 0; i < grades.length; i++){
+                    grades[i].term = null;
+                    grades[i].save();
+            }
+                }
+            });
+
+             //When you delete a term you need to clean it from adjudication
+                adjudicationModel.Adjudications.find({"term": request.params.term_id}, function (error, adjudications ) {
+                if (error) {response.send(error);}
+                else{
                     
-                    programs[i].term = null;
-                    programs[i].save();
+                for (var i = 0; i < adjudications.length; i++){
+                    adjudications[i].term = null;
+                    adjudications[i].save();
             }
                 }
             });

@@ -7,8 +7,6 @@ var courseSchema = mongoose.Schema(
         courseNumber: String,
         name: String,
         unit: String,
-        //grades: [{type: mongoose.Schema.ObjectId, ref: ('Grades')}],
-        //programs: [{type: mongoose.Schema.ObjectId, ref: ('Programs')}], //do we really need the back refrence?, its always going to be empty
         
     }
 );

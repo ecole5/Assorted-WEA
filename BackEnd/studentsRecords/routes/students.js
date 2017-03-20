@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models/student');
+var gradeModel = require('../models/grade');
+var studentModel = require('../models/student');
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({extended: false});
 var parseJSON = bodyParser.json();
@@ -120,6 +122,26 @@ router.route('/:student_id')
         });
     })
     .delete(parseUrlencoded, parseJSON, function (request, response) {
+    gradeModel.Grades.find({"student": request.params.student_id}, function (error, grades) {
+                if (error) {response.send(error);}
+                else{
+                    
+                for (var i = 0; i < grades.length; i++){
+                    grades[i].delete();
+            }
+                }
+            });
+
+             adjudicationModel.Adjuications.find({"student": request.params.student_id}, function (error, adjudications) {
+                if (error) {response.send(error);}
+                else{
+                    
+                for (var i = 0; i < adjudications.length; i++){
+                    adjudications[i].delete();
+            }
+                }
+            });
+
         models.Students.findByIdAndRemove(request.params.student_id,
             function (error, deleted) {
                 if (!error) {

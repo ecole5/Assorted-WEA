@@ -8,9 +8,10 @@ export default Ember.Component.extend({
     showSecondary: false,
     showHsCourses: false,
     showHsSubjects: false,
-     showcourseCode: false,
-        showPlanCode: false,
-        showTermCode: false,
+    showcourseCode: false,
+    showPlanCode: false,
+    showTermCode: false,
+    showFaculty: false,
 
 
 
@@ -49,6 +50,13 @@ export default Ember.Component.extend({
          showTermCode() { //this deals with the problem 
             this.set('showTermCode', true);
         },
+
+        showFaculty(){
+             this.set('showFaculty', true);
+        },
+         showProgramAdmin(){
+             this.set('showProgramAdmin', true);
+        }
         
 
 

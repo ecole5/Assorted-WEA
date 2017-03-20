@@ -7,8 +7,6 @@ var programSchema = mongoose.Schema(
         level: Number,
         load: String,
         status: String,
-        term: {type: mongoose.Schema.ObjectId, ref: ('Terms')},
-        plan: {type: mongoose.Schema.ObjectId, ref: ('Plans')},
     }
 );
 

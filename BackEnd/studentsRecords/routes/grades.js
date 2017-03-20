@@ -51,6 +51,8 @@ router.route('/:grade_id')
                 grade.mark = request.body.grade.mark;
                 grade.note =  request.body.grade.note;
                 grade.program =  request.body.grade.program;
+                grade.plan =  request.body.grade.plan;
+                grade.plan =  request.body.grade.term;
                 grade.student =  request.body.grade.student;
                 grade.course = request.body.grade.course;
 
