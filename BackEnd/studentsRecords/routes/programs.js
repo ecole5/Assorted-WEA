@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models/program');
 var gradeModel = require('../models/grade');
+var adjudicationModel = require('../models/adjudication');
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({extended: false});
 var parseJSON = bodyParser.json();
@@ -51,8 +52,6 @@ router.route('/:program_id')
                 program.level = request.body.program.level;
                 program.load = request.body.program.load;
                 program.status = request.body.program.status;
-                program.term = request.body.program.term;
-                program.plan = request.body.program.plan;
 
                 program.save(function (error) {
                     if (error) {
@@ -72,9 +71,20 @@ router.route('/:program_id')
                 else{
                     
                 for (var i = 0; i < grades.length; i++){
-                    
                     grades[i].program = null;
                     grades[i].save();
+            }
+                }
+            });
+
+            //When you delete a program you need to clean it from adjudication
+                adjudicationModel.Adjudications.find({"program": request.params.program_id}, function (error, adjudications ) {
+                if (error) {response.send(error);}
+                else{
+                    
+                for (var i = 0; i < adjudications.length; i++){
+                    adjudications[i].program = null;
+                    adjudications[i].save();
             }
                 }
             });

@@ -96,12 +96,13 @@
             <label>Gender</label>
              <select onchange={{action 'selectGender' value="target.value"}}>
               {{#each genderModel as |genderChoice|}}
+               <option value={{null}} selected={{eq currentStudent.genInfo.id
+                                                                   null}}>Null </option>
                 <option value={{genderChoice.id}} selected={{eq currentStudent.genInfo.id
                                                                    genderChoice.id}}>{{genderChoice.name}} </option>
               {{/each}}
               
-               <option value={{null}} selected={{eq currentStudent.genInfo.id
-                                                                   null}}>Null </option>
+              
             </select>
           </div>
           <div class="inline field">
@@ -111,13 +112,14 @@
           <div class="inline field">
             <label>Residency</label>      
             <select onchange={{action 'selectResidency' value="target.value"}}>
+               <option value={{null}} selected={{eq currentStudent.resInfo.id
+                                                                   null}}>Null </option>
               {{#each residencyModel as |residencyChoice|}}
                 <option value={{residencyChoice.id}} selected={{eq currentStudent.resInfo.id
                                                                    residencyChoice.id}}>{{residencyChoice.name}} </option>
               {{/each}}
               
-               <option value={{null}} selected={{eq currentStudent.resInfo.id
-                                                                   null}}>Null </option>
+              
             </select>
           </div>
         </div>

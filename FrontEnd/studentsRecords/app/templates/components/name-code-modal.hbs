@@ -9,51 +9,51 @@ to add a new field -->
       <div class="ten wide column">
         <div class="actions">
           <div class="ui form">
-            <div class="grouped fields">
-              <div class="two fields">
-                <div class="field">
-                  <label>Name</label>
-                </div>
 
+            <div class="two fields">
+              <div class="field">
+                <div class="ui label">
+                  Name
+                </div>
               </div>
 
+            </div>
 
 
-              <!--Editing option for each name -->
-              {{#each codeModel as |codeChoice|}}
-              <div class="two fields">
 
-                <div class="field">
-                  <!--On select will set target model context, but onblur will pass the value of the field -->
-                  <div class="ui input">
-                    <input type="text" value={{codeChoice.name}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action 'editCode'
-                      value="target.value" }}>
-                  </div>
+            <!--Editing option for each name -->
+            {{#each codeModel as |codeChoice|}}
+            <div class="two fields">
+
+              <div class="field">
+                <!--On select will set target model context, but onblur will pass the value of the field -->
+                <div class="ui input">
+                  <input type="text" value={{codeChoice.name}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action 'editCode' value="target.value"
+                    }}>
                 </div>
-                <div class="field">
-                  <!--Remove Button -->
-                  <button class="ui icon button" {{action 'removeCode' codeChoice }}>
+              </div>
+              <div class="field">
+                <!--Remove Button -->
+                <button class="ui icon button" {{action 'removeCode' codeChoice }}>
                 <i class="remove circle icon"></i>
                 </button>
-                </div>
-
               </div>
-              <!-- end of fields !-->
 
-              {{/each}}
+            </div>
+            <!-- end of fields !-->
+
+            {{/each}}
 
 
 
-              <!-- Add button !-->
-              <button class="ui button" {{action 'newCode'}}>
+            <!-- Add button !-->
+            <button class="ui button" {{action 'newCode'}}>
      <i class="plus icon"></i>
   </button>
 
-            </div>
+
           </div>
         </div>
-      </div>
-      <div class="six wide column">
       </div>
     </div>
 

@@ -48,19 +48,12 @@ router.route('/:course_id')
                 response.send({error: error});
             }
             else {
-                // What is going on over here?
+             
                
                 course.courseLetter = request.body.course.courseLetter;
                 course.courseNumber = request.body.course.courseNumber;
                 course.name = request.body.course.name;
                 course.unit = request.body.course.unit;
-               
-                /*
-                    courseLetter: String,
-        courseNumber: Number,
-        name: String,
-        unit: String,
-                */
 
                 course.save(function (error) {
                     if (error) {

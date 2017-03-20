@@ -18,6 +18,13 @@ var programs = require('./routes/programs');
 var plans = require('./routes/plans');
 var terms = require('./routes/terms');
 var courses = require('./routes/courses');
+var rules = require('./routes/rules');
+var faculties = require('./routes/faculties');
+var categorys = require('./routes/categories');
+var logexpressions = require('./routes/logexpressions');
+var programadmins = require('./routes/programadmins');
+var adjudications = require('./routes/adjudications');
+
 
 
 
@@ -48,6 +55,13 @@ app.use('/terms', terms);
 app.use('/plans', plans);
 app.use('/courses', courses);
 app.use('/programs', programs);
+app.use('/rules', rules);
+app.use('/faculties', faculties);
+app.use('/logexpressions', logexpressions);
+app.use('/categories', categorys);
+app.use('/programadmins', programadmins);
+app.use('/adjudications', adjudications);
+
 
 
 app.listen(3700, function () {

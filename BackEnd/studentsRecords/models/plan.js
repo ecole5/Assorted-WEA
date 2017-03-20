@@ -4,6 +4,7 @@ var mongoosePaginate = require('mongoose-paginate');
 var planSchema = mongoose.Schema(
     {
         name: String,
+        faculty: {type: mongoose.Schema.ObjectId, ref: ('Faculties')},
     }
 );
 

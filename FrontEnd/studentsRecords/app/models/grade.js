@@ -6,5 +6,7 @@ export default DS.Model.extend({
   program: DS.belongsTo('program'),
   student: DS.belongsTo('student'),
   course: DS.belongsTo('course'),
+    term: DS.belongsTo('term'),
+    plan: DS.belongsTo('plan'),
 
 });
