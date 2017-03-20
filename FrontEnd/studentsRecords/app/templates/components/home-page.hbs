@@ -30,6 +30,10 @@
         Upload File
       </a>
 
+      <a class="item " {{action "report"}}>
+        <i class="large help icon"></i>
+        Reports
+      </a>
     </div>
   </div>
   <div class="thirteen wide column ">
@@ -45,15 +49,16 @@
       {{/if}}
       {{#if isHelpShowing}}
         {{help-info}}
-      {{/if}}
-        
+      {{/if}}        
        {{#if isSettingsShowing}}
         {{select-code}}
-
       {{/if}}
       {{#if isUploading}}
         <input type='file' id='file-field'/>
         <button class="ui button" {{action "submitUpload"}}>Upload</button>
+      {{/if}}
+      {{#if isReporting}}
+        {{report-export}}
       {{/if}}
     </div>
   </div>

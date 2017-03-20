@@ -18,6 +18,7 @@ export default Ember.Component.extend({
   isSettingsShowing: false,
   isHelpShowing: false,
   isUploading: false,
+  isReporting: false,
 
   newFile:{
     file: null,
@@ -32,7 +33,7 @@ export default Ember.Component.extend({
       this.set('isHelpShowing', false);
       this.set('isSettingsShowing', false);
 this.set('isUploading', false);
-
+this.set('isReporting',false);
     },
 
     studentsDataEntry (){
@@ -43,7 +44,7 @@ this.set('isUploading', false);
 
       this.set('isHelpShowing', false);
        this.set('isSettingsShowing', false);
-
+this.set('isReporting',false);
     },
 
     about (){
@@ -53,7 +54,7 @@ this.set('isUploading', false);
       this.set('isHelpShowing', false);
          this.set('isSettingsShowing', false);
          this.set('isUploading', false);
-
+this.set('isReporting',false);
     },
 
     help (){
@@ -63,7 +64,7 @@ this.set('isUploading', false);
       this.set('isHelpShowing', true);
       this.set('isSettingsShowing', false);
       this.set('isUploading', false);
-
+this.set('isReporting',false);
     },
 
       settings (){
@@ -72,6 +73,7 @@ this.set('isUploading', false);
       this.set('isAboutShowing', false);
       this.set('isSettingsShowing', true);
 this.set('isUploading', false);
+this.set('isReporting',false);
     },
     uploadFile(){
             this.set('isHomeShowing', false);
@@ -80,6 +82,16 @@ this.set('isUploading', false);
       this.set('isHelpShowing', false);
       this.set('isSettingsShowing', false);
       this.set('isUploading', true);
+      this.set('isReporting',false);
+    },
+      Report(){
+            this.set('isHomeShowing', false);
+      this.set('isStudentsRecordsDataEntry', false);
+      this.set('isAboutShowing', false);
+      this.set('isHelpShowing', false);
+      this.set('isSettingsShowing', false);
+      this.set('isUploading', false);
+      this.set('isReporting',true);
     },
     submitUpload(){
       let uploadedFile = this.store.createRecord('upfile',this.get('newFile'));
