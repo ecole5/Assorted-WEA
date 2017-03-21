@@ -12,6 +12,7 @@ var adjudicationSchema = mongoose.Schema(
         plan: {type: mongoose.Schema.ObjectId, ref: ('Plans')},
         term: {type: mongoose.Schema.ObjectId, ref: ('Terms')},
         student: {type: mongoose.Schema.ObjectId, ref: ('Students')},
+        
     }
 );
 

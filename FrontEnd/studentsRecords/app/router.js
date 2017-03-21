@@ -7,7 +7,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('home', {path: '/'});
+  this.route('home', {path: '/'}, function() {
+    this.route('perform-adjudication');
+});
 });
 
 

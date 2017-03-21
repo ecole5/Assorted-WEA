@@ -17,24 +17,39 @@ router.route('/')
         });
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        var Student = request.query.filter;
-        if (!Student) {
-            models.Plans.find(function (error, Plans) {
-                if (error) { response.send(error); }
-                else if (Plans[0] == null) {
-                    response.json({ plan: Plans });
+
+
+            var faculty = request.query.faculty;
+            if (faculty){ 
+                models.Plans.find({ 'faculty': faculty },function (error, Plans) {
+        
+                if (error) { 
+                    response.send(error); 
                 }
 
                 else {
                     response.json({ plan: Plans });
+                    
                 }
             });
-        } else {
-            models.Plans.find({ "student": Student.student }, function (error, programs) {
-                if (error) response.send(error);
-                response.json({ plan: programs });
+                
+        }
+        else{
+              models.Plans.find(function (error, Plans) {
+        
+                if (error) { 
+                    response.send(error); 
+                }
+
+                else {
+                    response.json({ plan: Plans });
+                    
+                }
             });
         }
+            
+            
+            
     });
 
 router.route('/:plan_id')
@@ -108,5 +123,7 @@ router.route('/:plan_id')
             }
         );
     });
+
+    
 
 module.exports = router;

@@ -34,6 +34,11 @@
         <i class="large help icon"></i>
         Reports
       </a>
+
+       <a class="item " {{action "adjudication"}}>
+        <i class="large law icon"></i>
+        Adjudication
+      </a>
     </div>
   </div>
   <div class="thirteen wide column ">
@@ -60,6 +65,10 @@
       {{#if isReporting}}
         {{report-export}}
       {{/if}}
+      {{#if isAdjudication}}
+        {{adjudication-page}}
+      {{/if}}
+    
     </div>
   </div>
 </div>
