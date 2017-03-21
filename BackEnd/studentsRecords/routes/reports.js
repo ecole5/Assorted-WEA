@@ -17,19 +17,33 @@ router.route('/')
     .get(parseUrlencoded, parseJSON, function (request, response) {
         var Criteria = request.query.criteria;
         var term = request.query.term;
-
-        
-
-
-        if(Criteria==="department"){
-
+        if(Criteria==="faculty"){
+            models.adjudication.find({"term":term}).sort({"plan":{"faculty":1}}).then( function(error, reports){
+                
+                //this is the format change so it sends EXACTLY what is needed for the report
+                if (error) response.send(error);
+                 console.log(reports);
+                    response.json(reports);
+//,"plan":{"faculty":Criteria}
+            });
         }
         else if(Criteria==="program"){
+            models.adjudication.find({"term":term,}).sort({"program":1}).then( function(error, reports){
+                if (error) response.send(error);
+                 console.log(reports);
+                    response.json(reports);
 
+            });
         }
         else {
 
         }
+
+
+        
+
+
+
         
         //var Student = request.query.filter;
         /*if (!Student) {

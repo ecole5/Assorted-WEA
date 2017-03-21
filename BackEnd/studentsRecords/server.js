@@ -24,6 +24,7 @@ var categorys = require('./routes/categories');
 var logexpressions = require('./routes/logexpressions');
 var programadmins = require('./routes/programadmins');
 var adjudications = require('./routes/adjudications');
+var reports = require('./routes/reports');
 
 
 
@@ -61,6 +62,7 @@ app.use('/logexpressions', logexpressions);
 app.use('/categories', categorys);
 app.use('/programadmins', programadmins);
 app.use('/adjudications', adjudications);
+app.use('/reports', reports);
 
 
 

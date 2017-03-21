@@ -1,1 +1,14 @@
-{{yield}}
+<button class="ui button" {{action "getReport"}}>Get Report</button>
+
+<div class="ui selection dropdown">
+  <input type="hidden" name="term">
+  <i class="dropdown icon"></i>
+  <div class="default text">Select Term</div>
+  <div class="menu">
+      {{#each terms as |term|}}
+        <div class="item" {{action "setTerm" term}}>
+            <label>{{term.name}}</label>]
+        </div>
+      {{/each}}
+  </div>
+</div>
