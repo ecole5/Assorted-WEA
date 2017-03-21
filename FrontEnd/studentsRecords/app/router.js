@@ -15,8 +15,6 @@ Router.map(function() {
   this.route('user');
   this.route('about');
   this.route('contact');
-  this.route('post');
-  this.route('posts');
 });
 
 
