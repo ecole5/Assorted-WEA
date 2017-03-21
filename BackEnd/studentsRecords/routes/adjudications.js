@@ -75,7 +75,7 @@ router.route('/:adjudication_id')
                     response.send({ error: error });
                 }
                 else {
-                    response.json({adjudication: deleted });
+                    response.json({ adjudication: deleted });
                 }
             }
         );

@@ -38,8 +38,8 @@ to add a new field -->
                 </div>
               </div>
 
-                <div class="field">
-                  <select class="ui dropdown" onchange={{action 'selectFaculty' value="target.value" }} onfocus={{action 'setCurrentModel'
+              <div class="field">
+                <select class="ui dropdown" onchange={{action 'selectFaculty' value="target.value" }} onfocus={{action 'setCurrentModel'
                   codeChoice}}>
                     <option value={{null}} selected={{eq codeChoice.faculty.id null}}>Null </option>
                   {{#each facultyModel as |facultyChoice|}}

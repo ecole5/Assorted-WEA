@@ -3,7 +3,7 @@ var router = express.Router();
 var models = require('../models/report');
 var studentModel = require('../models/student');
 var bodyParser = require('body-parser');
-var parseUrlencoded = bodyParser.urlencoded({extended: false});
+var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 var parseJSON = bodyParser.json();
 
 router.route('/')
@@ -18,19 +18,19 @@ router.route('/')
         var Criteria = request.query.criteria;
         var term = request.query.term;
 
-        
 
 
-        if(Criteria==="department"){
+
+        if (Criteria === "department") {
 
         }
-        else if(Criteria==="program"){
+        else if (Criteria === "program") {
 
         }
         else {
 
         }
-        
+
         //var Student = request.query.filter;
         /*if (!Student) {
             models.SecondarySchools.find(function (error, SecondarySchools) {
@@ -42,7 +42,7 @@ router.route('/')
                 else{
                     response.json({secondaryschool: SecondarySchools});}
             });
-        }*/ 
+        }*/
     });
 
 /*router.route('/:secondaryschool_id')

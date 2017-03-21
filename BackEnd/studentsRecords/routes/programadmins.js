@@ -68,7 +68,7 @@ router.route('/:programadmin_id')
                     response.send({ error: error });
                 }
                 else {
-                    response.json({programadmin: deleted });
+                    response.json({ programadmin: deleted });
                 }
             }
         );

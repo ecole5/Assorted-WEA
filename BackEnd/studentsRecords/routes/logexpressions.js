@@ -51,9 +51,9 @@ router.route('/:logexpression_id')
                 logexpression.modelB = request.body.logexpression.modelB;
                 logexpression.opr = request.body.logexpression.opr;
                 logexpression.linkBool = request.body.logexpression.linkBool;
-                logexpression.link= request.body.logexpression.link;
-                
-               
+                logexpression.link = request.body.logexpression.link;
+
+
                 logexpression.save(function (error) {
                     if (error) {
                         response.send({ error: error });
@@ -66,7 +66,7 @@ router.route('/:logexpression_id')
         })
     })
     .delete(parseUrlencoded, parseJSON, function (request, response) {
-    
+
 
         //Now actually remove th logexpression
         models.LogExpressions.findByIdAndRemove(request.params.logexpression_id,
@@ -75,7 +75,7 @@ router.route('/:logexpression_id')
                     response.send({ error: error });
                 }
                 else {
-                    response.json({logexpression: deleted });
+                    response.json({ logexpression: deleted });
                 }
             }
         );

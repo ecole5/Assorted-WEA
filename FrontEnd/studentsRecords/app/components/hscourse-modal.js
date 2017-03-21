@@ -39,17 +39,17 @@ export default Ember.Component.extend({
     },
 
     selectSchool(value) {
-        var model = this.get('currentModel');
-        var school = this.get('store').peekRecord('secondaryschool', value);
-        model.set('school', school);
-        model.save();
+      var model = this.get('currentModel');
+      var school = this.get('store').peekRecord('secondaryschool', value);
+      model.set('school', school);
+      model.save();
     },
 
     selectSubject(value) {
-        var model = this.get('currentModel');
-        var subject = this.get('store').peekRecord('hssubject', value);
-        model.set('subject', subject);
-        model.save();
+      var model = this.get('currentModel');
+      var subject = this.get('store').peekRecord('hssubject', value);
+      model.set('subject', subject);
+      model.save();
     },
 
     editLevel(value) {
@@ -70,7 +70,7 @@ export default Ember.Component.extend({
       model.save();
 
     },
- 
+
     setCurrentModel(model) {
       var interval = 50;
       Ember.run.later(this, function () {
@@ -108,7 +108,7 @@ export default Ember.Component.extend({
         closable: false, //cant click out 
       })
       .modal('show');
-    
+
   },
 });
 

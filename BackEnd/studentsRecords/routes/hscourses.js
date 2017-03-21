@@ -16,7 +16,7 @@ router.route('/')
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
         var Student = request.query.student;
-        
+
         if (!Student) {
             models.HScourses.find(function (error, HScourses) {
                 if (error) { response.send(error); }
@@ -66,26 +66,26 @@ router.route('/:hscourse_id')
     .delete(parseUrlencoded, parseJSON, function (request, response) {
 
 
-     //When you delte a course you need to delete all the marks associated with it   
-     grademodels.HSgrades.find({"source": request.params.hscourse_id}, function (error, grades) {
-            if (error) {response.send(error);}
-            else{
-                
-            for (var i = 0; i < grades.length; i++){
-                students[i].delete();
-        }
+        //When you delte a course you need to delete all the marks associated with it   
+        grademodels.HSgrades.find({ "source": request.params.hscourse_id }, function (error, grades) {
+            if (error) { response.send(error); }
+            else {
+
+                for (var i = 0; i < grades.length; i++) {
+                    students[i].delete();
+                }
             }
         });
-    
-    //Now delete the course
-    models.HScourses.findByIdAndRemove(request.params.hscourse_id,
-        function (error, deleted) {
-            if (!error) {
-               
-                response.json({hscourse: deleted});
+
+        //Now delete the course
+        models.HScourses.findByIdAndRemove(request.params.hscourse_id,
+            function (error, deleted) {
+                if (!error) {
+
+                    response.json({ hscourse: deleted });
+                }
             }
-        }
-    );
+        );
     });
 
 module.exports = router;

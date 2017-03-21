@@ -75,7 +75,7 @@ router.route('/:rule_id')
                     response.send({ error: error });
                 }
                 else {
-                    response.json({rule: deleted });
+                    response.json({ rule: deleted });
                 }
             }
         );
