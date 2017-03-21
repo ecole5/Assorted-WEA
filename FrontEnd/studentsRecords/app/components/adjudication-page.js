@@ -20,7 +20,7 @@ export default Ember.Component.extend({
     // get all documents of type modelName
     var self = this;
     this.get('store').findAll('faculty').then(function (records) {
-      self.set('category', records);
+      self.set('facultyModel', records);
     });
 
     /*
