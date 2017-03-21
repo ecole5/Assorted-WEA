@@ -76,18 +76,24 @@
     </div>
   </div>
   <!--end column-->
+  <div class="column">
+      <div class="ui button" {{action "showProgram"}}>
+      Programs
+    </div>
+  </div>
 
 </div>
   <!--end grid-->
 
     <!--Outlets for the modals where editing actually takes place-->
 {{#if showGender}} {{name-code-modal notDONE = showGender title = "Genders" modelName = "gender"}} {{/if}}
-{{#if showProgramAdmin}} {{name-code-modal notDONE = showProgramAdmin title = "Program Administrators" modelName = "programadmin"}} {{/if}}
 {{#if showResidency}} {{name-code-modal notDONE = showResidency title = "Residencys" modelName = "residency"}} {{/if}}
 {{#if showTermCode}} {{name-code-modal notDONE = showTermCode title = "Term Codes" modelName = "term"}} {{/if}}
+{{#if showFaculty}} {{name-code-modal notDONE = showFaculty title = "Faculty" modelName = "faculty"}} {{/if}}
 {{#if showSecondary}} {{name-code-modal notDONE = showSecondary title = "Seconday Schools" modelName = "secondaryschool"}} {{/if}}
+{{#if showCourseCode}} {{course-modal notDONE = showCourseCode}} {{/if}}
+{{#if showProgram}} {{program-modal notDONE = showProgram}} {{/if}}
+{{#if showProgramAdmin}} {{programadmin-modal notDONE = showProgramAdmin}} {{/if}}
 {{#if showHsSubjects}} {{hssubject-modal notDONE = showHsSubjects}} {{/if}}
 {{#if showHsCourses}} {{hscourse-modal notDONE = showHsCourses}} {{/if}}
 {{#if showPlanCode}} {{plan-modal notDONE = showPlanCode}} {{/if}}
-{{#if showCourseCode}} {{course-modal notDONE = showCourseCode}} {{/if}}
-{{#if showFaculty}} {{faculty-modal notDONE = showFaculty}} {{/if}}

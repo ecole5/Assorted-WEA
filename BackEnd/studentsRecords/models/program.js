@@ -4,7 +4,7 @@ var mongoosePaginate = require('mongoose-paginate');
 var programSchema = mongoose.Schema(
     {
         name: String,
-        level: Number,
+        level: String,
         load: String,
         status: String,
     }

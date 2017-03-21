@@ -12,6 +12,7 @@ export default Ember.Component.extend({
     showPlanCode: false,
     showTermCode: false,
     showFaculty: false,
+    showProgram: false,
 
 
 
@@ -25,6 +26,10 @@ export default Ember.Component.extend({
 
         showGender() { //this deals with the problem 
             this.set('showGender', true);
+        },
+
+         showProgram() { //this deals with the problem 
+            this.set('showProgram', true);
         },
 
 
