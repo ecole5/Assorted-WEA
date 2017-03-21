@@ -82,6 +82,13 @@
     </div>
   </div>
 
+   <!--end column-->
+  <div class="column">
+      <div class="ui button" {{action "showComment"}}>
+      Comment Codes
+    </div>
+  </div>
+
 </div>
   <!--end grid-->
 
@@ -97,3 +104,4 @@
 {{#if showHsSubjects}} {{hssubject-modal notDONE = showHsSubjects}} {{/if}}
 {{#if showHsCourses}} {{hscourse-modal notDONE = showHsCourses}} {{/if}}
 {{#if showPlanCode}} {{plan-modal notDONE = showPlanCode}} {{/if}}
+{{#if showComment}} {{comment-modal notDONE = showComment}} {{/if}}

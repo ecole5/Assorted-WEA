@@ -24,6 +24,11 @@ var categorys = require('./routes/categories');
 var logexpressions = require('./routes/logexpressions');
 var programadmins = require('./routes/programadmins');
 var adjudications = require('./routes/adjudications');
+var comments = require('./routes/comments');
+var catcomments = require('./routes/catcomments');
+var adjcomments = require('./routes/adjcomments');
+var rulecomments = require('./routes/rulecomments');
+
 
 
 
@@ -61,6 +66,10 @@ app.use('/logexpressions', logexpressions);
 app.use('/categories', categorys);
 app.use('/programadmins', programadmins);
 app.use('/adjudications', adjudications);
+app.use('/comments', comments);
+app.use('/catcomments', catcomments);
+app.use('/adjcomments', adjcomments);
+app.use('/adjcomments', rulecomments);
 
 
 

@@ -13,6 +13,7 @@ export default Ember.Component.extend({
     showTermCode: false,
     showFaculty: false,
     showProgram: false,
+    showComment: false,
 
 
 
@@ -61,6 +62,9 @@ export default Ember.Component.extend({
         },
          showProgramAdmin(){
              this.set('showProgramAdmin', true);
+        },
+        showComment(){
+            this.set('showComment', true);
         }
         
 
