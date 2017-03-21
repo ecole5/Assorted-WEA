@@ -131,67 +131,63 @@
 
   </div>
 
-  {{!Information to be shown inside of a tab}}
-
-  <div class="ui tab" data-tab="advanceStanding"> 
-    <div align = "center">
-    <br>
-    <h2>Information for Advance Standing</h2>
-    {{#each advanceStandingRecords as |advanceStanding|}}
-    <br><br>
-    {{! Put information here}}
-    <div class = "ui label">
-      <label>Course</label>>
-    </div>
-      {{advanceStanding.course}}
-      <br>
-      <input type="text" value={{advanceStanding.course}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
-      onchange={{action 'editAdvanceStandingCourse' value="target.value"}}>
-      <br><br>
-      <div class = "ui label">
-      <label>Description </label>
-      </div>
-      {{advanceStanding.description}}
-      <br>
-       <input type="text" value={{advanceStanding.description}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
-      onchange={{action 'editAdvanceStandingDescription' value="target.value"}}>
-      <br><br>
-    <div class = "ui label"> 
-     <label>  Units</label>
-    </div>
-    
-      {{advanceStanding.units}}
-      <input type="text" value={{advanceStanding.units}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
-      onchange={{action 'editAdvanceStandingUnits' value="target.value"}}>
-      <br><br>
-      <div class = "ui label"> 
-     <label>  Grade </label>
-      </div>
-  
-      {{advanceStanding.grade}}
-     
-      <input type="text" value={{advanceStanding.grade}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
-      onchange={{action 'editAdvanceStandingGrade' value="target.value"}}>
-      <br><br>
-
-       <div class = "ui label"> 
-     <label> From </label>
-       </div>
+  {{!START ADVANCE STANDING TAB}}
+  <div class="ui tab" data-tab="advanceStanding">
+    <div align = "center"> 
+      <div class="ui vertically divided grid"> 
+        <div class="one column row">
+          <div class="column">
+            <h2>Information for Advance Standing</h2>
+          </div>
+        </div>
+          {{! Start of foureach loop}}
+          {{#each advanceStandingRecords as |advanceStanding|}}
+            {{! Put information here}}
+            <div class = "ui label">
+              <label>Course</label>>
+            </div> {{!End of label}}
+            {{advanceStanding.course}}
+            <input type="text" value={{advanceStanding.course}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+            onchange={{action 'editAdvanceStandingCourse' value="target.value"}}>
+            <div class = "ui label">
+              <label>Description </label>
+            </div> {{!END OF LABEL}}
+            {{advanceStanding.description}}
+            <input type="text" value={{advanceStanding.description}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+            onchange={{action 'editAdvanceStandingDescription' value="target.value"}}>
+            <div class = "ui label"> 
+              <label>  Units</label>
+            </div> {{!End of label}}
       
-      {{advanceStanding.from}}
-     
-       <input type="text" value={{advanceStanding.from}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
-      onchange={{action 'editAdvanceStandingFrom' value="target.value"}}>
-      <br><br>
-    <button class = "ui button"{{action "deleteAdvanceStanding" advanceStanding}}>Delete advance standing</button>
-    {{/each}}
-    <br>
-    <br>
-   
-    <button class = "ui button" {{action "createNewAdvanceStanding"}}>Create new advance standing</button>
-    <br><br><br>
-    </div>
+            {{advanceStanding.units}}
+            <input type="text" value={{advanceStanding.units}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+            onchange={{action 'editAdvanceStandingUnits' value="target.value"}}>
+            <div class = "ui label"> 
+              <label>  Grade </label>
+            </div> {{!END LABEL}}
+    
+            {{advanceStanding.grade}}
+      
+            <input type="text" value={{advanceStanding.grade}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+            onchange={{action 'editAdvanceStandingGrade' value="target.value"}}>
+
+            <div class = "ui label"> 
+              <label> From </label>
+            </div> {{! END LABEL}}
+        
+            {{advanceStanding.from}}
+      
+            <input type="text" value={{advanceStanding.from}} onclick={{action 'setCurrentAdvanceStanding' advanceStanding}} 
+          onchange={{action 'editAdvanceStandingFrom' value="target.value"}}>
+          <button class = "ui button"{{action "deleteAdvanceStanding" advanceStanding}}>Delete advance standing</button>
+        {{/each}} {{!END OF FOR LOOP}}
+    
+        <button class = "ui button" {{action "createNewAdvanceStanding"}}>Create new advance standing</button>
+      </div> {{!END GRID}}
+    </div> {{!END CENTER}}
   </div>
+
+  {{! END ADVANCE STANDING TAB}}
 
   <div class="ui tab" data-tab="scholarshipsAwards">
     <h2>Information for Scholarships and Awards</h2>

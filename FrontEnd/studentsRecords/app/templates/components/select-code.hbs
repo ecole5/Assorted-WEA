@@ -1,3 +1,6 @@
+<!-- Ouda auth checking if you have permission -->
+{{#if SE001IsPermitted}}
+
 <!--Grid for selecting all the diffrent system codes avaliable for edit-->
   
 <div class="ui four column grid">
@@ -75,3 +78,21 @@
 {{#if showHsSubjects}} {{hssubject-modal notDONE = showHsSubjects}} {{/if}}
 {{#if showHsCourses}} {{hscourse-modal notDONE = showHsCourses}} {{/if}}
 {{#if showCourseCode}} {{course-modal notDONE = showCourseCode}} {{/if}}
+
+<!-- Start Ouda auth -->
+{{else}}
+<div class="ui center aligned raised segment">
+    <div class="ui icon header">
+      <i class="protect icon"></i>
+      Permission Denied
+    </div>
+    <div>
+      <p>This feature (SE001) is not allowed for your account.</p>
+      <p>Please contact the system administrator for more information.</p>
+    </div>
+
+  </div>
+
+{{/if}}
+
+<!-- End ouda auth -->

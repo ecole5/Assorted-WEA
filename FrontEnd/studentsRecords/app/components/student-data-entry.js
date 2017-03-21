@@ -49,6 +49,15 @@ export default Ember.Component.extend({
   currentlySelectedProgramItem: null,
   jumpingRecords: false,
 
+  // Ouda Auth stuff for student data entry
+  SR001IsPermitted: Ember.computed(function(){ //Manage system roles
+    var authentication = this.get('oudaAuth');
+    if (authentication.getName === "Root") {
+      return true;
+    } else {
+      return (authentication.get('userCList').indexOf("SR001") >= 0);
+    }
+  }),
 
 
   studentModel: Ember.observer('offset', function () {
