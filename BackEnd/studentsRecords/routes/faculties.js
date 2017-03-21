@@ -49,7 +49,7 @@ router.route('/:faculty_id')
             else {
 
                 faculty.name = request.body.faculty.name;
-               
+
                 faculty.save(function (error) {
                     if (error) {
                         response.send({ error: error });
@@ -62,38 +62,38 @@ router.route('/:faculty_id')
         })
     })
     .delete(parseUrlencoded, parseJSON, function (request, response) {
-    //When you delete a faculty you need to make sure that the faculty in all plans is cleaned
-         planModel.Plans.find({"faculty": request.params.faculty_id}, function (error, plans) {
-                if (error) {response.send(error);}
-                else{
-                    
-                for (var i = 0; i < plans.length; i++){
+        //When you delete a faculty you need to make sure that the faculty in all plans is cleaned
+        planModel.Plans.find({ "faculty": request.params.faculty_id }, function (error, plans) {
+            if (error) { response.send(error); }
+            else {
+
+                for (var i = 0; i < plans.length; i++) {
                     plans[i].faculty = null;
                     plans[i].save();
-            }
                 }
-            });
+            }
+        });
 
-               categoryModel.Categories.find({"faculty": request.params.faculty_id}, function (error, categories) {
-                if (error) {response.send(error);}
-                else{
-                    
-                for (var i = 0; i < categories.length; i++){
+        categoryModel.Categories.find({ "faculty": request.params.faculty_id }, function (error, categories) {
+            if (error) { response.send(error); }
+            else {
+
+                for (var i = 0; i < categories.length; i++) {
                     categroies[i].delete(); //Do we need to do the rule delete here
                 }
-                }
-            });
+            }
+        });
 
-                programadminModel.ProgramAdmins.find({"faculty": request.params.faculty_id}, function (error, programadmins) {
-                if (error) {response.send(error);}
-                else{
-                    
-                for (var i = 0; i < programadmins.length; i++){
+        programadminModel.ProgramAdmins.find({ "faculty": request.params.faculty_id }, function (error, programadmins) {
+            if (error) { response.send(error); }
+            else {
+
+                for (var i = 0; i < programadmins.length; i++) {
                     programadmins[i].faculty = null;
                     programadmins[i].save();
                 }
-                }
-            });
+            }
+        });
 
         //Now actually remove th faculty
         models.Faculties.findByIdAndRemove(request.params.faculty_id,
@@ -102,7 +102,7 @@ router.route('/:faculty_id')
                     response.send({ error: error });
                 }
                 else {
-                    response.json({faculty: deleted });
+                    response.json({ faculty: deleted });
                 }
             }
         );

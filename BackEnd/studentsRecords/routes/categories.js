@@ -20,15 +20,30 @@ router.route('/')
 
     //Get all faculties
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        models.Categories.find(function (error, Categories) {
-            if (error) {
-                response.send(error);
-            }
+        var faculty = request.query.faculty;
+        if (faculty) {
+            models.Categories.find({ 'faculty': faculty }, function (error, Categories) {
+                if (error) {
+                    response.send(error);
+                }
 
-            else {
-                response.json({ category: Categories });
-            }
-        });
+                else {
+                    response.json({ category: Categories });
+                }
+            });
+        }
+        else {
+            models.Categories.find(function (error, Categories) {
+                if (error) {
+                    response.send(error);
+                }
+
+                else {
+                    response.json({ category: Categories });
+                }
+            });
+
+        }
 
     });
 
@@ -52,6 +67,8 @@ router.route('/:category_id')
                 category.independent = request.body.category.independent;
                 category.faculty = request.body.category.faculty;
                
+
+
                 category.save(function (error) {
                     if (error) {
                         response.send({ error: error });
@@ -65,15 +82,15 @@ router.route('/:category_id')
     })
     .delete(parseUrlencoded, parseJSON, function (request, response) {
         //Delete all rules with refrence to this category
-     ruleModel.Rules.find({"category": request.params.category_id}, function (error, rules) {
-                if (error) {response.send(error);}
-                else{
-                    
-                for (var i = 0; i < rules.length; i++){
+        ruleModel.Rules.find({ "category": request.params.category_id }, function (error, rules) {
+            if (error) { response.send(error); }
+            else {
+
+                for (var i = 0; i < rules.length; i++) {
                     rules[i].delete();
-            }
                 }
-            });
+            }
+        });
         //Now actually remove the category
         models.Categories.findByIdAndRemove(request.params.category_id,
             function (error, deleted) {
@@ -81,7 +98,7 @@ router.route('/:category_id')
                     response.send({ error: error });
                 }
                 else {
-                    response.json({category: deleted });
+                    response.json({ category: deleted });
                 }
             }
         );

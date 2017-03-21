@@ -54,7 +54,7 @@ router.route('/:adjudication_id')
                 adjudication.plan = request.body.adjudication.plan;
                 adjudication.term = request.body.adjudication.term;
                 adjudication.student = request.body.adjudication.student;
-
+               
                 adjudication.save(function (error) {
                     if (error) {
                         response.send({ error: error });
@@ -75,7 +75,7 @@ router.route('/:adjudication_id')
                     response.send({ error: error });
                 }
                 else {
-                    response.json({adjudication: deleted });
+                    response.json({ adjudication: deleted });
                 }
             }
         );

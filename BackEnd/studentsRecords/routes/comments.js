@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var models = require('../models/programadmin');
+var models = require('../models/comment');
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 var parseJSON = bodyParser.json();
@@ -9,71 +9,73 @@ router.route('/')
 
     //Create New Rule
     .post(parseUrlencoded, parseJSON, function (request, response) {
-        var programadmin = new models.ProgramAdmins(request.body.programadmin);
+        var comment = new models.Comments(request.body.comment);
         console.log(request.body);
-        programadmin.save(function (error) {
+        comment.save(function (error) {
             if (error) response.send(error);
-            response.json({ programadmin: programadmin });
+            response.json({ comment: comment });
         });
     })
 
-    //Get all programadmins
+    //Get all comments
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        models.ProgramAdmins.find(function (error, ProgramAdmins) {
+        models.Comments.find(function (error, Comments) {
             if (error) {
                 response.send(error);
             }
 
             else {
-                response.json({ programadmin: ProgramAdmins });
+                response.json({ comment: Comments });
             }
         });
 
     });
 
-router.route('/:programadmin_id')
+router.route('/:comment_id')
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        models.ProgramAdmins.findById(request.params.programadmin_id, function (error, programadmin) {
+        models.Comments.findById(request.params.comment_id, function (error, comment) {
             if (error) response.send(error);
-            response.json({ programadmin: programadmin });
+            response.json({ comment: comment });
         })
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
-        models.ProgramAdmins.findById(request.params.programadmin_id, function (error, programadmin) {
+        models.Comments.findById(request.params.comment_id, function (error, comment) {
             if (error) {
                 response.send({ error: error });
             }
             else {
 
-                programadmin.name = request.body.programadmin.name;
-                programadmin.faculty = request.body.programadmin.faculty;
+                comment.code = request.body.comment.code;
+                comment.description = request.body.comment.description;
+               
 
-                programadmin.save(function (error) {
+
+
+                comment.save(function (error) {
                     if (error) {
                         response.send({ error: error });
                     }
                     else {
-                        response.json({ programadmin: programadmin });
+                        response.json({ comment: comment });
                     }
                 });
             }
         })
     })
     .delete(parseUrlencoded, parseJSON, function (request, response) {
-
-        //Now actually remove th programadmin
-        models.ProgramAdmins.findByIdAndRemove(request.params.programadmin_id,
+        
+        //Now actually remove th comment
+        models.Comments.findByIdAndRemove(request.params.comment_id,
             function (error, deleted) {
                 if (error) {
                     response.send({ error: error });
                 }
                 else {
-                    response.json({ programadmin: deleted });
+                    response.json({ comment: deleted });
                 }
             }
         );
     });
 
 module.exports = router;
-
 

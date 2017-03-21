@@ -3,27 +3,27 @@ field. Each field has a delete buttton. Fields are populated with code names. Th
 to add a new field -->
 
 <div class="ui modal">
-  <div class="header">Faculty</div>
+  <div class="header">Comment Codes</div>
   <div class="content">
     <div class="ui grid">
       <div class="ten wide column">
         <div class="actions">
           <div class="ui form">
 
+
             <div class="three fields">
               <div class="field">
-                <div class="ui label">
-                  Name
+               <div class="ui label">
+                  Code Name
                 </div>
               </div>
               <div class="field">
                 <div class="ui label">
-                  Program Admins
+                  Description
                 </div>
               </div>
 
             </div>
-
 
 
             <!--Editing option for each name -->
@@ -33,22 +33,17 @@ to add a new field -->
               <div class="field">
                 <!--On select will set target model context, but onblur will pass the value of the field -->
                 <div class="ui input">
-                  <input type="text" value={{codeChoice.name}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action 'editName' value="target.value"
+                  <input type="text" value={{codeChoice.code}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action 'editCode' value="target.value"
                     }}>
                 </div>
               </div>
 
-                <div class="field">
-                  <select class="ui dropdown" onchange={{action 'selectFaculty' value="target.value" }} onfocus={{action 'setCurrentModel'
-                  codeChoice}}>
-                    <option value={{null}} selected={{eq codeChoice.faculty.id null}}>Null </option>
-                  {{#each facultyModel as |facultyChoice|}}
-                  <option value={{facultyChoice.id}} selected={{eq codeChoice.faculty.id facultyChoice.id}}>{{facultyChoice.name}} </option>
-                    
-                  {{/each}}
-                    
-                
-                  </select>
+              <div class="field">
+                <!--On select will set target model context, but onblur will pass the value of the field -->
+                <div class="ui input">
+                  <input type="text" value={{codeChoice.description}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action
+                    'editDescription' value="target.value" }}>
+                </div>
               </div>
 
               <div class="field">
@@ -58,12 +53,11 @@ to add a new field -->
                 </button>
               </div>
 
+              <!-- end of list element !-->
             </div>
-            <!-- end of fields !-->
-
             {{/each}}
 
-
+            <!-- end of entire list!-->
 
             <!-- Add button !-->
             <button class="ui button" {{action 'newCode'}}>
@@ -74,6 +68,7 @@ to add a new field -->
           </div>
         </div>
       </div>
+
     </div>
 
     <div class="actions">

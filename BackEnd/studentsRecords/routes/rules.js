@@ -51,7 +51,7 @@ router.route('/:rule_id')
                 rule.logExpression = request.body.rule.logExpression;
                 rule.plan = request.body.rule.plan;
                 rule.category = request.body.rule.category;
-
+           
 
                 rule.save(function (error) {
                     if (error) {
@@ -75,7 +75,7 @@ router.route('/:rule_id')
                     response.send({ error: error });
                 }
                 else {
-                    response.json({rule: deleted });
+                    response.json({ rule: deleted });
                 }
             }
         );

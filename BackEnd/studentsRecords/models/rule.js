@@ -7,7 +7,8 @@ var ruleSchema = mongoose.Schema(
         evalOrder: Number,
         logExpression:  {type: mongoose.Schema.ObjectId, ref: ('LogExpressions')},
         plan: {type: mongoose.Schema.ObjectId, ref: ('Plans')},       
-        category: {type: mongoose.Schema.ObjectId, ref: ('Categories')},        
+        category: {type: mongoose.Schema.ObjectId, ref: ('Categories')},
+       
     }
 );
 
