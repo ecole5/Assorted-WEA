@@ -363,15 +363,8 @@
         {{#each hsGradeRecords as |hsGrade|}}
           <div class="one column row">
             <div class="ui vertically grid"> 
-              <div class="two column row">
-                <div class="column">
-                  <h3> Grade </h3>
-                  <div class = "ui label">
-                    <label>Grade:</label>
-                  </div>
-                  <input type="text" value={{hsGrade.mark}} onclick={{action 'currentlySelectedProgram' hsGrade}} 
-                                  onchange={{action 'editHSGradeMark' value="target.value"}}>
-                </div>{{!END COLUMN}}
+              <div class="one column row">
+                
                 <div class="column">
                   <div class="one column row">
                     <h3> Course </h3>
@@ -421,7 +414,16 @@
 
                 </div> {{!END COLUMN}}
               </div> {{!END TWO COLUMN ROW}}
-              <div class="two column row">
+              <div class="three column row">
+                <div class="column">
+                  <h3> Grade </h3>
+                  <div class = "ui label">
+                    <label>Grade:</label>
+                  </div>
+                  <input type="text" value={{hsGrade.mark}} onclick={{action 'currentlySelectedProgram' hsGrade}} 
+                                  onchange={{action 'editHSGradeMark' value="target.value"}}>
+                </div>{{!END COLUMN}}
+                
                 <div class="column">
                   <div class="one column row">
                     <h3>Subject </h3>
