@@ -19,26 +19,15 @@
             </div>
 
              <h4 class="ui dividing header">Boolean Expression</h4>
-             {{#if ruleModel.log}}
-              {{ruleModel.log}}
-             {{else}}
-             No Expresion Entered
-             {{/if}}
-             <br>
-             <br>
-            <button class="ui button" {{action 'openEdit'}}>
-            Edit Expression
-            </button>
+             <div class = "ui form">
+               <div class = "field">
+                 <textarea value = {{ruleModel.log}} onblur={{action 'saveExpression' value="target.value" }}></textarea>
+                 </div>
+               
+          
+              </div>
             
-             <button class="ui button" {{action 'clearExpression'}}>
-            Clear
-            </button>
-
-            {{#if expressionEditor}}
-              
-            
-            {{/if}}
-
+      
              
            
             <h4 class="ui dividing header">Comments</h4>
