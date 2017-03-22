@@ -242,7 +242,7 @@
               <div class="ui vertically grid"> 
                 <div class="one column row">
                   <div class="column">
-                    <h3> Scholarship and reward </h3>
+                    <h3> {{scholarship.scholarshipID}}  </h3>
                   </div>
                 </div>
                 <div class="two column row">
@@ -279,18 +279,25 @@
                     
                 </div> {{! END TWO COLUMN ROW}}
 
-                <!--
-                  <button class = "ui button " {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
-                  -->
+                <div class="one column row">
+                  <div class="column">
+                    <button class = "ui button " {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
+                  </div>
+                </div>
+
               </div> {{! END GRID}}
             </div> {{!END COLUMN}}
           </div> {{!END ONE COLUMN ROW}}
         {{/each}}
+
+        <div class="one column row">
+          <div class="column">
+            <button  class = "ui button " {{action "createNewScholarship"}}>Create new scholarship</button>
+          </div>
+        </div>
       </div> {{! END DIVDED GRID}}
 
       <br><br>
-
-      <button  class = "ui button " {{action "createNewScholarship"}}>Create new scholarship</button>
    </div>
 
   </div>
