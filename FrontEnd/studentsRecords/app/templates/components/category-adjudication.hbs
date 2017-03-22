@@ -47,25 +47,68 @@
 
   </div>
 
+  <div class="ui segment">
+    <div class = "ui form">
+
+      <div class="four fields">
+     <div class = "field">
+        <div class="ui label">
+                  Rule Name
+                </div>
+     </div>
+      <div class = "field">
+             <div class="ui label">
+                  Comment Codes
+                </div>
+     </div>
+      <div class = "field">
+             <div class="ui label">
+                  Expression
+                </div>
+     </div>
+      <div class = "field">
+             
+     </div>
+     </div>
+     </div>
+     </div>
+
   {{#each oneCategory.rules as |oneRule|}}
   <div class="ui segment">
+    <div class = "ui form">
 
-    <div class="ui grid">
-      <div class="left floated five wide column">
+
+    <div class="four fields">
+     <div class = "field">
+   
         {{oneRule.name}}
-      </div>
-  
-      <div class="right floated three wide column">
+        </div>
+        <div class = "field">
+        
+          {{#each oneRule.comment as |oneComment|}}
+            {{oneComment.comment.code}} 
+
+          {{/each}}
+          </div>
+
+          <div class = "field">
+            Boollean goes here
+            </div>
+        
+   
+            <div class = "field">
+
         <button class="ui icon button" {{action 'remove' oneRule }}>
                 <i class="remove circle icon"></i>
                 </button>
 
         <button class="ui button" {{action 'editRule' oneRule }}>
-                  Detail
+                  Edit
                 </button>
-      </div>
+                </div>
+      
     </div>
-
+</div>
 
 
   </div>

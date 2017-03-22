@@ -49,6 +49,7 @@ router.route('/:rule_id')
                 rule.name = request.body.rule.name;
                 rule.plan = request.body.rule.plan;
                 rule.category = request.body.rule.category;
+                rule.log = request.body.rule.log;
            
 
                 rule.save(function (error) {

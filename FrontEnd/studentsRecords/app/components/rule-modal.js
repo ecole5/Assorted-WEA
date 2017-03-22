@@ -10,6 +10,7 @@ export default Ember.Component.extend({
   selectingComment: null,
   commentModel: null,
   ruleCommentModel: null,
+  logicalModel:null,
 
 
    init() {
@@ -20,6 +21,7 @@ export default Ember.Component.extend({
     //Get all facultys
     var self = this;
  
+
    
        //Get all rules for this faculty
     this.get('store').findAll('comment').then(function (records) {

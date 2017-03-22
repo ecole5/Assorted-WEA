@@ -18,6 +18,7 @@ router.route('/')
     })
     //Get all faculties
     .get(parseUrlencoded, parseJSON, function (request, response) {
+       
         models.LogExpressions.find(function (error, LogExpressions) {
             if (error) {
                 response.send(error);
@@ -27,7 +28,7 @@ router.route('/')
                 response.json({ logexpression: LogExpressions });
             }
         });
-
+        
     });
 
 router.route('/:logexpression_id')
@@ -44,14 +45,8 @@ router.route('/:logexpression_id')
             }
             else {
 
-                logexpression.name = request.body.logexpression.name;
-                logexpression.valA = request.body.logexpression.valA;
-                logexpression.modelA = request.body.logexpression.modelA;
-                logexpression.valB = request.body.logexpression.valB;
-                logexpression.modelB = request.body.logexpression.modelB;
-                logexpression.opr = request.body.logexpression.opr;
-                logexpression.linkBool = request.body.logexpression.linkBool;
-                logexpression.rule = request.body.logexpression.rule;
+                logexpression.expression = request.body.logexpression.expression;
+            
 
 
                 logexpression.save(function (error) {

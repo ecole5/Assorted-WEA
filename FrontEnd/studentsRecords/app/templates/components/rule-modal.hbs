@@ -18,8 +18,14 @@
             </div>
             </div>
 
-
              <h4 class="ui dividing header">Boolean Expression</h4>
+             {{#if logicalModel}}
+              {{#each logicalModel as |part|}{
+                {{part.valA}} {{part.opr}} {{part.valB}}
+                {{/each}}
+              }
+             {{else}}
+             {{/if}}
              
            
             <h4 class="ui dividing header">Comments</h4>

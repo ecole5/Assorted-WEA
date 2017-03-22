@@ -3,14 +3,7 @@ var mongoosePaginate = require('mongoose-paginate');
 
 var logexpressionSchema = mongoose.Schema(
     {
-        name: String,
-        valA: String,
-        modelA: String,
-        valB: String,
-        modelB: String,
-        opr: String,
-        linkBool: String,
-        rule: {type: mongoose.Schema.ObjectId, ref: ('Rules')},
+        expression: String
     }
 );
 

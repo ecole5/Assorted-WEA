@@ -38,7 +38,7 @@ export default Ember.Component.extend({
   
 
    //Get all rules for this faculty
-    this.get('store').findAll('catcomment').then(function (records) {
+    this.get('store').findAll('rulecomment').then(function (records) {
       self.set('ruleCommentModel', records);
     });
 
@@ -127,6 +127,7 @@ export default Ember.Component.extend({
         name: "New Rule",
         category: cat,
         plan: null,
+        log: null,
       });
 
       newRule.save();
