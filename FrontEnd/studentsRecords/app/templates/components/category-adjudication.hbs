@@ -38,8 +38,13 @@
 
 
   </div>
-  <div class="ui segment">
-     
+
+  {{#each ruleModel.rules as |oneRule|}}
+   <div class="ui segment">
+     {{oneRule.name}}
+  </div>
+  {{/each}}
+  <div class="ui segment">   
 <!--Add button -->
 <button class="ui labeled icon button" {{action "newRule" oneCategory}}> 
   <i class="plus icon"></i>

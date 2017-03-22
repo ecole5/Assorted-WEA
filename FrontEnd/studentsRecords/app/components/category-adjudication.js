@@ -12,6 +12,8 @@ export default Ember.Component.extend({
   showCategoryModal: null,
   selectedCategory: null,
   showRuleModal: null,
+  ruleModel: null,
+  selectedRule: null,
 
   init() {
     this._super(...arguments);
@@ -22,11 +24,18 @@ export default Ember.Component.extend({
     var self = this;
  
 
-    //Get all plans for this faculty
+    //Get all rules for the faculty
     this.get('store').query('plan', {
       faculty: self.get('selectedFaculty').id,
     }).then(function (records) {
       self.set('planModels', records);
+    });
+
+       //Get all rules for this faculty
+    this.get('store').query('rule', {
+      faculty: self.get('selectedFaculty').id,
+    }).then(function (records) {
+      self.set('ruleModel', records);
     });
     
     //Get all categories for this faculties
@@ -35,6 +44,8 @@ export default Ember.Component.extend({
     }).then(function (records) {
       self.set('categoryModel', records);
     });
+
+   
    
   },
 
@@ -95,7 +106,7 @@ export default Ember.Component.extend({
       });
 
       newRule.save();
-      
+
 
 
        this.set("showRuleModal", true);
