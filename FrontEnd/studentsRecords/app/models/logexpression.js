@@ -7,8 +7,8 @@ export default DS.Model.extend({
         valB: DS.attr(), 
         modelB: DS.attr(), 
         opr: DS.attr(), 
-        linkBool: DS.attr('boolean'), 
-        link: DS.belongsTo('logexpression')
+        linkBool: DS.attr(), 
+        rule: DS.belongsTo('rule')
 
 
 });

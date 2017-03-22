@@ -7,7 +7,8 @@ export default DS.Model.extend({
         logExpression:  DS.belongsTo('logexpression'),
         plan: DS.belongsTo('plan'),    
         category: DS.belongsTo('category'), 
-  
+        logExpressions: DS.hasMany('logexpression'),
+        comment: DS.hasMany('rulecomment')
   
 
 });

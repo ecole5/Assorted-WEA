@@ -6,6 +6,8 @@
         <div class="actions">
           <div class="ui form">
 
+              <h4 class="ui dividing header">Properties</h4>
+
               <div class="three fields">
                 <div class="field">
                      <div class="ui label">
@@ -52,6 +54,65 @@
 
               
               </div>
+
+        <h4 class="ui dividing header">Comments</h4>
+      
+           
+          
+            {{#each categoryModel.comment as |oneCatComment|}}
+              
+            
+            <div class = "two fields">
+              <div class = "field">
+            {{oneCatComment.comment.code}}
+            : {{oneCatComment.comment.description}}
+        </div>
+        <div class = "field">
+               <button class="mini ui button" {{action 'remove' oneCatComment}}>
+            <i class="remove circle icon"></i>
+            </button>
+
+          </div>
+            
+            </div>
+            {{/each}}
+           
+
+
+          <div class = "field">
+              <!-- Add button !-->
+              <button class="ui button" {{action 'newComment'}}>
+            <i class="plus icon"></i>
+            </button>
+            </div>
+            
+            {{#if selectingComment}}
+
+            <div class = "fields">
+              <div class = "field">
+                
+              <select class="ui dropdown" onchange={{action 'setComment' value="target.value" }}>
+                  <option value = "null" > Select Code </option>
+                  {{#each commentModel as |commentChoice|}}
+                  <option value={{commentChoice.id}} >{{commentChoice.code}} </option>
+                  {{/each}}
+                  </select>
+                </div>
+
+                  <!-- Add button !-->
+              <div class = "field">
+              <button class="ui button" {{action 'saveComment'}}>
+            <i class="save icon"></i>
+            </button>
+            </div>
+            <div class = "field">
+               <button class="ui button" {{action 'cancelComment'}}>
+                  Cancel
+            </button>
+            </div>
+            </div>
+              {{/if}}
+
            
 
           

@@ -11,6 +11,7 @@ export default DS.Model.extend({
         independent: DS.attr('boolean'), //Evalualte categoery indpedently or in order
         faculty: DS.belongsTo('faculty'),
         rules: DS.hasMany('rule'),
+        comment: DS.hasMany('catcomment')
 
 
 });

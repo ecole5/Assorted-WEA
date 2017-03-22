@@ -69,7 +69,7 @@ app.use('/adjudications', adjudications);
 app.use('/comments', comments);
 app.use('/catcomments', catcomments);
 app.use('/adjcomments', adjcomments);
-app.use('/adjcomments', rulecomments);
+app.use('/rulecomments', rulecomments);
 
 
 

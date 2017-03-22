@@ -4,18 +4,19 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   store: Ember.inject.service(),
-  categoryModel: null, //all documents in collection of type modelName
+  ruleModel: null, //all documents in collection of type modelName
   notDONE: null, 
   selectedComment: null,
   selectingComment: null,
   commentModel: null,
-  catCommentModel: null,
+  ruleCommentModel: null,
 
 
- init() {
+   init() {
     this._super(...arguments);
    
-  
+    
+
     //Get all facultys
     var self = this;
  
@@ -26,45 +27,18 @@ export default Ember.Component.extend({
     });
    
    //Get all rules for this faculty
-    this.get('store').findAll('catcomment').then(function (records) {
-      self.set('catCommentModel', records);
+    this.get('store').findAll('rulecomment').then(function (records) {
+      self.set('ruleCommentModel', records);
     });
    },
 
 
   actions: {
 
-
     editName(value) {
      
-        var model = this.get('categoryModel');
+        var model = this.get('ruleModel');
         model.set('name', value);
-        model.save();
-    },
-
-    selectStyle(value) {
-      
-      var model = this.get('categoryModel');
-      if (value == "true"){
-        model.set('allRules', true);
-      }
-      else{
-         model.set('allRules', false);
-      }
-      
-        model.save();
-    },
-
-      selectIndependent(value) {
-      
-      var model = this.get('categoryModel');
-      if (value == "true"){
-        model.set('independent', true);
-      }
-      else{
-         model.set('independent', false);
-      }
-      
         model.save();
     },
 
@@ -78,9 +52,9 @@ export default Ember.Component.extend({
       
       var comm = this.get('store').peekRecord('comment', this.get('selectedComment'));
       if (comm){
-      var newComment = this.get('store').createRecord("catcomment", {
+      var newComment = this.get('store').createRecord("rulecomment", {
         comment: comm,
-        category: this.get('categoryModel'),
+        rule: this.get('ruleModel'),
       });
 
       newComment.save();
@@ -103,10 +77,6 @@ export default Ember.Component.extend({
     remove(item){
       item.destroyRecord();
     },
-   
-
-   
-
   
     //finish editing and close the modal
     exit: function () {

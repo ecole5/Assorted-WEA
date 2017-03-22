@@ -14,6 +14,10 @@ export default Ember.Component.extend({
   showRuleModal: null,
   ruleModel: null,
   selectedRule: null,
+  logExpressionModel:null,
+  commentModel: null,
+  catCommentModel: null,
+  ruleCommentModel: null,
 
   init() {
     this._super(...arguments);
@@ -22,7 +26,21 @@ export default Ember.Component.extend({
 
     //Get all facultys
     var self = this;
- 
+   //Get all rules for this faculty
+    this.get('store').findAll('comment').then(function (records) {
+      self.set('commentModel', records);
+    });
+   
+   //Get all rules for this faculty
+    this.get('store').findAll('catcomment').then(function (records) {
+      self.set('catCommentModel', records);
+    });
+  
+
+   //Get all rules for this faculty
+    this.get('store').findAll('catcomment').then(function (records) {
+      self.set('ruleCommentModel', records);
+    });
 
     //Get all rules for the faculty
     this.get('store').query('plan', {
@@ -31,10 +49,13 @@ export default Ember.Component.extend({
       self.set('planModels', records);
     });
 
+      //Get all rules for this faculty
+    this.get('store').findAll('logexpression').then(function (records) {
+      self.set('logExpressionModel', records);
+    });
+
        //Get all rules for this faculty
-    this.get('store').query('rule', {
-      faculty: self.get('selectedFaculty').id,
-    }).then(function (records) {
+    this.get('store').findAll('rule').then(function (records) {
       self.set('ruleModel', records);
     });
     
@@ -44,6 +65,10 @@ export default Ember.Component.extend({
     }).then(function (records) {
       self.set('categoryModel', records);
     });
+
+  
+   
+    
 
    
    
@@ -100,17 +125,21 @@ export default Ember.Component.extend({
      
       var newRule = this.get('store').createRecord("rule", {
         name: "New Rule",
-        logExpression: null,
         category: cat,
         plan: null,
       });
 
       newRule.save();
 
-
-
        this.set("showRuleModal", true);
     },
+
+    editRule(rule){
+       this.set('selectedRule', rule);
+      this.set("showRuleModal", true);
+
+    }
+    
   
 
   },

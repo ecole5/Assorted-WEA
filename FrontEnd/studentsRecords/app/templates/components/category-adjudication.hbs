@@ -27,7 +27,15 @@
     <p>Evaluated independently</p>
     {{else}}
     <p>Evaluated again other categroies</p>
-    {{/if}}
+    {{/if}} 
+    {{#each oneCategory.comment as |oneComment|}}
+
+    <p>Comment: {{oneComment.comment.code}}: {{oneComment.comment.description}}</p>
+
+    {{/each}}
+
+
+
     <button class="ui icon button" {{action 'remove' oneCategory }}>
                 <i class="remove circle icon"></i>
                 </button>
@@ -39,20 +47,38 @@
 
   </div>
 
-  {{#each ruleModel.rules as |oneRule|}}
-   <div class="ui segment">
-     {{oneRule.name}}
+  {{#each oneCategory.rules as |oneRule|}}
+  <div class="ui segment">
+
+    <div class="ui grid">
+      <div class="left floated five wide column">
+        {{oneRule.name}}
+      </div>
+  
+      <div class="right floated three wide column">
+        <button class="ui icon button" {{action 'remove' oneRule }}>
+                <i class="remove circle icon"></i>
+                </button>
+
+        <button class="ui button" {{action 'editRule' oneRule }}>
+                  Detail
+                </button>
+      </div>
+    </div>
+
+
+
   </div>
   {{/each}}
-  <div class="ui segment">   
-<!--Add button -->
-<button class="ui labeled icon button" {{action "newRule" oneCategory}}> 
+  <div class="ui segment">
+    <!--Add button -->
+    <button class="ui labeled icon button" {{action "newRule" oneCategory}}> 
   <i class="plus icon"></i>
   New Category Rule
 </button>
   </div>
 </div>
-  <div class="ui section divider"></div>
+<div class="ui section divider"></div>
 {{/each}}
 
 <!--Add button -->
@@ -66,6 +92,7 @@
 
 <!--Edit rule modal-->
 {{#if showRuleModal}} {{rule-modal notDONE = showRuleModal ruleModel = selectedRule}} {{/if}}
+
 
 <!--All the plans -->
 <div class="ui segment">

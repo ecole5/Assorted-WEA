@@ -51,7 +51,7 @@ router.route('/:logexpression_id')
                 logexpression.modelB = request.body.logexpression.modelB;
                 logexpression.opr = request.body.logexpression.opr;
                 logexpression.linkBool = request.body.logexpression.linkBool;
-                logexpression.link = request.body.logexpression.link;
+                logexpression.rule = request.body.logexpression.rule;
 
 
                 logexpression.save(function (error) {

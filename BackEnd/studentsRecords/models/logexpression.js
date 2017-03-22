@@ -9,8 +9,8 @@ var logexpressionSchema = mongoose.Schema(
         valB: String,
         modelB: String,
         opr: String,
-        linkBool: Boolean,
-        link: {type: mongoose.Schema.ObjectId, ref: ('LogExpressions')},
+        linkBool: String,
+        rule: {type: mongoose.Schema.ObjectId, ref: ('Rules')},
     }
 );
 

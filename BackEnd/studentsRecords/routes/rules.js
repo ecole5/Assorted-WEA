@@ -47,7 +47,6 @@ router.route('/:rule_id')
             else {
 
                 rule.name = request.body.rule.name;
-                rule.logExpression = request.body.rule.logExpression;
                 rule.plan = request.body.rule.plan;
                 rule.category = request.body.rule.category;
            
@@ -64,8 +63,7 @@ router.route('/:rule_id')
         })
     })
     .delete(parseUrlencoded, parseJSON, function (request, response) {
-        //When you delete the chain of linked boolean expressions
-        removeBoolean(request.body.rule.logExpression);
+    
 
         //Now actually remove th rule
         models.Rules.findByIdAndRemove(request.params.rule_id,
@@ -83,7 +81,7 @@ router.route('/:rule_id')
 module.exports = router;
 
 
-//Recursive delete for linked Boolean
+/*Recursive delete for linked Boolean
 function removeBoolean(expID) {
     logexpressionModel.LogExpressions.findById(expID, function (error, logExpr) {
 
@@ -100,4 +98,4 @@ function removeBoolean(expID) {
             }
         });
     });
-}
+}*/
