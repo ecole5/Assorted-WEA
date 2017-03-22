@@ -89,20 +89,7 @@ export default Ember.Component.extend({
       this.set('isAboutShowing', false);
       this.set('isHelpShowing', false);
       this.set('isSettingsShowing', false);
-<<<<<<< HEAD
-=======
       this.set('isUploading', false);
-      this.set('isReporting', true);
-      this.set('isAdjudication', false);
-    },
-    report() {
-      this.set('isHomeShowing', false);
-      this.set('isStudentsRecordsDataEntry', false);
-      this.set('isAboutShowing', false);
-      this.set('isHelpShowing', false);
-      this.set('isSettingsShowing', false);
-      this.set('isUploading', false);
->>>>>>> db2448d4db7cb8dd542c5ceb9028f351262b9640
       this.set('isReporting', true);
       this.set('isAdjudication', false);
     },
