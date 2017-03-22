@@ -4,7 +4,7 @@ export default DS.Model.extend({
   
   
         name: DS.attr(), 
-        log:  DS.belongsTo('logexpression'),
+        log:  DS.attr(),
         plan: DS.belongsTo('plan'),    
         category: DS.belongsTo('category'), 
         logExpressions: DS.hasMany('logexpression'),

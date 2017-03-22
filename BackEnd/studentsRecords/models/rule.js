@@ -6,7 +6,7 @@ var ruleSchema = mongoose.Schema(
         name: String,
         plan: {type: mongoose.Schema.ObjectId, ref: ('Plans')},       
         category: {type: mongoose.Schema.ObjectId, ref: ('Categories')},
-        log: {type: mongoose.Schema.ObjectId, ref: ('LogExpressions')}
+        log: String,
        
     }
 );
