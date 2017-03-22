@@ -49,6 +49,15 @@ export default Ember.Component.extend({
   currentlySelectedProgramItem: null,
   jumpingRecords: false,
 
+  // Ouda Auth stuff for student data entry
+  SR001IsPermitted: Ember.computed(function(){ //Manage system roles
+    var authentication = this.get('oudaAuth');
+    if (authentication.getName === "Root") {
+      return true;
+    } else {
+      return (authentication.get('userCList').indexOf("SR001") >= 0);
+    }
+  }),
 
 
   studentModel: Ember.observer('offset', function () {
@@ -576,7 +585,7 @@ export default Ember.Component.extend({
           student: this.get('currentStudent'),
           course: null,
       });
-
+    
     this.gradeRecords.pushObject(uniGrade._internalModel);
     this.checkUniGradeForPrograms(uniGrade);
     },
@@ -704,7 +713,17 @@ nextStudent() {
       var foundGrade = this.get('store').peekRecord('hsgrade', this.get('currentlySelectedProgramItem'));
       // I can't save directly from the iterating model, I need to find the associated model in the store'
       var foundCourse = this.get('store').peekRecord('hscourse', model);
-      foundGrade.set('source',foundCourse);
+      if (foundGrade == null){
+        // Grade was never saved and thus I can't set a relationship to an object that hasnt been saved yet'
+        this.get('store').peekAll('hsgrade').forEach(obj => {
+                    obj.save();
+            }).then(function () {
+                this.get('currentlySelectedProgramItem').set('source',foundCourse);
+            });
+this.get('currentlySelectedProgramItem').set('source',foundCourse);
+      } else {
+        foundGrade.set('source',foundCourse);
+      }
     },
 
     selectedSecondarySchool (model){

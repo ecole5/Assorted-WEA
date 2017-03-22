@@ -1,0 +1,32 @@
+{{#if VCI01IsPermitted }}
+<h2> Contact Tean </h2>
+<h3> Assorted </h3>
+
+
+<div class="ui grid">
+  <div class="eight wide column">
+    <div class="ui list">
+      <div class="item">
+          email: Assorted@gmail.com
+      </div>
+    </div>
+  </div>
+  <div class="eight wide column">
+    {{outlet}}
+  </div>
+</div>
+<br><br><br>
+{{else}}
+  <div class="ui center aligned raised segment">
+    <div class="ui icon header">
+      <i class="protect icon"></i>
+      Permission Denied
+    </div>
+    <div>
+      <p>This feature (VCI01) is not allowed for your account.</p>
+      <p>Please contact the system administrator for more information.</p>
+    </div>
+
+  </div>
+
+{{/if}}
