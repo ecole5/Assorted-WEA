@@ -1,0 +1,52 @@
+{{#if showPlan}} 
+
+<!--Show plan page with back button-->
+{{plan-adjudication selectedPlan = chosenPlan notDONE = showPlan}}
+<br>
+<button class="ui icon button" {{action 'backFromPlan'}}>
+  <i class="arrow circle left icon"></i>
+</button> 
+
+
+<!--Show category page -->
+{{else}}
+
+<h2>{{selectedFaculty.name}} Categories </h2>
+
+<!--Display all categories -->
+{{#each categoryModel as oneCategory}}
+<div class="ui segment">
+  <div class="ui top attached label">{{oneCategory.name}}</div>
+</div>
+{{/each}}
+
+<!--Add button -->
+<button class="ui labeled icon button" {{action "newCategory"}}> 
+  <i class="plus icon"></i>
+  New Category
+</button>
+
+<!--Edit category modal-->
+{{#if showCategoryModal}}
+{{category-modal notDONE = showCategoryModal categoryModel = selectedCategory}}
+{{/if}}
+
+<!--All the plans -->
+<div class="ui segment">
+  <div class="ui top attached label">Plan Specific Adjucation</div>
+  <div class="ui four column grid">
+    {{#each planModels as |onePlan|}}
+    <div class="column">
+
+      <div class="ui button" {{action "editPlan" onePlan}}>
+        {{onePlan.name}}
+      </div>
+    </div>
+    {{/each}}
+
+  </div>
+</div>
+<br>
+
+{{/if}}
+

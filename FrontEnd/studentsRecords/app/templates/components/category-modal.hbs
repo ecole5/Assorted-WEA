@@ -1,0 +1,75 @@
+<!-- This is the template for name-code, it is a modal that has a varying number of editable,
+field. Each field has a delete buttton. Fields are populated with code names. There is an add button
+to add a new field -->
+
+<div class="ui modal">
+  <div class="header">Configure Category</div>
+  <div class="content">
+    <div class="ui grid">
+      <div class="fifteen wide column">
+        <div class="actions">
+          <div class="ui form">
+
+              <div class="three fields">
+                <div class="field">
+                     <div class="ui label">
+                  Name
+                </div>
+                </div>
+                <div class="field">
+                     <div class="ui label">
+                  Evaluation Style
+                </div>
+                </div>
+                <div class="field">
+                     <div class="ui label">
+                  Evaluate Independetly
+                </div>
+                </div>
+              
+              </div>
+
+              <div class="three fields">
+
+              
+                    <div class="field">
+                  <div class="ui input">
+
+                    <input type="text" value={{categoryModel.name}} onblur={{action
+                      'editName' value="target.value" }}>
+                  </div>
+                </div>
+                 
+            <div class="field">
+                <select class="ui dropdown" onchange={{action 'selectStyle' value="target.value" }}>
+                  <option value = 'true' selected={{eq categoryModel.allRules true}}>Every Rule True</option>
+                   <option value = 'false' selected={{eq categoryModel.allRules false}}>One Rule True</option>
+                  </select>
+              </div>
+                    <div class="field">
+                <select class="ui dropdown" onchange={{action 'selectIndependent' value="target.value" }}>
+                  <option value = 'true' selected={{eq categoryModel.independent true}}>Evalute with other categories</option>
+                   <option value = 'false' selected={{eq categoryModel.independent false}}>Evaluate alone</option>
+                  </select>
+              </div>
+
+              
+              </div>
+           
+
+          
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="actions">
+      <br>
+      <hr>
+      <!-- Close Button !-->
+      <div class="ui button" {{action "exit"}}>Ok</div>
+    </div>
+
+  </div>
+</div>

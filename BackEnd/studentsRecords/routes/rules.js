@@ -47,7 +47,6 @@ router.route('/:rule_id')
             else {
 
                 rule.name = request.body.rule.name;
-                rule.evalOrder = request.body.rule.evalOrder;
                 rule.logExpression = request.body.rule.logExpression;
                 rule.plan = request.body.rule.plan;
                 rule.category = request.body.rule.category;

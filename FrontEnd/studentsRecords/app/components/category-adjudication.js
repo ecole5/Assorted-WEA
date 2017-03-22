@@ -1,11 +1,16 @@
+
 import Ember from 'ember';
 export default Ember.Component.extend({
 
   store: Ember.inject.service(),
   selectedFaculty: null,
-  mainBack: null,
+  backToMain: null,
   planModels: null,
   categoryModel: null,
+  showPlan: false,
+  chosenPlan: null,
+  showCategoryModal: null,
+  selectedCategory: null,
 
   init() {
     this._super(...arguments);
@@ -35,8 +40,37 @@ export default Ember.Component.extend({
 
   actions: {
     editPlan(plan){
+      this.set('backToMain',false);
+      this.set('chosenPlan', plan);
+      this.set('showPlan', true);
+
+    },
+    
       
-    }
+    backFromPlan(){
+      this.set('backToMain', true);
+      this.set('showPlan', false);
+    },
+
+    newCategory(){
+    
+  
+
+      var newCat = this.get('store').createRecord("category", {
+        name: "New category",
+        allRules: true,
+        independent: false,
+        faculty: this.get('selectedFaculty'),
+      });
+
+      newCat.save();
+
+      this.set('selectedCategory', newCat);
+        this.set("showCategoryModal", true);
+     
+
+    },
+  
 
   },
 

@@ -62,7 +62,7 @@ router.route('/:category_id')
             else {
 
                 category.name = request.body.category.name;
-                category.evalOrder = request.body.category.evalOrder;
+         
                 category.allRules = request.body.category.allRules;
                 category.independent = request.body.category.independent;
                 category.faculty = request.body.category.faculty;
