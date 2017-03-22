@@ -93,7 +93,7 @@ export default Ember.Component.extend({
       this.set('isReporting', false);
       this.set('isAdjudication', false);
     },
-    Report() {
+    report() {
       this.set('isHomeShowing', false);
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', false);
