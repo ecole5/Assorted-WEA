@@ -1,1 +1,129 @@
 <h2>{{selectedPlan.name}}</h2>
+
+<!--Display all categories -->
+{{#each categoryModel as |oneCategory|}}
+<div class="ui segments">
+  <div class="ui secondary segment">
+    <div class="ui top attached label">{{oneCategory.name}}
+    </div>
+    {{#if oneCategory.allRules}}
+    <p>All rules must be satisfied</p>
+    {{else}}
+    <p>One of the rule must be satisfied</p>
+    {{/if}} {{#if oneCategory.independent}}
+    <p>Evaluated independently</p>
+    {{else}}
+    <p>Evaluated again other categroies</p>
+    {{/if}} 
+    {{#each oneCategory.comment as |oneComment|}}
+
+    <p>Comment: {{oneComment.comment.code}}: {{oneComment.comment.description}}</p>
+
+    {{/each}}
+
+
+
+    
+
+
+  </div>
+  
+  <div class="ui segment">
+    <div class = "ui form">
+
+      <div class="three fields">
+     <div class = "field">
+        <div class="ui label">
+                  Rule Name
+                </div>
+     </div>
+      <div class = "field">
+             <div class="ui label">
+                  Comment Codes
+                </div>
+     </div>
+      
+      
+     </div>
+     </div>
+     </div>
+
+  
+
+  {{#each oneCategory.rules as |oneRule|}}
+  {{#unless oneRule.plan}}
+  <div class="ui secondary segment">
+    <div class = "ui form">
+
+
+    <div class="three fields">
+     <div class = "field">
+   
+        {{oneRule.name}}
+        </div>
+        <div class = "field">
+        
+          {{#each oneRule.comment as |oneComment|}}
+            {{oneComment.comment.code}},
+
+          {{/each}}
+          </div>
+    </div>
+</div>
+  </div>
+  {{/unless}}
+
+  {{/each}}
+
+
+      {{#each oneCategory.rules as |oneRule|}}
+      {{#if (eq oneRule.plan.name selectedPlan.name)}}
+  <div class="ui segment">
+    <div class = "ui form">
+
+
+    <div class="three fields">
+     <div class = "field">
+   
+        {{oneRule.name}}
+        </div>
+        <div class = "field">
+        
+          {{#each oneRule.comment as |oneComment|}}
+            {{oneComment.comment.code}},
+
+          {{/each}}
+          </div>
+
+          
+            <div class = "field">
+
+        <button class="ui icon button" {{action 'remove' oneRule }}>
+                <i class="remove circle icon"></i>
+                </button>
+
+        <button class="ui button" {{action 'editRule' oneRule }}>
+                  Edit
+                </button>
+                </div>
+    </div>
+</div>
+  </div>
+
+  {{/if}}
+  {{/each}}
+
+  <div class="ui segment">
+    <!--Add button -->
+    <button class="ui labeled icon button" {{action "newRule" oneCategory selectedPlan}}> 
+  <i class="plus icon"></i>
+  New Plan Specfic Rule
+</button>
+  </div>
+</div>
+<div class="ui section divider"></div>
+{{/each}}
+
+
+<!--Edit rule modal-->
+{{#if showRuleModal}} {{rule-modal notDONE = showRuleModal ruleModel = selectedRule}} {{/if}}

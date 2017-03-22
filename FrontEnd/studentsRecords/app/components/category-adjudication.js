@@ -57,6 +57,7 @@ export default Ember.Component.extend({
     //Get all categories for this faculties
     this.get('store').query('category', {
       faculty: self.get('selectedFaculty').id,
+      
     }).then(function (records) {
       self.set('categoryModel', records);
     });
@@ -126,6 +127,8 @@ export default Ember.Component.extend({
       });
 
       newRule.save();
+
+       this.set('selectedRule', newRule);
 
        this.set("showRuleModal", true);
     },

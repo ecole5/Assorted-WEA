@@ -79,8 +79,9 @@ export default Ember.Component.extend({
     },
     saveExpression(value){
       
-      rule = this.get('ruleModel');
-      rule.set('log', )
+      var rule = this.get('ruleModel');
+      rule.set('log',value);
+      rule.save();
       
     },
   
