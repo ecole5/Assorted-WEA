@@ -1,0 +1,155 @@
+{{#if showPlan}}
+
+<!--Show plan page with back button-->
+{{plan-adjudication selectedPlan = chosenPlan notDONE = showPlan}}
+<br>
+<button class="ui icon button" {{action 'backFromPlan'}}>
+  <i class="arrow circle left icon"></i>
+</button>
+
+
+<!--Show category page -->
+{{else}}
+
+<h2>{{selectedFaculty.name}} Categories </h2>
+
+<!--Display all categories -->
+{{#each categoryModel as |oneCategory|}}
+<div class="ui segments">
+  <div class="ui secondary segment">
+    <div class="ui top attached label">{{oneCategory.name}}
+    </div>
+    {{#if oneCategory.allRules}}
+    <p>All rules must be satisfied</p>
+    {{else}}
+    <p>One of the rule must be satisfied</p>
+    {{/if}} {{#if oneCategory.independent}}
+    <p>Evaluated independently</p>
+    {{else}}
+    <p>Evaluated again other categroies</p>
+    {{/if}} 
+    {{#each oneCategory.comment as |oneComment|}}
+
+    <p>Comment: {{oneComment.comment.code}}: {{oneComment.comment.description}}</p>
+
+    {{/each}}
+
+
+
+    <button class="ui icon button" {{action 'remove' oneCategory }}>
+                <i class="remove circle icon"></i>
+                </button>
+
+    <button class="ui button" {{action 'edit' oneCategory }}>
+                  Edit
+                </button>
+
+
+  </div>
+
+  <div class="ui segment">
+    <div class = "ui form">
+
+      <div class="four fields">
+     <div class = "field">
+        <div class="ui label">
+                  Rule Name
+                </div>
+     </div>
+      <div class = "field">
+             <div class="ui label">
+                  Comment Codes
+                </div>
+     </div>
+      <div class = "field">
+             <div class="ui label">
+                  Expression
+                </div>
+     </div>
+      <div class = "field">
+             
+     </div>
+     </div>
+     </div>
+     </div>
+
+  {{#each oneCategory.rules as |oneRule|}}
+  <div class="ui segment">
+    <div class = "ui form">
+
+
+    <div class="four fields">
+     <div class = "field">
+   
+        {{oneRule.name}}
+        </div>
+        <div class = "field">
+        
+          {{#each oneRule.comment as |oneComment|}}
+            {{oneComment.comment.code}} 
+
+          {{/each}}
+          </div>
+
+          <div class = "field">
+            Boollean goes here
+            </div>
+        
+   
+            <div class = "field">
+
+        <button class="ui icon button" {{action 'remove' oneRule }}>
+                <i class="remove circle icon"></i>
+                </button>
+
+        <button class="ui button" {{action 'editRule' oneRule }}>
+                  Edit
+                </button>
+                </div>
+      
+    </div>
+</div>
+
+
+  </div>
+  {{/each}}
+  <div class="ui segment">
+    <!--Add button -->
+    <button class="ui labeled icon button" {{action "newRule" oneCategory}}> 
+  <i class="plus icon"></i>
+  New Category Rule
+</button>
+  </div>
+</div>
+<div class="ui section divider"></div>
+{{/each}}
+
+<!--Add button -->
+<button class="ui labeled icon button" {{action "newCategory"}}> 
+  <i class="plus icon"></i>
+  New Category
+</button>
+
+<!--Edit category modal-->
+{{#if showCategoryModal}} {{category-modal notDONE = showCategoryModal categoryModel = selectedCategory}} {{/if}}
+
+<!--Edit rule modal-->
+{{#if showRuleModal}} {{rule-modal notDONE = showRuleModal ruleModel = selectedRule}} {{/if}}
+
+
+<!--All the plans -->
+<div class="ui segment">
+  <div class="ui top attached label">Plan Specific Adjucation</div>
+  <div class="ui four column grid">
+    {{#each planModels as |onePlan|}}
+    <div class="column">
+
+      <div class="ui button" {{action "editPlan" onePlan}}>
+        {{onePlan.name}}
+      </div>
+    </div>
+    {{/each}}
+
+  </div>
+</div>
+<br> {{/if}}

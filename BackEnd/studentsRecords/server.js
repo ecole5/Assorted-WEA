@@ -21,7 +21,6 @@ var courses = require('./routes/courses');
 var rules = require('./routes/rules');
 var faculties = require('./routes/faculties');
 var categorys = require('./routes/categories');
-var logexpressions = require('./routes/logexpressions');
 var programadmins = require('./routes/programadmins');
 var adjudications = require('./routes/adjudications');
 var reports = require('./routes/reports');
@@ -63,7 +62,6 @@ app.use('/courses', courses);
 app.use('/programs', programs);
 app.use('/rules', rules);
 app.use('/faculties', faculties);
-app.use('/logexpressions', logexpressions);
 app.use('/categories', categorys);
 app.use('/programadmins', programadmins);
 app.use('/adjudications', adjudications);
@@ -71,7 +69,7 @@ app.use('/reports', reports);
 app.use('/comments', comments);
 app.use('/catcomments', catcomments);
 app.use('/adjcomments', adjcomments);
-app.use('/adjcomments', rulecomments);
+app.use('/rulecomments', rulecomments);
 
 
 

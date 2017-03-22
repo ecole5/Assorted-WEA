@@ -23,19 +23,7 @@ export default Ember.Component.extend({
       self.set('facultyModel', records);
     });
 
-    /*
-    this.get('store').findAll('comment');
-    var newCode = myStore.createRecord("category", {
-        name: "bob",
-        comments: null
 
-      });
-      newCode.save();
-    
-    var comment = this.get('store').peekRecord('comment', value);
-      model.set('subject', subject);
-      model.save();
-      */
    
   },
 
@@ -60,14 +48,14 @@ export default Ember.Component.extend({
 
       
      
-      back(where)
+      back()
       {
-        if (where == "main"){
+       
           this.set('main', true);
           this.set('showPerform', false);
            this.set('showSelectFaculty', false);
-           this.set('showCategory', false)
-        }
+           this.set('showCategory', false);
+    
       }
 
   },

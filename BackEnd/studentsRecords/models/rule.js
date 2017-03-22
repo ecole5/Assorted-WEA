@@ -4,10 +4,9 @@ var mongoosePaginate = require('mongoose-paginate');
 var ruleSchema = mongoose.Schema(
     {
         name: String,
-        evalOrder: Number,
-        logExpression:  {type: mongoose.Schema.ObjectId, ref: ('LogExpressions')},
         plan: {type: mongoose.Schema.ObjectId, ref: ('Plans')},       
         category: {type: mongoose.Schema.ObjectId, ref: ('Categories')},
+        log: String,
        
     }
 );

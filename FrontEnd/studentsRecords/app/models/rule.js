@@ -4,12 +4,11 @@ export default DS.Model.extend({
   
   
         name: DS.attr(), 
-        evalOrder: DS.attr('number'), 
-        logExpression:  DS.belongsTo('logexpression'),
+        log:  DS.attr(),
         plan: DS.belongsTo('plan'),    
         category: DS.belongsTo('category'), 
-        comments: DS.hasMany('comment'),
-  
+        logExpressions: DS.hasMany('logexpression'),
+        comment: DS.hasMany('rulecomment'),
   
 
 });
