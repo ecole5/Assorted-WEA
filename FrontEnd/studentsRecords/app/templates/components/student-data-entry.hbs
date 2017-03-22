@@ -145,7 +145,7 @@
                     <h3> Advance standing record </h3>
                   </div> {{! close column}}
                 </div> {{! one column row}}
-                {{! Put information here}}
+                
                 <div class="two column row">
                   <div class="column">
                     <div class="one column row">
@@ -238,48 +238,52 @@
       <div class="ui vertically divided grid"> 
         {{#each scholarshipRecords as |scholarship|}}
           <div class="one column row">
-             <div class="ui vertically grid"> 
-              <div class="two column row">
+            <div class="column">
+              <div class="ui vertically grid"> 
+                <div class="one column row">
+                  <div class="column">
+                    <h3> Scholarship and reward </h3>
+                  </div>
+                </div>
+                <div class="two column row">
 
-                <div class="column">
-                  <div class="one column row">
+                  <div class="column">
+                    <div class="one column row">
                       <div class="ui label">
                         <label> Name : </label>
                       </div>{{! end label}}
-                    </div> {{! end row}}
+                    </div> {{! end column row}}
                     <div class="one column row">
                       {{scholarship.scholarshipID}}   
-                    </div> {{! end column}}
+                    </div> {{! end column row}}
                     <div class="one column row">
                       <input type="text" value={{scholarship.scholarshipID}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
                       onchange={{action 'editScholarshipID' value="target.value"}}>
-                    </div>
-                  </div> {{! end one column row}}
-                </div> {{! end column}}
+                    </div>{{! end column row }}
+                  </div> {{! end column}}
 
-                <div class="column">
-                  <div class="one column row">
+                  <div class="column">
                     <div class="one column row">
                       <div class="ui label">
                         <label> Notes :      </label>   
-                      </div> 
-                    </div> {{! END COLUMN}}
+                      </div> {{!END LABEL}}
+                    </div> {{! END COLUMN ROW}}
                     <div class="one column row">
                       {{scholarship.note}}
-                    </div>
+                    </div> {{!END COLUMN ROW}}
                     <div class="one column row">
                       <input type="text" value={{scholarship.note}} onclick={{action 'setCurrentInputScholarship' scholarship}} 
                       onchange={{action 'editScholarshipNote' value="target.value"}}>
-                    </div>
-                  </div> {{! END OF ONE COLUMN ROW}}
-                </div> {{! end of column}}
-                  
-              </div> {{! END TWO COLUMN ROW}}
+                    </div> {{!END COLUMN ROW}}
+                  </div> {{! end of column}}
+                    
+                </div> {{! END TWO COLUMN ROW}}
 
-              <!--
-                 <button class = "ui button " {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
-                -->
-            </div> {{! END GRID}}
+                <!--
+                  <button class = "ui button " {{action "deleteScholarship" scholarship}}>Delete scholarship</button>
+                  -->
+              </div> {{! END GRID}}
+            </div> {{!END COLUMN}}
           </div> {{!END ONE COLUMN ROW}}
         {{/each}}
       </div> {{! END DIVDED GRID}}
