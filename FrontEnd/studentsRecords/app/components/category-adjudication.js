@@ -14,7 +14,6 @@ export default Ember.Component.extend({
   showRuleModal: null,
   ruleModel: null,
   selectedRule: null,
-  logExpressionModel:null,
   commentModel: null,
   catCommentModel: null,
   ruleCommentModel: null,
@@ -49,10 +48,6 @@ export default Ember.Component.extend({
       self.set('planModels', records);
     });
 
-      //Get all rules for this faculty
-    this.get('store').findAll('logexpression').then(function (records) {
-      self.set('logExpressionModel', records);
-    });
 
        //Get all rules for this faculty
     this.get('store').findAll('rule').then(function (records) {
