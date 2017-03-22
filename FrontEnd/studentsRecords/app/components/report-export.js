@@ -36,9 +36,9 @@ actions:{
     //this method by passes Ember Data
     getReport: function(){
 
-        if(this.get('critTerm')===null||this.get('crit')===null){
+        //if(this.get('critTerm')===null||this.get('crit')===null){
 
-        }else{
+        //}else{
 
            /* var data = { term: this.get('critTerm'), criteria: this.get('crit') },
             host = this.get('store').adapterFor('application').get('host'),
@@ -62,7 +62,13 @@ actions:{
                     {"firstName":"Peter", "lastName":"Jones"}
                 ]
             }
-        }
+
+            //var doc = new jspdf();
+            //doc.text('Hello World',10,10);
+
+        //}
+
+
         /*var report = $.getJSON(this.store.adapterFor('application').get('')).then(
             function (response) {}
         )*/
