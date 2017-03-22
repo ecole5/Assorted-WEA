@@ -1,26 +1,22 @@
 import Ember from 'ember';
 
-/*This is a general edit code modal. It deals with modals that just have one property name. 
-It is reusable. You can add, edit and delete codes from this panel. Data is feed in through select-code
-where these components have outlets*/
 
 export default Ember.Component.extend({
 
   store: Ember.inject.service(),
-  main: true,
-  showSelectCategory: false,
+  termModel: null,
+  processing: false,
+  selectedTerm: null,
 
 
   init() {
     this._super(...arguments);
-    notDONE: null;
-   
-    
 
-    // get all documents of type modelName
+   
+  
     var self = this;
-    this.get('store').findAll('program').then(function (records) {
-      self.set('codeModel', records);
+    this.get('store').findAll('term').then(function (records) {
+      self.set('termModel', records);
       
     });
    
@@ -28,15 +24,15 @@ export default Ember.Component.extend({
 
 
   actions: {
-      showSelectCategory(){
-
-      },
-      back(){
-          
-          this.set('notDONE',false);
-
-      }
-
+     
+     setCurrentTerm(value){
+      var term = this.get('store').peekRecord('term', value);
+       this.set('selectedTerm',term);
+   
+     },
+     go(){
+       this.set('processing', true)
+     }
   },
 
   
