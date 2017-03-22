@@ -17,19 +17,28 @@ router.route('/')
     .get(parseUrlencoded, parseJSON, function (request, response) {
         var Criteria = request.query.criteria;
         var term = request.query.term;
+        if(Criteria==="faculty"){
+            console.log('1');
+            models.adjcomment.find({"adjudication":{"term":term}},{"adjudication":{"student":{"number":1,"firstName":1,"lastName":1},"program":{"name":1},"plan":{"faculty":{"name":1}}},"comment":{"code":1}}).sort({"adjudication":{"plan":{"faculty":1}}}).then( function(error, reports){            
+                //this is the format change so it sends EXACTLY what is needed for the report
+                if (error) response.send(error);
+                console.log(reports);
+                  response.json(reports);
 
-
-
-
-        if (Criteria === "department") {
-
+            });
         }
-        else if (Criteria === "program") {
+        else if(Criteria==="program"){
+            console.log('2');
+             models.adjcomment.find({"adjudication":{"term":term}},{"adjudication":{"student":{"number":1,"firstName":1,"lastName":1},"program":{"name":1},"plan":{"faculty":{"name":1}}},"comment":{"code":1}}).sort({"program":1}).then( function(error, reports){
+               if (error) response.send(error);
+                console.log(reports);
+                 response.json(reports);
 
+            });
         }
         else {
 
-        }
+        } 
 
         //var Student = request.query.filter;
         /*if (!Student) {

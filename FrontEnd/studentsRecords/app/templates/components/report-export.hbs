@@ -1,1 +1,48 @@
-{{yield}}
+<div class="ui form">
+  <div class="inline fields">
+    <label>How do you want to sort the report?</label>
+    <div class="field">
+      <div class="ui radio checkbox">
+        <input type="radio" name="type" onchange={{action 'setCrit' "faculty"}}>
+        <label>Faculty</label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="ui radio checkbox">
+        <input type="radio" name="type" onchange={{action 'setCrit' "program"}}>
+        <label>Program</label>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="inline field">
+    <label>Term</label>
+      <select onchange={{action 'setTerm' value="target.value"}}>
+               <option value={{null}} selected={{eq critTerm
+                                                                   null}}>Null </option>
+              {{#each terms as |term|}}
+                <option value={{term}} selected={{eq critTerm
+                                                                   term}}>{{term.name}} </option>
+              {{/each}}
+              
+              
+      </select>
+
+      <button class="ui button" {{action "getReport"}}>Get Report</button>
+      {{#if haveReport}}      
+          <button class="ui button" {{action "getReport"}}>
+            Download
+          </button>
+      {{else}}
+        <button class="ui disabled button">
+          DownLoad
+        </button>
+      {{/if}}
+  </div>
+    
+      
+
+
+</div>
+
