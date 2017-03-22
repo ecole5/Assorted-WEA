@@ -8,9 +8,12 @@ export default Ember.Component.extend({
     showSecondary: false,
     showHsCourses: false,
     showHsSubjects: false,
-     showcourseCode: false,
-        showPlanCode: false,
-        showTermCode: false,
+    showcourseCode: false,
+    showPlanCode: false,
+    showTermCode: false,
+    showFaculty: false,
+    showProgram: false,
+    showComment: false,
 
      // Ouda Auth stuff for student data entry
    SE001IsPermitted: Ember.computed(function(){ //Manage system roles
@@ -32,6 +35,10 @@ export default Ember.Component.extend({
 
         showGender() { //this deals with the problem 
             this.set('showGender', true);
+        },
+
+         showProgram() { //this deals with the problem 
+            this.set('showProgram', true);
         },
 
 
@@ -57,6 +64,16 @@ export default Ember.Component.extend({
          showTermCode() { //this deals with the problem 
             this.set('showTermCode', true);
         },
+
+        showFaculty(){
+             this.set('showFaculty', true);
+        },
+         showProgramAdmin(){
+             this.set('showProgramAdmin', true);
+        },
+        showComment(){
+            this.set('showComment', true);
+        }
         
 
 

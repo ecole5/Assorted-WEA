@@ -1,74 +1,77 @@
-/**
- * Created by Abdelkader on 2017-02-17.
- */
 var express = require('express');
 var router = express.Router();
-var Comments = require('../models/comments');
+var models = require('../models/comment');
 var bodyParser = require('body-parser');
-var parseUrlencoded = bodyParser.urlencoded({extended: false});
+var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 var parseJSON = bodyParser.json();
 
 router.route('/')
+
+    //Create New Rule
     .post(parseUrlencoded, parseJSON, function (request, response) {
-        var comment = new Comments.Model(request.body.comment);
+        var comment = new models.Comments(request.body.comment);
+        console.log(request.body);
         comment.save(function (error) {
             if (error) response.send(error);
-            response.json({comment: comment});
+            response.json({ comment: comment });
         });
     })
+
+    //Get all comments
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        var Post = request.query.post;
-        if (!Post) {
-            Comments.Model.find(function (error, comments) {
-                if (error) response.send(error);
-                response.json({comment: comments});
-            });
-        } else {
-            Comments.Model.find({"post": request.query.post}, function (error, comments) {
-                if (error) response.send(error);
-                response.json({comment: comments});
-            });
-        }
-
-
-    });
-
-router.route('/::comment_id')
-    .get(parseUrlencoded, parseJSON, function (request, response) {
-        Comments.Model.findById(request.params.comment_id, function (error, comment) {
-            if (error) {
-                response.send({error: error});
-            }
-            else {
-                response.json({comment: comment});
-            }
-        });
-    })
-    .put(parseUrlencoded, parseJSON, function (request, response) {
-        Comments.Model.findById(request.params.comment_id, function (error, comment) {
+        models.Comments.find(function (error, Comments) {
             if (error) {
                 response.send(error);
             }
+
             else {
-                // update the comment info
-                comment.statement = request.body.comment.statement;
-                // save comment
+                response.json({ comment: Comments });
+            }
+        });
+
+    });
+
+router.route('/:comment_id')
+    .get(parseUrlencoded, parseJSON, function (request, response) {
+        models.Comments.findById(request.params.comment_id, function (error, comment) {
+            if (error) response.send(error);
+            response.json({ comment: comment });
+        })
+    })
+    .put(parseUrlencoded, parseJSON, function (request, response) {
+        models.Comments.findById(request.params.comment_id, function (error, comment) {
+            if (error) {
+                response.send({ error: error });
+            }
+            else {
+
+                comment.code = request.body.comment.code;
+                comment.description = request.body.comment.description;
+               
+
+
+
                 comment.save(function (error) {
                     if (error) {
-                        response.send(error);
-                    } else {
-                        response.status(201).json({comment: comment});
+                        response.send({ error: error });
+                    }
+                    else {
+                        response.json({ comment: comment });
                     }
                 });
             }
-
-        });
+        })
     })
     .delete(parseUrlencoded, parseJSON, function (request, response) {
-        Comments.Model.findByIdAndRemove(request.params.comment_id,
+        
+        //Now actually remove th comment
+        models.Comments.findByIdAndRemove(request.params.comment_id,
             function (error, deleted) {
-                if (!error) {
-                    response.json({post: deleted});
+                if (error) {
+                    response.send({ error: error });
+                }
+                else {
+                    response.json({ comment: deleted });
                 }
             }
         );
@@ -76,3 +79,4 @@ router.route('/::comment_id')
 
 module.exports = router;
 
+>>>>>>> 311934f9c7699b9c3c5ee9fcc2cf929caf150302

@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models/student');
+var gradeModel = require('../models/grade');
+var studentModel = require('../models/student');
 var bodyParser = require('body-parser');
-var parseUrlencoded = bodyParser.urlencoded({extended: false});
+var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 var parseJSON = bodyParser.json();
 
 router.route('/')
@@ -10,11 +12,11 @@ router.route('/')
         var student = new models.Students(request.body.student);
         student.save(function (error) {
             if (error) response.send(error);
-            response.json({student: student});
+            response.json({ student: student });
         });
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        var l = parseInt(request.query.limit) ;
+        var l = parseInt(request.query.limit);
         var o = parseInt(request.query.offset);
         var Student = request.query.student;
         var StudentID = request.query.stuid;
@@ -35,34 +37,33 @@ router.route('/')
                     if (error) {
                         response.send(error)
                     };
-                    response.json({student: students.docs});
+                    response.json({ student: students.docs });
                 });
-        }else
-        {
+        } else {
 
-            if(StudentFind){
+            if (StudentFind) {
                 //models.Students.find({},function(student){console.log(student);})
                 console.log(StudentID);
-                models.Students.find({"number": request.query.stuid}, function (error, students) {
-                 if (error) response.send(error);
-                 console.log(students);
-                    response.json({student: students});
-                 });
-            }else if(getLen){
+                models.Students.find({ "number": request.query.stuid }, function (error, students) {
+                    if (error) response.send(error);
+                    console.log(students);
+                    response.json({ student: students });
+                });
+            } else if (getLen) {
                 //cant's send stuff that isn't a model so this doesn't work
-                models.Students.find().then(function(students, error){
+                models.Students.find().then(function (students, error) {
                     console.log('length: ' + students.length);
-                            
+
 
                     if (error) response.send(error);
-                    response.json({student: students});
+                    response.json({ student: students });
                 });
-            }else{
-            //        if (Student == "residency")
-            models.Students.find({"residency": request.query.residency}, function (error, students) {
-                if (error) response.send(error);
-                response.json({student: students});
-            });
+            } else {
+                //        if (Student == "residency")
+                models.Students.find({ "residency": request.query.residency }, function (error, students) {
+                    if (error) response.send(error);
+                    response.json({ student: students });
+                });
             }
         }
     });
@@ -73,25 +74,25 @@ router.route('/:student_id')
         //models.Students.find({number: StudentID}, function (error, student){
         models.Students.findById(request.params.student_id, function (error, student) {
             if (error) {
-                response.send({error: error});
+                response.send({ error: error });
             }
             else {
-                response.json({student: student[0]});
+                response.json({ student: student[0] });
                 console.log(student);
             }
         });
     })
     .put(parseUrlencoded, parseJSON, function (request, response) {
-     console.log("----------- Student");
+        console.log("----------- Student");
         console.log(request.body);
 
         models.Students.findById(request.params.student_id, function (error, student) {
             if (error) {
-                response.send({error: error});
+                response.send({ error: error });
             }
             else {
 
-                
+
                 student.number = request.body.student.number;
                 student.firstName = request.body.student.firstName;
                 student.lastName = request.body.student.lastName;
@@ -100,30 +101,50 @@ router.route('/:student_id')
                 student.resInfo = request.body.student.resInfo;
                 //I noticed this was missing from mine (scholerhsip info)- could be why it was breaking
                 student.scholarshipInfo = request.body.student.scholarshipInfo;
-                student.genInfo = request.body.student.genInfo; 
+                student.genInfo = request.body.student.genInfo;
                 student.registrationComments = (request.body.student.registrationComments);
                 student.basisOfAdmission = (request.body.student.basisOfAdmission);
                 student.admissionAverage = (request.body.student.admissionAverage);
                 student.admissionComments = (request.body.student.admissionComments);
                 student.highSchoolGrades = (request.body.student.highSchoolGrades);
-            
+
 
                 student.save(function (error) {
                     if (error) {
-                        response.send({error: error});
+                        response.send({ error: error });
                     }
                     else {
-                        response.json({student: student});
+                        response.json({ student: student });
                     }
                 });
             }
         });
     })
     .delete(parseUrlencoded, parseJSON, function (request, response) {
+        gradeModel.Grades.find({ "student": request.params.student_id }, function (error, grades) {
+            if (error) { response.send(error); }
+            else {
+
+                for (var i = 0; i < grades.length; i++) {
+                    grades[i].delete();
+                }
+            }
+        });
+
+        adjudicationModel.Adjuications.find({ "student": request.params.student_id }, function (error, adjudications) {
+            if (error) { response.send(error); }
+            else {
+
+                for (var i = 0; i < adjudications.length; i++) {
+                    adjudications[i].delete();
+                }
+            }
+        });
+
         models.Students.findByIdAndRemove(request.params.student_id,
             function (error, deleted) {
                 if (!error) {
-                    response.json({student: deleted});
+                    response.json({ student: deleted });
                 }
             }
         );

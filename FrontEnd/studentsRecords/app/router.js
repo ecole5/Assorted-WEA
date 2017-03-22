@@ -7,7 +7,11 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('home', {path: '/'});
+  // before merge route
+  //this.route('home', {path: '/'});
+  this.route('home', {path: '/'}, function() {
+    this.route('perform-adjudication');
+  });
   this.route('findStudent');
   this.route('import');
   this.route('admin-portal');

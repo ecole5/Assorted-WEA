@@ -4,11 +4,9 @@ var mongoosePaginate = require('mongoose-paginate');
 var programSchema = mongoose.Schema(
     {
         name: String,
-        level: Number,
+        level: String,
         load: String,
         status: String,
-        term: {type: mongoose.Schema.ObjectId, ref: ('Terms')},
-        plan: {type: mongoose.Schema.ObjectId, ref: ('Plans')},
     }
 );
 

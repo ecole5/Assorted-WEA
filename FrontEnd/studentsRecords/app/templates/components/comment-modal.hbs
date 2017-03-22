@@ -1,0 +1,82 @@
+<!-- This is the template for name-code, it is a modal that has a varying number of editable,
+field. Each field has a delete buttton. Fields are populated with code names. There is an add button
+to add a new field -->
+
+<div class="ui modal">
+  <div class="header">Comment Codes</div>
+  <div class="content">
+    <div class="ui grid">
+      <div class="ten wide column">
+        <div class="actions">
+          <div class="ui form">
+
+
+            <div class="three fields">
+              <div class="field">
+               <div class="ui label">
+                  Code Name
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui label">
+                  Description
+                </div>
+              </div>
+
+            </div>
+
+
+            <!--Editing option for each name -->
+            {{#each codeModel as |codeChoice|}}
+            <div class="three fields">
+
+              <div class="field">
+                <!--On select will set target model context, but onblur will pass the value of the field -->
+                <div class="ui input">
+                  <input type="text" value={{codeChoice.code}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action 'editCode' value="target.value"
+                    }}>
+                </div>
+              </div>
+
+              <div class="field">
+                <!--On select will set target model context, but onblur will pass the value of the field -->
+                <div class="ui input">
+                  <input type="text" value={{codeChoice.description}} onfocus={{action 'setCurrentModel' codeChoice}} onblur={{action
+                    'editDescription' value="target.value" }}>
+                </div>
+              </div>
+
+              <div class="field">
+                <!--Remove Button -->
+                <button class="ui icon button" {{action 'removeCode' codeChoice }}>
+                <i class="remove circle icon"></i>
+                </button>
+              </div>
+
+              <!-- end of list element !-->
+            </div>
+            {{/each}}
+
+            <!-- end of entire list!-->
+
+            <!-- Add button !-->
+            <button class="ui button" {{action 'newCode'}}>
+     <i class="plus icon"></i>
+  </button>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <br>
+      <hr>
+      <!-- Close Button !-->
+      <div class="ui button" {{action "exit"}}>Ok</div>
+    </div>
+
+  </div>
+</div>

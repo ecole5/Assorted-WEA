@@ -1,0 +1,122 @@
+<div class="ui modal">
+  <div class="header">Configure Rule</div>
+  <div class="content">
+
+
+    <div class="ui grid">
+      <div class="fifteen wide column">
+        <div class="actions">
+
+          <div class="ui form">
+
+            <h4 class="ui dividing header">Name</h4>
+            <div class = "field">
+          
+            <div class="ui input">
+
+              <input type="text" value={{ruleModel.name}} onblur={{action 'editName' value="target.value" }}>
+            </div>
+            </div>
+
+             <h4 class="ui dividing header">Boolean Expression</h4>
+             {{#if ruleModel.log}}
+              {{ruleModel.log}}
+             {{else}}
+             No Expresion Entered
+             {{/if}}
+             <br>
+             <br>
+            <button class="ui button" {{action 'openEdit'}}>
+            Edit Expression
+            </button>
+            
+             <button class="ui button" {{action 'clearExpression'}}>
+            Clear
+            </button>
+
+            {{#if expressionEditor}}
+              
+            
+            {{/if}}
+
+             
+           
+            <h4 class="ui dividing header">Comments</h4>
+      
+           
+          
+            {{#each ruleModel.comment as |oneRuleComment|}}
+              
+            
+            <div class = "two fields">
+              <div class = "field">
+            {{oneRuleComment.comment.code}}
+            : {{oneRuleComment.comment.description}}
+        </div>
+        <div class = "field">
+               <button class="mini ui button" {{action 'remove' oneRuleComment}}>
+            <i class="remove circle icon"></i>
+            </button>
+
+          </div>
+            
+            </div>
+            {{/each}}
+           
+
+
+          <div class = "field">
+              <!-- Add button !-->
+              <button class="ui button" {{action 'newComment'}}>
+            <i class="plus icon"></i>
+            </button>
+            </div>
+            
+            {{#if selectingComment}}
+
+            <div class = "fields">
+              <div class = "field">
+                
+              <select class="ui dropdown" onchange={{action 'setComment' value="target.value" }}>
+                  <option value = "null" > Select Code </option>
+                  {{#each commentModel as |commentChoice|}}
+                  <option value={{commentChoice.id}} >{{commentChoice.code}} </option>
+                  {{/each}}
+                  </select>
+                </div>
+
+                  <!-- Add button !-->
+              <div class = "field">
+              <button class="ui button" {{action 'saveComment'}}>
+            <i class="save icon"></i>
+            </button>
+            </div>
+            <div class = "field">
+               <button class="ui button" {{action 'cancelComment'}}>
+                  Cancel
+            </button>
+            </div>
+            </div>
+              {{/if}}
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <br>
+      <hr>
+      <!-- Close Button !-->
+      <div class="ui button" {{action "exit"}}>Ok</div>
+    </div>
+
+  </div>
+</div>

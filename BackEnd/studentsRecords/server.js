@@ -18,6 +18,17 @@ var programs = require('./routes/programs');
 var plans = require('./routes/plans');
 var terms = require('./routes/terms');
 var courses = require('./routes/courses');
+var rules = require('./routes/rules');
+var faculties = require('./routes/faculties');
+var categorys = require('./routes/categories');
+var programadmins = require('./routes/programadmins');
+var adjudications = require('./routes/adjudications');
+var comments = require('./routes/comments');
+var catcomments = require('./routes/catcomments');
+var adjcomments = require('./routes/adjcomments');
+var rulecomments = require('./routes/rulecomments');
+
+
 
 // OudaAuth
 var posts = require('./routes/posts');
@@ -58,6 +69,16 @@ app.use('/terms', terms);
 app.use('/plans', plans);
 app.use('/courses', courses);
 app.use('/programs', programs);
+app.use('/rules', rules);
+app.use('/faculties', faculties);
+app.use('/categories', categorys);
+app.use('/programadmins', programadmins);
+app.use('/adjudications', adjudications);
+app.use('/comments', comments);
+app.use('/catcomments', catcomments);
+app.use('/adjcomments', adjcomments);
+app.use('/rulecomments', rulecomments);
+
 
 // Ouda Auth
 app.use('/posts', posts);

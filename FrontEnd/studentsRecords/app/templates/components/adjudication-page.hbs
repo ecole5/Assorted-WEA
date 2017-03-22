@@ -1,0 +1,55 @@
+ {{#if main}}
+<h2>Adjudication</h2>
+
+<div class="ui two column centered grid">
+  <div class="four column centered row">
+    <div class="column">
+
+      <h4>Create Rules</h4>
+      <br>
+      <button class="ui icon button" {{action 'showSelectFaculty'}}>
+  <i class="massive book icon"></i>
+</button>
+    </div>
+
+    <div class="column">
+      <h4>Perform Adjudication</h4>
+      <br>
+      <button class="ui icon button" {{action 'showPerform'}}>
+  <i class=" massive law icon"></i>
+ 
+</button>
+    </div>
+
+  </div>
+</div>
+
+{{/if}} 
+{{#if showPerform}} 
+{{perform-adjudication}}
+<button class="ui icon button" {{action 'back'}}>
+  <i class="arrow circle left icon"></i>
+</button> {{/if}} {{#if showSelectFaculty}}
+<h2>Select a faculty to customize</h2>
+<div class="ui segment">
+  <div class="ui four column grid">
+
+
+    {{#each facultyModel as |oneFaculty|}}
+    <div class="column">
+
+      <div class="ui button" {{action "showCategory" oneFaculty}}>
+        {{oneFaculty.name}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+<br>
+<button class="ui icon button" {{action 'back'}}>
+  <i class="arrow circle left icon"></i>
+</button> {{/if}} {{#if showCategory}} {{category-adjudication selectedFaculty = chosenFaculty backToMain = mainBack}} {{#if
+mainBack}}
+<button class="ui icon button" {{action 'back'}}>
+  <i class="arrow circle left icon"></i>
+</button> {{/if}} {{/if}}

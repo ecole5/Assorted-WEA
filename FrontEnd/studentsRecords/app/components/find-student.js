@@ -21,7 +21,7 @@ export default Ember.Component.extend({
       {
         var located = false;
         var tempOffset = 0;
-      store: Ember.inject.service();
+    
       var mystore = this.get('store');
       mystore.query('student', {
       limit: self.get('limit'),
@@ -72,7 +72,7 @@ export default Ember.Component.extend({
     search: function(){
         var tempOffset = 0;
         var notFound=false;
-        var stdid=this.get('studentID');
+       
 
 var self =this;
           tempOffset=self.get('offset');

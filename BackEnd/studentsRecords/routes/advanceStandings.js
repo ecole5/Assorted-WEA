@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models/advancedstanding');
 var bodyParser = require('body-parser');
-var parseUrlencoded = bodyParser.urlencoded({extended: false});
+var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 var parseJSON = bodyParser.json();
 
 //Given a student, find all of their scholarships
@@ -15,7 +15,7 @@ router.route('/')
         var advanceStanding = new models.AdvancedStandings(request.body.advancestanding);
         advanceStanding.save(function (error) {
             if (error) response.send(error);
-            response.json({advancestanding: advanceStanding});
+            response.json({ advancestanding: advanceStanding });
         });
     })
     .get(parseUrlencoded, parseJSON, function (request, response) {
@@ -25,18 +25,18 @@ router.route('/')
             models.AdvancedStandings.find(function (error, advanceStanding) {
                 if (error) response.send(error);
                 // returns all scholarships
-                response.json({advancestanding: advanceStanding});
+                response.json({ advancestanding: advanceStanding });
             });
         } else {
             //{"student": Student},
-           // console.log("here");
-            models.AdvancedStandings.find({"student": Student}, function (error, students) {
+            // console.log("here");
+            models.AdvancedStandings.find({ "student": Student }, function (error, students) {
                 if (error) response.send(error);
-                response.json({advancestanding: students});
+                response.json({ advancestanding: students });
             });
         }
     })
-    
+
 
 //Update a scholarship based on it's ID,
 // HAS NOT BEEN IMPLEMENTED
@@ -44,7 +44,7 @@ router.route('/:advanceStanding_id')
     .put(parseUrlencoded, parseJSON, function (request, response) {
         models.AdvancedStandings.findById(request.params.advanceStanding_id, function (error, advanceStanding) {
             if (error) {
-                response.send({error: error});
+                response.send({ error: error });
             }
             else {
                 advanceStanding.course = request.body.advancestanding.course;
@@ -55,10 +55,10 @@ router.route('/:advanceStanding_id')
 
                 advanceStanding.save(function (error) {
                     if (error) {
-                        response.send({error: error});
+                        response.send({ error: error });
                     }
                     else {
-                        response.json({advancestanding: advanceStanding});
+                        response.json({ advancestanding: advanceStanding });
                     }
                 });
             }
@@ -68,7 +68,7 @@ router.route('/:advanceStanding_id')
         models.AdvancedStandings.findByIdAndRemove(request.params.advanceStanding_id,
             function (error, deleted) {
                 if (!error) {
-                    response.json({advancestanding: deleted});
+                    response.json({ advancestanding: deleted });
                 }
             }
         );
