@@ -15,17 +15,8 @@ router.route('/')
         });
     })*/
     .get(parseUrlencoded, parseJSON, function (request, response) {
-        //var Criteria = request.query.data.criteria;
-        //var term = request.query.data.term;
-        //console.log(request);
-        //console.log($_GET['term']);
-        console.log(request.query.term);
-        console.log(request.query.criteria);
         var Criteria = request.query.criteria;
         var term = request.query.term;
-        console.log(term);
-        console.log(Criteria);
-        
         if(Criteria==="faculty"){
             console.log('1');
             models.adjcomment.find({"adjudication":{"term":term}},{"adjudication":{"student":{"number":1,"firstName":1,"lastName":1},"program":{"name":1},"plan":{"faculty":{"name":1}}},"comment":{"code":1}}).sort({"adjudication":{"plan":{"faculty":1}}}).then( function(error, reports){            

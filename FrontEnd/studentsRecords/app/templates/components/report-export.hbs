@@ -30,8 +30,18 @@
       </select>
 
       <button class="ui button" {{action "getReport"}}>Get Report</button>
+      {{#if haveReport}}      
+          <button class="ui button" {{action "getReport"}}>
+            Get Report
+          </button>>
+      {{else}}
+        <button class="ui disabled button">
+          Followed
+        </button>
+      {{/if}}
   </div>
-  
+    
+      
 
 
 </div>

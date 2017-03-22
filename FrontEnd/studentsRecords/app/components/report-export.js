@@ -6,6 +6,7 @@ export default Ember.Component.extend({
     terms:null,
     critTerm: null,
     crit:null,
+    haveReport:null,
 
     init(){
         this._super(...arguments);
@@ -19,10 +20,11 @@ actions:{
     updateTerms: function(){
         this.set('terms', this.get('store').findall('term')); 
     },
-test:function(){
-    console.log(this.get('crit'));
-    console.log(this.get('critTerm'));
-},
+    
+    test:function(){
+        console.log(this.get('crit'));
+        console.log(this.get('critTerm'));
+    },
 
     setTerm: function(term){
         this.set('critTerm', term);
@@ -38,7 +40,7 @@ test:function(){
 
         }else{
 
-            var data = { term: this.get('critTerm'), criteria: this.get('crit') },
+           /* var data = { term: this.get('critTerm'), criteria: this.get('crit') },
             host = this.get('store').adapterFor('application').get('host'),
             //namespace = this.store.adapterFor('application').namespace,
             getURL = [ host, 'reports'].join('/'); 
@@ -46,7 +48,20 @@ test:function(){
             Ember.$.get(getURL, data).then(
                 function (response) {
 
-            });
+
+
+                    displayDownloadOption();    
+            }); */
+
+
+            this.set("haveReport",true);
+   
+            var test={"employees":[
+                    {"firstName":"John", "lastName":"Doe"}, 
+                    {"firstName":"Anna", "lastName":"Smith"},
+                    {"firstName":"Peter", "lastName":"Jones"}
+                ]
+            }
         }
         /*var report = $.getJSON(this.store.adapterFor('application').get('')).then(
             function (response) {}
