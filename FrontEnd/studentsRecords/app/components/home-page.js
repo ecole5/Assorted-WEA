@@ -83,23 +83,12 @@ export default Ember.Component.extend({
       this.set('isReporting', false);
       this.set('isAdjudication', false);
     },
-    uploadFile() {
+    report() {
       this.set('isHomeShowing', false);
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', false);
       this.set('isHelpShowing', false);
       this.set('isSettingsShowing', false);
-      this.set('isUploading', true);
-      this.set('isReporting', false);
-      this.set('isAdjudication', false);
-    },
-    Report() {
-      this.set('isHomeShowing', false);
-      this.set('isStudentsRecordsDataEntry', false);
-      this.set('isAboutShowing', false);
-      this.set('isHelpShowing', false);
-      this.set('isSettingsShowing', false);
-      this.set('isUploading', false);
       this.set('isReporting', true);
       this.set('isAdjudication', false);
     },

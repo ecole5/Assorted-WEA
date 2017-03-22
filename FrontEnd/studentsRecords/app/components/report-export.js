@@ -2,36 +2,57 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
+    store: Ember.inject.service(),
     terms:null,
     critTerm: null,
     crit:null,
 
     init(){
-        this.set('terms', this.get('store').findall('term')); 
+        this._super(...arguments);
+        var self = this;
+        this.get('store').findAll('term').then(function (records) {
+            self.set('terms', records);
+        });
     },
 
-    setTerm(term){
+actions:{
+    updateTerms: function(){
+        this.set('terms', this.get('store').findall('term')); 
+    },
+test:function(){
+    console.log(this.get('crit'));
+    console.log(this.get('critTerm'));
+},
+
+    setTerm: function(term){
         this.set('critTerm', term);
     },
 
+    setCrit: function(criteria){
+        this.set('crit', criteria);
+    },
     //this method by passes Ember Data
-    getReport(){
+    getReport: function(){
 
-        
-        var data = { username: user, password: pass },
-       host = this.store.adapterFor('application').get('host'),
-       //namespace = this.store.adapterFor('application').namespace,
-       getURL = [ host, 'reports'].join('/'); 
+        if(this.get('critTerm')===null||this.get('crit')===null){
 
-   Ember.$.get(getURL, data).then(
-       function (response) {
+        }else{
 
-       });
-   
+            var data = { term: this.get('critTerm'), criteria: this.get('crit') },
+            host = this.get('store').adapterFor('application').get('host'),
+            //namespace = this.store.adapterFor('application').namespace,
+            getURL = [ host, 'reports'].join('/'); 
+            
+            Ember.$.get(getURL, data).then(
+                function (response) {
+
+            });
+        }
         /*var report = $.getJSON(this.store.adapterFor('application').get('')).then(
             function (response) {}
         )*/
     }
+}
 
  /* model: function(params) {
       return $.getJSON

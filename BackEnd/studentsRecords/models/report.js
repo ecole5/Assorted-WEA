@@ -8,8 +8,5 @@ var reportSchema = mongoose.Schema(
     }
 );
 
-var Reports = mongoose.model('report', reportschema);
+var Reports = mongoose.model('report', reportSchema);
   module.exports.Reports = Reports;
-
-
-

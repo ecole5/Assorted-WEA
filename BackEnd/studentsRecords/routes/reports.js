@@ -15,30 +15,39 @@ router.route('/')
         });
     })*/
     .get(parseUrlencoded, parseJSON, function (request, response) {
+        //var Criteria = request.query.data.criteria;
+        //var term = request.query.data.term;
+        //console.log(request);
+        //console.log($_GET['term']);
+        console.log(request.query.term);
+        console.log(request.query.criteria);
         var Criteria = request.query.criteria;
         var term = request.query.term;
+        console.log(term);
+        console.log(Criteria);
+        
         if(Criteria==="faculty"){
-            models.adjudication.find({"term":term}).sort({"plan":{"faculty":1}}).then( function(error, reports){
-                
+            console.log('1');
+            models.adjcomment.find({"adjudication":{"term":term}},{"adjudication":{"student":{"number":1,"firstName":1,"lastName":1},"program":{"name":1},"plan":{"faculty":{"name":1}}},"comment":{"code":1}}).sort({"adjudication":{"plan":{"faculty":1}}}).then( function(error, reports){            
                 //this is the format change so it sends EXACTLY what is needed for the report
                 if (error) response.send(error);
-                 console.log(reports);
-                    response.json(reports);
-//,"plan":{"faculty":Criteria}
+                console.log(reports);
+                  response.json(reports);
+
             });
         }
         else if(Criteria==="program"){
-            models.adjudication.find({"term":term,}).sort({"program":1}).then( function(error, reports){
-                if (error) response.send(error);
-                 console.log(reports);
-                    response.json(reports);
-
+            console.log('2');
+             models.adjcomment.find({"adjudication":{"term":term}},{"adjudication":{"student":{"number":1,"firstName":1,"lastName":1},"program":{"name":1},"plan":{"faculty":{"name":1}}},"comment":{"code":1}}).sort({"program":1}).then( function(error, reports){
+               if (error) response.send(error);
+                console.log(reports);
+                 response.json(reports);
 
             });
         }
         else {
 
-        }
+        } 
 
         //var Student = request.query.filter;
         /*if (!Student) {
