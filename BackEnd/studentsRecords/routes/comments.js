@@ -78,5 +78,3 @@ router.route('/:comment_id')
     });
 
 module.exports = router;
-
->>>>>>> 311934f9c7699b9c3c5ee9fcc2cf929caf150302
