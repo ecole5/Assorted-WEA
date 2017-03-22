@@ -357,6 +357,8 @@
   <div class="ui tab" data-tab="secondarySchool">
     <!-- Program records, courses and grades !-->
     <div align = "center">
+      <br>
+    <h2> Secondary School Information </h2>
       <div class="ui vertically divided grid"> 
         {{#each hsGradeRecords as |hsGrade|}}
           <div class="one column row">
@@ -367,28 +369,36 @@
                   <div class = "ui label">
                     <label>Grade:</label>
                   </div>
-                  {{hsGrade.mark}}
                   <input type="text" value={{hsGrade.mark}} onclick={{action 'currentlySelectedProgram' hsGrade}} 
                                   onchange={{action 'editHSGradeMark' value="target.value"}}>
                 </div>{{!END COLUMN}}
                 <div class="column">
-                  <h3> Course </h3>
-                  <div class = "ui label">
+                  <div class="one column row">
+                    <h3> Course </h3>
+                  </div>
+
+                  <div class="one column row">
+                    <div class = "ui label">
                       <label> level:</label>
-                  </div>
-                  {{hsGrade.source.level}}
-
-                  <div class = "ui label">
-                    <label> source:</label>
+                    </div>
+                    {{hsGrade.source.level}}
                   </div>
 
-                  {{hsGrade.source.source}}
-
-                  <div class = "ui label">
-                    <label> unit: </label> 
+                  <div class="one column row">
+                    <div class = "ui label">
+                      <label> source:</label>
+                    </div>
+                    {{hsGrade.source.source}}
                   </div>
-                  {{hsGrade.source.unit}}
 
+                  <div class="one column row">
+                    <div class = "ui label">
+                      <label> unit: </label> 
+                    </div>
+                    {{hsGrade.source.unit}}
+                  </div> {{!END 1 COLUMN ROW}}
+
+                  <div class="one column row">
                    <select class=" ui scrolling dropdown selection" onmouseover={{action 'currentlySelectedProgram' hsGrade.id}} 
                 onclick={{action 'currentlySelectedProgram' hsGrade.id}} 
                             onchange={{action 'selectedProgramCourses' value="target.value"}}>
@@ -406,70 +416,60 @@
                                   {{courseChoice.subject.description}} <br>
                                   </option>
                               {{/each}}
-
-                </select>
+                   </select>
+                  </div> {{!END ONE COLUMN ROW}}
 
                 </div> {{!END COLUMN}}
               </div> {{!END TWO COLUMN ROW}}
               <div class="two column row">
                 <div class="column">
+                  <div class="one column row">
+                    <h3>Subject </h3>
+                  </div>
 
-                  <h3>Subject </h3>
-                  <div class = "ui label"> 
-                    <label> Subject name: </label>
+                  <div class="one column row">
+                    <div class = "ui label"> 
+                      <label> Subject name: </label>
+                    </div>
+                    {{hsGrade.source.subject.name}} 
                   </div>
-                  {{hsGrade.source.subject.name}} 
-                  <div class = "ui label">
-                    <label> Subject description: </label> 
-                  </div>
-                  {{hsGrade.source.subject.description}} 
+
+                  <div class="one column row">
+                    <div class = "ui label">
+                      <label> Subject description: </label> 
+                    </div>
+                    {{hsGrade.source.subject.description}} 
+                  </div> 
+
                 </div>{{!END COLUMN}}
                 <div class="column">
-                  <h3>School </h3>
-<!-- THIS IS ONLY HERE FOR DEBUGGING RELATIONSHIPS AND CAN BE DELETED IF SYSTEM CODE IS WORKING
-    <select onmouseover={{action 'currentlySelectedProgram' hsGrade.source.id}} 
-    onclick={{action 'currentlySelectedProgram' hsGrade.source.id}} 
-                 onchange={{action 'selectedProgramSubject' value="target.value"}}>
-                  {{! show each term}}
-                   <option value={{null}} selected={{eq hsGrade.source.subject.id null}}>Null </option>
-                  {{#each higschoolSubjectsRecords as |subjectChoice|}}
-                   {{! needs to change it so that onclick i get the currently editing dropdown
-                   then set it appropriatly }}
-                    <option value={{subjectChoice.id}} selected={{eq hsGrade.source.subject.id subjectChoice.id}}>
-                      {{subjectChoice.name}}:{{subjectChoice.description}} </option>
-                  {{/each}}
-                  {{! selects the null option if it's null'}}
-                 
-                </select>
-                -->
-                  <div class = "ui label">
-                    <label> School name: </label>
+                  <div class="one column row">
+                    <h3>School </h3>
                   </div>
-                  {{hsGrade.source.school.name}} 
-<!-- THIS IS ONLY HERE FOR DEBUGGING RELATIONSHIPS AND CAN BE DELETED IF SYSTEM CODE IS WORKING
-    <select onmouseover={{action 'currentlySelectedProgram' hsGrade.source.id}} 
-    onclick={{action 'currentlySelectedProgram' hsGrade.source.id}} 
-                 onchange={{action 'selectedSecondarySchool' value="target.value"}}>
-                  {{! show each term}}
-                   <option value={{null}} selected={{eq hsGrade.source.school.id null}}>Null </option>
-                  {{#each secondarySchoolRecords as |secondarySchool|}}
-                   {{! needs to change it so that onclick i get the currently editing dropdown
-                   then set it appropriatly }}
-                    <option value={{secondarySchool.id}} selected={{eq hsGrade.source.school.id secondarySchool.id}}>
-                      {{secondarySchool.name}}</option>
-                  {{/each}}
-                  {{! selects the null option if it's null'}}
-                 
-                </select>
-    -->                
+
+                  <div class="one column row">
+                    <div class = "ui label">
+                      <label> School name: </label>
+                    </div>
+                    {{hsGrade.source.school.name}} 
+                  </div>
+  
                 </div> {{!END COLUMN}}
-                <button class = "ui button" {{action "deleteHSGrade" hsGrade}}>Delete highschool grade</button>
               </div> {{!END TWO COLUMN ROW}}
+              <div class="one column row">
+                <div class="column">
+                  <button class = "ui button" {{action "deleteHSGrade" hsGrade}}>Delete highschool grade</button>
+                </div>
+              </div>
             </div> {{!END UI VERTICAL GRID}}
           </div> {{!END 1 COLUMN ROW}}
         {{/each}}
+        <div class="one column row">
+          <div class="column">
+            <button class = "ui button" {{action "createNewGradeForHS"}}>Create new grade for High School</button>
+          </div>
+        </div>
       </div> {{!END divider GRID}}
-    <button class = "ui button" {{action "createNewGradeForHS"}}>Create new grade for High School</button>
       </div> {{!END CENTER}}
     </div>{{!END TAB}}
 
