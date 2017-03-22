@@ -11,6 +11,7 @@ export default Ember.Component.extend({
   chosenPlan: null,
   showCategoryModal: null,
   selectedCategory: null,
+  showRuleModal: null,
 
   init() {
     this._super(...arguments);
@@ -55,20 +56,49 @@ export default Ember.Component.extend({
     newCategory(){
     
   
-
+     
       var newCat = this.get('store').createRecord("category", {
         name: "New category",
         allRules: true,
         independent: false,
         faculty: this.get('selectedFaculty'),
       });
+      var self = this;
+      newCat.save().then(function (){ 
+        self.get('store').query('category', {
+      faculty: self.get('selectedFaculty').id,
+    }).then(function (records) {
+      self.set('categoryModel', records);
+      self.set('selectedCategory', newCat);
+       self.set("showCategoryModal", true);
+    });
+      });
+      
+      },
+    
 
-      newCat.save();
-
-      this.set('selectedCategory', newCat);
+    remove(cat){
+      cat.destroyRecord();
+    },
+    edit(cat){
+        this.set('selectedCategory', cat);
         this.set("showCategoryModal", true);
-     
+    },
 
+    newRule(cat){
+     
+      var newRule = this.get('store').createRecord("rule", {
+        name: "New Rule",
+        logExpression: null,
+        category: cat,
+        plan: null,
+      });
+
+      newRule.save();
+      
+
+
+       this.set("showRuleModal", true);
     },
   
 

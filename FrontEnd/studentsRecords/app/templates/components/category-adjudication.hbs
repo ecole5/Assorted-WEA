@@ -1,11 +1,11 @@
-{{#if showPlan}} 
+{{#if showPlan}}
 
 <!--Show plan page with back button-->
 {{plan-adjudication selectedPlan = chosenPlan notDONE = showPlan}}
 <br>
 <button class="ui icon button" {{action 'backFromPlan'}}>
   <i class="arrow circle left icon"></i>
-</button> 
+</button>
 
 
 <!--Show category page -->
@@ -14,10 +14,40 @@
 <h2>{{selectedFaculty.name}} Categories </h2>
 
 <!--Display all categories -->
-{{#each categoryModel as oneCategory}}
-<div class="ui segment">
-  <div class="ui top attached label">{{oneCategory.name}}</div>
+{{#each categoryModel as |oneCategory|}}
+<div class="ui segments">
+  <div class="ui secondary segment">
+    <div class="ui top attached label">{{oneCategory.name}}
+    </div>
+    {{#if oneCategory.allRules}}
+    <p>All rules must be satisfied</p>
+    {{else}}
+    <p>One of the rule must be satisfied</p>
+    {{/if}} {{#if oneCategory.independent}}
+    <p>Evaluated independently</p>
+    {{else}}
+    <p>Evaluated again other categroies</p>
+    {{/if}}
+    <button class="ui icon button" {{action 'remove' oneCategory }}>
+                <i class="remove circle icon"></i>
+                </button>
+
+    <button class="ui button" {{action 'edit' oneCategory }}>
+                  Edit
+                </button>
+
+
+  </div>
+  <div class="ui segment">
+     
+<!--Add button -->
+<button class="ui labeled icon button" {{action "newRule" oneCategory}}> 
+  <i class="plus icon"></i>
+  New Category Rule
+</button>
+  </div>
 </div>
+  <div class="ui section divider"></div>
 {{/each}}
 
 <!--Add button -->
@@ -27,9 +57,10 @@
 </button>
 
 <!--Edit category modal-->
-{{#if showCategoryModal}}
-{{category-modal notDONE = showCategoryModal categoryModel = selectedCategory}}
-{{/if}}
+{{#if showCategoryModal}} {{category-modal notDONE = showCategoryModal categoryModel = selectedCategory}} {{/if}}
+
+<!--Edit rule modal-->
+{{#if showRuleModal}} {{rule-modal notDONE = showRuleModal ruleModel = selectedRule}} {{/if}}
 
 <!--All the plans -->
 <div class="ui segment">
@@ -46,7 +77,4 @@
 
   </div>
 </div>
-<br>
-
-{{/if}}
-
+<br> {{/if}}
