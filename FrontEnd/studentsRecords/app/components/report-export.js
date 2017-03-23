@@ -246,7 +246,7 @@ var CSV = '';
 
         }else{
 
-            var data = { term: this.get('critTerm'), criteria: this.get('crit') },
+            /*var data = { term: this.get('critTerm'), criteria: this.get('crit') },
             host = this.get('store').adapterFor('application').get('host'),
             //namespace = this.store.adapterFor('application').namespace,
             getURL = [ host, 'reports'].join('/'); 
@@ -257,10 +257,10 @@ var CSV = '';
                 this.set('reportJSON',response);
 
                     this.set("haveReport",true);   
-            }); 
+            }); */
 
 
-            //this.set("haveReport",true);
+            this.set("haveReport",true);
    //should get student number, student firstname, student lastname, program, faculty, comment code
 
            //remove test for actual use// test is test value for JSON. once we have real JSON replace test
@@ -271,7 +271,7 @@ var CSV = '';
                 ]
             };
 
-            //this.set('reportJSON',test);
+            this.set('reportJSON',test);
 
             
         //}
