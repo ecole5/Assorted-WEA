@@ -11,14 +11,13 @@ export default Ember.Component.extend({
       });
     });
   },
-
+  storedElements: [],
   isHomeShowing: true,
   isStudentsRecordsDataEntry: false,
   isAboutShowing: false,
   isSettingsShowing: false,
   isHelpShowing: false,
   isUploading: false,
-
   newFile:{
     file: null,
     fileName: ''
@@ -32,7 +31,6 @@ export default Ember.Component.extend({
       this.set('isHelpShowing', false);
       this.set('isSettingsShowing', false);
 this.set('isUploading', false);
-
     },
 
     studentsDataEntry (){
@@ -81,13 +79,53 @@ this.set('isUploading', false);
       this.set('isSettingsShowing', false);
       this.set('isUploading', true);
     },
-    submitUpload(){
-      let uploadedFile = this.store.createRecord('upfile',this.get('newFile'));
-      var file = document.getElementById('file-field').files[0];
-      uploadedFile.set('file', file);
-      uploadedFile.set('fileName',file.name);
-      console.log(uploadedFile);
+    checkFileValidity(name){
+      var existing_data = [];
+      if (existing_data.length === 0){
+       if(name === "student.xslx"){
+         return false;}
+        else {
+          existing_data.push(name);
+          return true;
+        }
+      }
+      else if(existing_data.includes("student.xslx")){
+        existing_data.push(name);
+        return true;
+      }
 
-    }
+    },
+    submitUpload(){
+      var file = document.getElementById('file-field').files[0];
+      console.log(file.name);
+      if (file.name == "students.xlsx"&& this.storedElements.length ===0){
+        alert("Successful!")
+        this.storedElements.push(file.name);
+       // let uploadedFile = this.store.createRecord('upfile',this.get('newFile'));
+        //uploadedFile.set('file', file);
+        //uploadedFile.set('fileName',file.name);
+        //console.log(uploadedFile);
+      }
+      else if(this.storedElements.includes(file.name)){
+        alert("Duplicate File Upload");
+      }
+      else if(file.name != "students.xlsx"&& this.storedElements.length ===0){
+        alert("Upload Student file first!");
+      }
+      else if(file.name.includes(".xslx") === false){
+        alert("Wrong File Type Error!")
+      }
+      else if(this.storedElements.includes("student.xlsx")){
+        alert("Successful!");
+        this.storedElements.push(file.name);
+        //let uploadedFile = this.store.createRecord('upfile',this.get('newFile'));
+        //uploadedFile.set('file', file);
+        //uploadedFile.set('fileName',file.name);
+        //console.log(uploadedFile);
+      }
+      else{
+        alert("General error please follow instructions.");
+      }
+    },
   }
 });
