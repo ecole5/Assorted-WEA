@@ -1,1 +1,22 @@
-<h2>Welcome</h2>
+ {{#if WEL01IsPermitted }}
+
+<h2>Assorted</h2>
+
+
+<!-- Start Ouda auth -->
+{{else}}
+<div class="ui center aligned raised segment">
+    <div class="ui icon header">
+      <i class="protect icon"></i>
+      Permission Denied
+    </div>
+    <div>
+      <p>This feature (WEL01) is not allowed for your account.</p>
+      <p>Please contact the system administrator for more information.</p>
+    </div>
+
+  </div>
+
+{{/if}}
+
+<!-- End ouda auth -->

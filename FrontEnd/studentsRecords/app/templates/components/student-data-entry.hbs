@@ -1,3 +1,7 @@
+ <!-- Ouda Auth START -->
+ {{#if SDE01IsPermitted }}
+ <!-- Ouda Auth END -->
+
 <div class="ui center aligned header">
   <h2>Student Records Data Entry</h2>
 </div>
@@ -678,3 +682,21 @@
   </div> {{!END TAB}}
 
 {{/if}}
+
+<!-- Start Ouda auth -->
+{{else}}
+<div class="ui center aligned raised segment">
+    <div class="ui icon header">
+      <i class="protect icon"></i>
+      Permission Denied
+    </div>
+    <div>
+      <p>This feature (SDE01) is not allowed for your account.</p>
+      <p>Please contact the system administrator for more information.</p>
+    </div>
+
+  </div>
+
+{{/if}}
+
+<!-- End ouda auth -->

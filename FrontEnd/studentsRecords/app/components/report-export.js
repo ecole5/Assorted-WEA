@@ -8,6 +8,16 @@ export default Ember.Component.extend({
     crit:null,
     haveReport:null,
 
+    // Ouda Auth stuff for student data entry
+  REP01IsPermitted: Ember.computed(function(){ //Manage system roles
+    var authentication = this.get('oudaAuth');
+    if (authentication.getName === "Root") {
+      return true;
+    } else {
+      return (authentication.get('userCList').indexOf("REP01") >= 0);
+    }
+  }),
+
     init(){
         this._super(...arguments);
         var self = this;
