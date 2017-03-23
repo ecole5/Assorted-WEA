@@ -10,9 +10,6 @@ export default Ember.Component.extend({
   selectingComment: null,
   commentModel: null,
   ruleCommentModel: null,
-  logicalModel:null,
-  expressionEditor: null,
-
 
    init() {
     this._super(...arguments);
@@ -80,15 +77,14 @@ export default Ember.Component.extend({
     remove(item){
       item.destroyRecord();
     },
-    openEdit(){
-      this.set('expressionEditor', true);
+    saveExpression(value){
+      
+      var rule = this.get('ruleModel');
+      rule.set('log',value);
+      rule.save();
       
     },
-    clearExpresion(){
-      var rule = this.get('ruleModel');
-      rule.set('log', null);
-      rule.save();
-    },
+  
   
     //finish editing and close the modal
     exit: function () {

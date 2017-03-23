@@ -15,5 +15,6 @@ export default DS.Model.extend({
   scholarshipInfo: DS.hasMany('scholarship', {async: true}),
   advanceStanding: DS.hasMany('advancestanding', {async: true}),
   highSchoolGrades: DS.hasMany('hsgrade', {async: true}),
+  grades: DS.hasMany('grade'),
   
 });

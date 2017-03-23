@@ -1,3 +1,7 @@
+ <!-- Ouda Auth START -->
+ {{#if ADJ01IsPermitted }}
+ <!-- Ouda Auth END -->
+ 
  {{#if main}}
 <h2>Adjudication</h2>
 
@@ -53,3 +57,22 @@ mainBack}}
 <button class="ui icon button" {{action 'back'}}>
   <i class="arrow circle left icon"></i>
 </button> {{/if}} {{/if}}
+
+
+<!-- Start Ouda auth -->
+{{else}}
+<div class="ui center aligned raised segment">
+    <div class="ui icon header">
+      <i class="protect icon"></i>
+      Permission Denied
+    </div>
+    <div>
+      <p>This feature (ADJ01) is not allowed for your account.</p>
+      <p>Please contact the system administrator for more information.</p>
+    </div>
+
+  </div>
+
+{{/if}}
+
+<!-- End ouda auth -->

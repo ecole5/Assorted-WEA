@@ -1,3 +1,7 @@
+ <!-- Ouda Auth START -->
+ {{#if REP01IsPermitted }}
+ <!-- Ouda Auth END -->
+
 <div class="ui form">
   <div class="inline fields">
     <label>How do you want to sort the report?</label>
@@ -66,3 +70,20 @@
 
 </div>
 
+<!-- Start Ouda auth -->
+{{else}}
+<div class="ui center aligned raised segment">
+    <div class="ui icon header">
+      <i class="protect icon"></i>
+      Permission Denied
+    </div>
+    <div>
+      <p>This feature (REP01) is not allowed for your account.</p>
+      <p>Please contact the system administrator for more information.</p>
+    </div>
+
+  </div>
+
+{{/if}}
+
+<!-- End ouda auth -->

@@ -8,9 +8,17 @@ export default Ember.Component.extend({
   facultyModel: null,
   showCategory: false,
   chosenFaculty: null,
-  mainBack: false,
+  mainBack: false,  
 
-
+// Ouda Auth stuff for student data entry
+  ADJ01IsPermitted: Ember.computed(function(){ //Manage system roles
+    var authentication = this.get('oudaAuth');
+    if (authentication.getName === "Root") {
+      return true;
+    } else {
+      return (authentication.get('userCList').indexOf("ADJ01") >= 0);
+    }
+  }),
 
   init() {
     this._super(...arguments);

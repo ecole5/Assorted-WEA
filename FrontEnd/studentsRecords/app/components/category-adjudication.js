@@ -57,6 +57,7 @@ export default Ember.Component.extend({
     //Get all categories for this faculties
     this.get('store').query('category', {
       faculty: self.get('selectedFaculty').id,
+      
     }).then(function (records) {
       self.set('categoryModel', records);
     });
@@ -122,10 +123,13 @@ export default Ember.Component.extend({
         name: "New Rule",
         category: cat,
         plan: null,
+        type: true,
         log: null,
       });
 
       newRule.save();
+
+       this.set('selectedRule', newRule);
 
        this.set("showRuleModal", true);
     },

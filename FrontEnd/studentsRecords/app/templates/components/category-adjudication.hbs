@@ -1,7 +1,7 @@
 {{#if showPlan}}
 
 <!--Show plan page with back button-->
-{{plan-adjudication selectedPlan = chosenPlan notDONE = showPlan}}
+{{plan-adjudication selectedPlan = chosenPlan notDONEPlan = showPlan selectedFaculty = selectedFaculty}}
 <br>
 <button class="ui icon button" {{action 'backFromPlan'}}>
   <i class="arrow circle left icon"></i>
@@ -50,7 +50,7 @@
   <div class="ui segment">
     <div class = "ui form">
 
-      <div class="four fields">
+      <div class="three fields">
      <div class = "field">
         <div class="ui label">
                   Rule Name
@@ -61,24 +61,19 @@
                   Comment Codes
                 </div>
      </div>
-      <div class = "field">
-             <div class="ui label">
-                  Expression
-                </div>
-     </div>
-      <div class = "field">
-             
-     </div>
+      
+      
      </div>
      </div>
      </div>
 
   {{#each oneCategory.rules as |oneRule|}}
+  {{#unless oneRule.plan}}
   <div class="ui segment">
     <div class = "ui form">
 
 
-    <div class="four fields">
+    <div class="three fields">
      <div class = "field">
    
         {{oneRule.name}}
@@ -86,14 +81,11 @@
         <div class = "field">
         
           {{#each oneRule.comment as |oneComment|}}
-            {{oneComment.comment.code}} 
+            {{oneComment.comment.code}},
 
           {{/each}}
           </div>
 
-          <div class = "field">
-            Boollean goes here
-            </div>
         
    
             <div class = "field">
@@ -112,6 +104,7 @@
 
 
   </div>
+  {{/unless}}
   {{/each}}
   <div class="ui segment">
     <!--Add button -->
@@ -129,6 +122,8 @@
   <i class="plus icon"></i>
   New Category
 </button>
+
+<div class="ui section divider"></div>
 
 <!--Edit category modal-->
 {{#if showCategoryModal}} {{category-modal notDONE = showCategoryModal categoryModel = selectedCategory}} {{/if}}

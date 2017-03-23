@@ -48,6 +48,7 @@ router.route('/:rule_id')
                 rule.name = request.body.rule.name;
                 rule.plan = request.body.rule.plan;
                 rule.category = request.body.rule.category;
+                rule.type = request.body.rule.type;
                 rule.log = request.body.rule.log;
            
 
