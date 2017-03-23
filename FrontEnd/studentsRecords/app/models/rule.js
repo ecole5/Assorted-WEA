@@ -7,6 +7,7 @@ export default DS.Model.extend({
         log:  DS.attr(),
         plan: DS.belongsTo('plan'),    
         category: DS.belongsTo('category'), 
+        type: DS.attr('boolean'),
         comment: DS.hasMany('rulecomment'),
   
 

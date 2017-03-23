@@ -124,20 +124,42 @@ export default Ember.Component.extend({
 
       //find a student
       student.forEach(function(student) {
+
+      //Create record
+         //Create the adjudication record
+          var myStore = self.get('store');
+          var myAdjudication = myStore.createRecord("adjudication", {
+          date: new Date(),
+          termAVG: null,
+          unitPassed: null,
+          unitTotal: null,
+          note: null,
+          program: null,
+          plan: null,
+          term: self.get('selectedTerm'),
+          student: student,
+
+  
+      });
+
+      self.set('result',myAdjudication);
+
+
+        
           
         
         //Find all relevent grades
         var gradesStudent = student.get('grades');
         var termGrades = [];
         gradesStudent.forEach(function(grade){
-          if (grade.get('term').get('id') == self.get('selectedTerm').get('id')){
+          if (grade.get('term').get('id') === self.get('selectedTerm').get('id')){
                 termGrades.push(grade); 
           }   
         }); //end of determaining term grade
         
         //Calculate load and YWA
         var load = 0;
-        var total = 0
+        var total = 0;
          termGrades.forEach(function(grade){
           
             var temp = parseInt(grade.get('course').get('unit'));
@@ -149,43 +171,117 @@ export default Ember.Component.extend({
         var ywa = total/load;
         //End of calculation of YWA
 
+
+        
+
         //Determain level and plan
          if (termGrades[0]) {
-         var level = termGrades[0].get('program').get('level'); //should be same
+         var program = termGrades[0].get('program');
+         var level = program.get('level'); //should be same
           var plan = termGrades[0].get('plan'); //could be diffrent but we out of time
+
+          
+          myAdjudication.set('plan',plan);
+          myAdjudication.set('program', 'program');
+          myAdjudication.set('termAVG', ywa);
+          myAdjudication.set('unitToal', total);
+          myAdjudication.save();
+        
+
 
           //Evaluate all the independent categories
           var category = [];
           category = plan.get('faculty').get('category');
 
           category.forEach(function(cat){
-          allRules= [];
+          var allRules= [];
           if (cat.get('independent')){
 
             //Get complete list of rules for category
-            var tempRules = [];
-            tempRules = cat.get('rules');
-            var allRules = [];
-            
-            
+           
+            var catRules = [];
+            catRules = cat.get('rules');
             catRules.forEach(function (rule){
              
-              if (rule.get('plan') == null){
+              if (rule.get('type')){
                   allRules.push(rule);
-                  console.log('general');
+                 
               }
-              else if (rule.get('plan').get('id') == plan.get('id')){
+              else if (rule.get('plan').get('id') === plan.get('id')){
                 allRules.push(rule);
-                console.log('specii')
+                
               }
               
             }); //End of getting complete list of rule from category
 
-            console.log(allRules);
+            var ruleFlag = 'test';
+            allRules.forEach(function (rule){
+              var exp = rule.get('log');
+              var exp2 = exp.replace('AVG', ywa) ;
+              var exp3 = exp2.replace ('LOAD',load);
+              var exp4 = exp3.replace ('YEAR',level);
+              
+              if (!(eval(exp4)))
+              {
+                ruleFlag = rule;
+              }
+              
+            });
+            
+              var commentsTotal = [];
+               var catComments = [];
+            //Get all the category comments
+            if (ruleFlag === 'test' && cat.get('allRules')){
+              
+      
+           
+              catComments = cat.get('comment');
+
+               catComments.forEach(function (comment){
+                var actualComment = comment.get('comment');
+                var newComment = myStore.createRecord("adjcomment", {
+          comment: actualComment,
+          adjudication: myAdjudication,
+  
+      });
+      newComment.save();
+
+            });
+
+            }
+            //Get all the category and rule commnents
+            else if (ruleFlag !== 'test'){
+           
+              commentsTotal = ruleFlag.get('comment');
+             
+              catComments = cat.get('comment');
+              
+
+              catComments.forEach(function(comment){
+                commentsTotal.push(comment);
+              });
+         
+
+               commentsTotal.forEach(function (comment){
+                var actualComment = comment.get('comment');
+                var newComment = myStore.createRecord("adjcomment", {
+          comment: actualComment,
+          adjudication: myAdjudication,
+  
+      });
+      newComment.save();
+
+            });
+
+
+            }
                 
-          }   
+          }   //end of evaluating independents
+          else{
+            self.send('badAdjudication');
+          }
           
-        }); //end of evaluating independents
+        }); //end of independent loop
         
 
        
@@ -195,8 +291,8 @@ export default Ember.Component.extend({
 
          }
          else{
-            self.set('result', "Adjudicaiton failed");
-            self.send('createAdjudication');
+          
+            self.send('badAdjudication');
             
          }
     
@@ -205,34 +301,17 @@ export default Ember.Component.extend({
 
 
   
-
+  myAdjudication.save();
       }); //end of students loop
     },
 
-    newGrade(){
-          
-    var prg = this.get('store').peekRecord('program', '58d3015e3a3a5639c8166547');
-    var plan = this.get('store').peekRecord('plan', '58d301fc3a3a5639c8166549');
-    var term = this.get('store').peekRecord('term', '58d2f7530456bb17600c3c6c');
-    var course = this.get('store').peekRecord('course', '58d300d43a3a5639c8166545');
-    var student = this.get('store').peekRecord('student', '585df32e0bf2ba5ea6951587');
-      var myStore = this.get('store');
-      var newCode = myStore.createRecord("grade", {
-        mark: "53",
-        note: "Poor job",
-        program: prg,
-        plan: plan,
-        term: term,
-        course: course,
-        student: student,
 
-      });
-      newCode.save();
 
-    },
-
-    createAdjudication(){
-         console.log(this.get('result'));
+    badAdjudication(){
+      var mine = this.get('result');
+      mine.set('note', 'could not complete');
+      mine.save();
+      console.log('bad');
     }
 
 

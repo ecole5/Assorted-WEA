@@ -63,6 +63,7 @@ export default Ember.Component.extend({
         name: "New Rule",
         category: cat,
         plan: pla,
+        type: false,
         log: null,
       });
 
