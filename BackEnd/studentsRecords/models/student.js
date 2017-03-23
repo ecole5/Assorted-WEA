@@ -16,6 +16,7 @@ var studentsSchema = mongoose.Schema(
         scholarshipsInfo: [{type:mongoose.Schema.ObjectId, ref: ('Scholarships')}],
         advancedStanding: [{type:mongoose.Schema.ObjectId, ref: ('advancedStanding')}],
         highSchoolGrades: [{type:mongoose.Schema.ObjectId, ref: ('HSgrades')}],
+        
     
 
     }
