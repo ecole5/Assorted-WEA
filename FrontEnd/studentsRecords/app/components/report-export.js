@@ -7,6 +7,8 @@ export default Ember.Component.extend({
     critTerm: null,
     crit:null,
     haveReport:null,
+    pdf:null,
+    reportJSON:null,
 
     init(){
         this._super(...arguments);
@@ -25,6 +27,14 @@ actions:{
         console.log(this.get('crit'));
         console.log(this.get('critTerm'));
     },
+    
+    displayReport:function(){
+
+    },
+
+    downloadReport:function(){
+
+    },
 
     setTerm: function(term){
         this.set('critTerm', term);
@@ -33,14 +43,15 @@ actions:{
     setCrit: function(criteria){
         this.set('crit', criteria);
     },
-    //this method by passes Ember Data
+    //this method by-passes Ember Data
     getReport: function(){
 
-        //if(this.get('critTerm')===null||this.get('crit')===null){
+    //uncommet this for actual use
+        /*if(this.get('critTerm')===null||this.get('crit')===null){
 
-        //}else{
+        }else{
 
-           /* var data = { term: this.get('critTerm'), criteria: this.get('crit') },
+            var data = { term: this.get('critTerm'), criteria: this.get('crit') },
             host = this.get('store').adapterFor('application').get('host'),
             //namespace = this.store.adapterFor('application').namespace,
             getURL = [ host, 'reports'].join('/'); 
@@ -63,8 +74,19 @@ actions:{
                 ]
             }
 
-            //var doc = new jspdf();
-            //doc.text('Hello World',10,10);
+            this.set('reportJSON',test);
+            var test2=this.get('reportJSON');
+            var lines=["Adjudication Report"];
+            for(var i=1;i<test2.employees.length+1;i++){
+                lines[i]=test2.employees[i-1].firstName + " " + test2.employees[i-1].lastName;
+            }
+
+            //var doc = new jsPDF();
+            var doc = new jsPDF();
+            doc.text(lines,10,10);
+            doc.output('dataurlnewwindow');
+            //doc.save('test.pdf');
+            //console.log('3');
 
         //}
 
