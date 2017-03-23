@@ -245,7 +245,7 @@ var CSV = '';
         if(this.get('critTerm')===null||this.get('crit')===null){
 
         }else{
-
+        
             /*var data = { term: this.get('critTerm'), criteria: this.get('crit') },
             host = this.get('store').adapterFor('application').get('host'),
             //namespace = this.store.adapterFor('application').namespace,
@@ -273,7 +273,7 @@ var CSV = '';
 
             this.set('reportJSON',test);
 
-            
+            }
         //}
             //console.log('3');
 
