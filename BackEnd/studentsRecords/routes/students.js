@@ -22,8 +22,21 @@ router.route('/')
         var StudentID = request.query.stuid;
         var StudentFind = request.query.find;
         var getLen = request.query.len;
+        var all = request.query.all;
 
-        if (!Student) {
+        if (all){
+            models.Students.find(function (error, Students) {
+            if (error) {
+                response.send(error);
+            }
+
+            else {
+                response.json({ student: Students });
+            }
+        });
+        }
+
+        else if (!Student) {
 
             //models.Students.find(function (error, students) {
             //    if (error) response.send(error);

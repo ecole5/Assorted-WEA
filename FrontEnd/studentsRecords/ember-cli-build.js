@@ -5,6 +5,7 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
+    //app.import(app.bowerDirectory + '/jspdf/dist/jspdf.min.js');
 
   });
 
@@ -21,7 +22,10 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  //app.import(app.bowerDirectory + '/jspdf/dist/jspdf.min.js');
+  //app.import('./bower_components/jspdf/dist/jspdf.min.js');
+  app.import('./bower_components/jspdf/dist/jspdf.debug.js'); 
+  app.import('./bower_components/js-xlsx/dist/xlsx.full.min.js');
+  
 
   return app.toTree();
 };

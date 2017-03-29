@@ -45,7 +45,7 @@ export default Ember.Component.extend({
     selectStyle(value) {
       
       var model = this.get('categoryModel');
-      if (value == "true"){
+      if (value === "true"){
         model.set('allRules', true);
       }
       else{
@@ -58,7 +58,7 @@ export default Ember.Component.extend({
       selectIndependent(value) {
       
       var model = this.get('categoryModel');
-      if (value == "true"){
+      if (value === "true"){
         model.set('independent', true);
       }
       else{

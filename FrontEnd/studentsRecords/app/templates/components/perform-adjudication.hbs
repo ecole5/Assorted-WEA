@@ -1,1 +1,39 @@
 <h2>Perform Adjudication</h2>
+
+
+    {{#unless processing}}
+    <center>
+    <div class="ui compact  segment">
+ 
+    <select class="ui dropdown" onchange={{action 'setCurrentTerm' value="target.value" }}>
+    <option value= '' >Select A Term </option>  
+    <br>     
+    {{#each termModel as |termChoice|}}
+    <option value={{termChoice.id}} >{{termChoice.name}} </option>
+                    
+    {{/each}}
+                    
+                
+    </select>
+    <br>
+    <br>
+      <button class="large positive ui button" {{action 'go'}}>
+     Go
+  </button>
+  </div>
+  </center>
+      {{/unless}}
+
+                  {{#if processing}}
+              
+<div class="ui active centered inline loader">
+    <br>
+    <h4>Hold on tight...</h4>
+    
+</div>
+{{/if}}
+
+
+
+<br>
+<br>
