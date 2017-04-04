@@ -24,6 +24,7 @@ module.exports = function(defaults) {
 
   //app.import('./bower_components/jspdf/dist/jspdf.min.js');
   app.import('./bower_components/jspdf/dist/jspdf.debug.js'); 
+  app.import('./bower_components/js-xlsx/dist/xlsx.full.min.js');
   app.import('./bower_components/js-xlsx/dist/xlsx.core.min.js');
 
 
