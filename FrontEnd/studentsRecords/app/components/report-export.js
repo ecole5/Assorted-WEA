@@ -82,7 +82,7 @@ actions:{
 
             //currently configured for test JSON. change when have correct json
             var lines=["Adjudication Report"];
-            lines[1] ="Student Number :: First Name :: Last Name :: Program :: Faculty :: Adjudication Comment" 
+            lines[1] ="Student Number :: First Name :: Last Name :: Program :: Faculty :: Adjudication Comment";
             for(var i=2;i<reportjson.students.length+2;i++){
                 lines[i]=reportjson.students[i-2].number + " " + reportjson.students[i-2].firstName + " ";
                 lines[i]+=reportjson.students[i-2].lastName + " " + reportjson.students[i-2].program + " ";
@@ -303,21 +303,21 @@ var CSV = '';
                     console.log(adjcomment);
                 });
             */
-
+//this.set("haveReport",true);
         }else{
         
 
             //this.get('store').find('student')
             self=this;
 
-            self.get('store').find('adjcomment')
+            this.get('store').findAll('adjcomment')
             .then(function(adjcomment) { 
 
             var entries=[""];
+            var i, len = adjcomment.length, el, j;
 
             if(self.get('crit')==="program"){            
                 //function insertionSort(arr){
-                var i, len = adjcomment.length, el, j;
 
                 for(i = 1; i<len; i++){
                     el = adjcomment[i].adjudication.program.name;
@@ -333,8 +333,7 @@ var CSV = '';
             }
             else if(self.get('crit')==="faculty"){
                 //adjcomment[i].adjudication.plan.faculty.name;
-                 var i, len = adjcomment.length, el, j;
-
+                 
                 for(i = 1; i<len; i++){
                     el = adjcomment[i].adjudication.plan.faculty.name;
                     j = i;
@@ -379,6 +378,7 @@ var CSV = '';
             text+=']}';
             var obj = JSON.parse(text);
 
+            this.set("haveReport",true);
             });
             
 
