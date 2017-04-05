@@ -161,7 +161,7 @@ export default Ember.Component.extend({
         var myAdjudication = myStore.createRecord("adjudication", {
           date: new Date(),
           termAVG: ywa.toString(),
-          unitPassed: passed,
+          unitPassed: passed.toString(),
           unitTotal: load.toString(),
           note: "This is a sample note",
           program: self.get('store').peekRecord('program', program.get('id')),
