@@ -31,17 +31,13 @@ export default Ember.Component.extend({
     },
 
     //edit a code option (sometimes we have a race condition, where model is null and thus it wont set)
-    editLetter(value) {
+    editCode(value) {
       var current = this.get('currentModel');
-        current.set('courseLetter', value);
+        current.set('code', value);
         current.save();
     },
 
-    editNumber(value) {
-      var current = this.get('currentModel');
-        current.set('courseNumber', value);
-        current.save();
-    },
+
     editName(value) {
       var current = this.get('currentModel');
         
@@ -67,8 +63,7 @@ export default Ember.Component.extend({
     newCode() {
       var myStore = this.get('store');
       var newCode = myStore.createRecord("course", {
-        courseNumber: 'NEW NUMBER',
-        courseLetter: 'NEW LETTER',
+        code: 'NEW CODE',
         name: 'NEW NAME',
         unit: 'NEW UNIT'
       });

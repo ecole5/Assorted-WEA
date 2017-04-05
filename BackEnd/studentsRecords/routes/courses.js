@@ -51,8 +51,7 @@ router.route('/:course_id')
             else {
 
 
-                course.courseLetter = request.body.course.courseLetter;
-                course.courseNumber = request.body.course.courseNumber;
+                course.code= request.body.course.code;
                 course.name = request.body.course.name;
                 course.unit = request.body.course.unit;
 

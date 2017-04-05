@@ -522,7 +522,7 @@ export default Ember.Component.extend({
      createNewGradeForUni(){
        //alert("clicked");
       let uniGrade = this.get('store').createRecord('grade', {
-          mark: "Default Mark",
+          mark: "100",
           note: "Default note",
           program: null,
           student: this.get('currentStudent'),
