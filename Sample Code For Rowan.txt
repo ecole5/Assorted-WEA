@@ -1,0 +1,42 @@
+-----Code to create an adjudication record----------------------------------------------
+
+var myStore = self.get('store');
+
+//Use manage system code to make these, use ember inspector or mongo console to find their id and put id in fields with ***
+var oneTerm = myStore.peekRecord('term', '***term code id');
+var onePlan = myStore.peekRecord('plan', '***plan code id');
+var oneStudent = myStore.peekRecord('student', '*** student id');
+var oneProgram = myStore.peekRecord('program', '*** program id');
+   
+          var myAdjudication = myStore.createRecord("adjudication", {
+          date: new Date(),
+          termAVG: 45,
+          unitPassed: 5,
+          unitTotal: 5,
+          note: 'This is a sample note',
+          program: oneProgram,
+          plan: onePlan,
+          term: oneTerm,
+          student: oneStudent,
+
+  
+      });
+myAdjudication.save();
+
+
+//--------------------Code to create an adjudication comment---------------------
+//Comments own an indivudal adjudication record, their will be serveral adjudciationComments associated with a single adjudication
+//Create a new comment as follows
+
+var myStore = self.get('store');
+var oneComment = myStore.peekRecord('comment', '***id of commnet');
+var oneAdjudication = myStore.peekRecord('adjudication', '***id of adjudciation create above');
+
+
+   var myAdjudicationComment = myStore.createRecord("adjcomment", {
+          comment: oneComment,
+            adjudciation: oneAdjudication,
+    
+  
+      });
+myAdjudicationComment.save();
