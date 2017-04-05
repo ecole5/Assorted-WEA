@@ -1,5 +1,8 @@
 import Ember from 'ember';
 
+
+
+
 export default Ember.Route.extend({
   beforeModel () {
     var authentication = this.get('oudaAuth');
@@ -9,7 +12,7 @@ export default Ember.Route.extend({
         self.transitionTo('home');
       },
       function (error) {
-        console.log("error -->" + error);
+       
       });
 
   }

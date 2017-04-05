@@ -31,7 +31,59 @@
     <h4>Hold on tight...</h4>
     
 </div>
+
 {{/if}}
+
+{{#if complete}}
+
+
+
+
+
+              
+<div class="ui center aligned segment">
+      <h3> Adjudication Completed!</h3>
+      <table class="ui celled table">
+  <thead>
+    <tr><th>Student</th>
+    <th>Date</th>
+    <th>AVG</th>
+      <th>Unit Passed</th>
+        <th>Unit Total</th>
+          <th>Note</th>
+               <th>Program</th>
+               <th>Plan</th>
+            
+  </tr></thead>
+  <tbody>
+
+
+      {{#each adjModel as |oneAdj|}}
+  
+    <tr>
+      <td>{{oneAdj.student.firstName}}</td>
+      <td>{{oneAdj.date}}</td>
+      <td>{{oneAdj.termAVG}}</td>
+      <td>{{oneAdj.unitPassed}}</td>
+      <td>{{oneAdj.unitTotal}}</td>
+      <td>{{oneAdj.note}}</td>
+      <td>{{oneAdj.program.name}} Year: {{oneAdj.program.level}} </td>
+      <td>{{oneAdj.plan.name}}</td>
+    </tr>
+  
+    {{/each}}
+   
+  </tbody>
+</table>
+
+
+    
+</div>
+  
+
+
+    {{/if}}
+
 
 
 

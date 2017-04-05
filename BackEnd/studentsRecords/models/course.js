@@ -3,8 +3,7 @@ var mongoosePaginate = require('mongoose-paginate');
 
 var courseSchema = mongoose.Schema(
     {
-        courseLetter: String,
-        courseNumber: String,
+        code: String,
         name: String,
         unit: String,
         

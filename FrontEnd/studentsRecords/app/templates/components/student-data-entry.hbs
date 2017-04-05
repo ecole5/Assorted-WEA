@@ -2,9 +2,6 @@
  {{#if SDE01IsPermitted }}
  <!-- Ouda Auth END -->
 
-<div class="ui center aligned header">
-  <h2>Student Records Data Entry</h2>
-</div>
 
 <!-- Show the menu bar-->
 <div class="ui inverted menu">
@@ -99,13 +96,14 @@
           <div class="inline field">
             <label>Gender</label>
              <select onchange={{action 'selectGender' value="target.value"}}>
-              {{#each genderModel as |genderChoice|}}
-               <option value={{null}} selected={{eq currentStudent.genInfo.id
+
+                                <option value={{null}} selected={{eq currentStudent.genInfo.id
                                                                    null}}>Null </option>
+              {{#each genderModel as |genderChoice|}}
                 <option value={{genderChoice.id}} selected={{eq currentStudent.genInfo.id
                                                                    genderChoice.id}}>{{genderChoice.name}} </option>
               {{/each}}
-              
+
               
             </select>
           </div>
@@ -482,67 +480,42 @@
    <div class="ui tab" data-tab="universityRecord">
     <!-- Program records, courses and grades !-->
     <div align = "center">
-              <br>
-      <h2> University Record </h2>
-      <div class="ui vertically divided grid"> 
-          {{#each gradeRecords as |uniGrade|}}
-            <div class="one column row">
-               <div class="ui vertically grid"> 
+  
 
-                 <div class="one column row"> 
-                  <div class="column">
-                    <h3> Grade Info </h3> 
-                  </div>
-                 </div>
+    <br>
+ 
 
-                 <div class="two column row">
-                  <div class="column">
-                    <div class="one column row">
-                      <h3> Grade </h3>
-                      <div class = "ui label">
-                        <label>Mark:</label>
-                      </div>
-                      <input type="text" value={{uniGrade.mark}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
-                      onchange={{action 'editGradeMark' value="target.value"}}>
-                    </div>{{!END ONE COLUMN ROW}}
-                  </div> {{!end column}}
-                  
-                  <div class="column">
-                    <h3> Note </h3>
-                    <div class = "ui label">
-                      <label> Note:</label>
-                    </div> 
-                    <input type="text" value={{uniGrade.note}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
-                      onchange={{action 'editGradeNote' value="target.value"}}>
-                  </div> {{!END COLUMN}}
-                </div> {{!END TWO COLUMN ROW}}
+       {{#each gradeRecords as |uniGrade|}}
+              <div class = "ui segment">
+          <div class = "ui form">
 
+  
 
-                <div class="one column row"> 
-                  <div class="column">
-                    <h3> Course </h3> 
-                  </div>
+      <div class="three fields">
+     <div class = "field">
+        <div class="ui label">
+                  Course
+                </div>
+     </div>
+     <div class = "field">
+             <div class="ui label">
+                  Grade
+                </div>
+          </div>
+      <div class = "field">
+             <div class="ui label">
+                  Note
                 </div>
 
-                
-                <div class="two column row">
-                  <div class="column">
-                    <div class="one column row">  
-                      {{uniGrade.course.name}}
-                    </div>
-                    <div class="one column row"> 
-                      {{uniGrade.course.unit}}
-                    </div>
-                    <div class="one column row"> 
-                      {{uniGrade.course.courseNumber}}
-                    </div>  
-                    <div class="one column row"> 
-                     {{uniGrade.course.courseLetter}}
-                    </div>
-                  </div>{{!END ONE COLUMN}}
+      </div>
+      </div>
 
-                  <div class="column">
-                    <select onmouseover={{action 'currentlySelectedProgram' uniGrade}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
+   
+
+  
+<div class = "three fields">
+<div class = "field">
+<select onmouseover={{action 'currentlySelectedProgram' uniGrade}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
                       onchange={{action 'selectedGradeCourse' value="target.value"}}>
                       {{! show each term}}
                       <option value={{null}} selected={{eq uniGrade.program.term.id null}}>Null </option>
@@ -550,85 +523,53 @@
                       {{! needs to change it so that onclick i get the currently editing dropdown
                       then set it appropriatly }}
                         <option value={{uniChoice.id}} selected={{eq uniGrade.course.id uniChoice.id}}>
-                          {{uniChoice.name}} {{uniChoice.unit}} {{uniChoice.courseNumber}}
-                          {{uniChoice.courseLetter}} </option>
+                          {{uniChoice.code}}</option>
                       {{/each}}
                       {{! selects the null option if it's null'}}
                       </select>
-                  </div>
-                </div> {{!END TWO COLUMN ROW}}
+  </div>
+
+  <div class = "field">
+      <input type="text" value={{uniGrade.mark}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
+                      onchange={{action 'editGradeMark' value="target.value"}}>
+                      </div>
+
+                      <div class = "field">
+                          <input type="text" value={{uniGrade.note}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
+                      onchange={{action 'editGradeNote' value="target.value"}}>
+                        </div>
+                        
+
+</div>
 
 
-                <div class="one column row"> 
-                  <div class="column">
-                    <h3> Program </h3> 
-                  </div>
+
+   <div class = "three fields">
+     
+
+      <div class = "field">
+                 <div class="ui label">
+                Term
                 </div>
+                </div>
+                 
+                  <div class = "field">
+             <div class="ui label">
+                  Program
+                </div>
+                </div>
+                  <div class = "field">
+            
+             <div class="ui label">
+                  Plan
+                </div>
+                  
+     </div>
+      </div>
 
-
-                <div class="two column row"> 
-                  <div class="column">
-
-                    <div class="one column row"> 
-                      <div class = "ui label">
-                        <label>
-                          Program name: </label>
-                      </div>
-                      {{uniGrade.program.name}}
-                    </div>{{!END ONE COLUMN ROW}}
-
-                    <div class="one column row"> 
-                      <div class = "ui label">
-                        <label>
-                          Program load: 
-                        </label>
-                      </div>
-                      {{uniGrade.program.load}}
-                    </div>{{!end one column row}}
-
-                    <div class="one column row"> 
-                      <div class = "ui label">
-                        <label>
-                      Program status: 
-                        </label>
-                      </div>{{uniGrade.program.status}}
-                    </div>{{!end one column row}}
-
-                    <div class="one column row"> 
-                      <div class = "ui label">
-                          <label>
-                            Program level:
-                          </label>
-                        </div>{{uniGrade.program.level}} {{!END LABEL}}
-                    </div> {{!END ONE COLUMN ROW}}
-
-                  </div> {{!END COLUMN}}
-
-                   <div class="column">
-                    <select onmouseover={{action 'currentlySelectedProgram' uniGrade}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
-                      onchange={{action 'selectedProgram' value="target.value"}}>
-                      {{! show each term}}
-                      <option value={{null}} selected={{eq uniGrade.program.id null}}>Null </option>
-                      {{#each universityProgramRecords as |program|}}
-                      {{! needs to change it so that onclick i get the currently editing dropdown
-                      then set it appropriatly }}
-                        <option value={{program.id}} selected={{eq uniGrade.program.id program.id}}>
-                          {{program.name}} {{program.level}} {{program.load}}
-                          {{program.status}} </option>
-                      {{/each}}
-                      {{! selects the null option if it's null'}}
-                      </select>
-                  </div>
-                </div> {{!END TWO COLUMN ROW}}
-
-                <div class="two column row">
-
-                  <div class="column">
-                    <div class="one column row">
-                      <h3> Term </h3>
-                    </div>
-                    <div class="one column row">
-                      <select onmouseover={{action 'currentlySelectedProgram' uniGrade}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
+<div class = "three fields">
+  <div class = "field">
+    <select onmouseover={{action 'currentlySelectedProgram' uniGrade}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
                       onchange={{action 'selectedProgramTerm' value="target.value"}}>
                         <option value={{null}} selected={{eq uniGrade.term.id null}}>Null </option>
                         {{#each universityTermCodeRecords as |termChoice|}}
@@ -636,16 +577,26 @@
                             {{termChoice.name}} </option>
                         {{/each}}
                       </select>
-                    </div> {{!END ONE COLUMN ROW}}
-                  </div> {{!END COLUM}}
+  </div>
 
+  <div class = "field">
+      <select onmouseover={{action 'currentlySelectedProgram' uniGrade}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
+                      onchange={{action 'selectedProgram' value="target.value"}}>
+                      {{! show each term}}
+                      <option value={{null}} selected={{eq uniGrade.program.id null}}>Null </option>
+                      {{#each universityProgramRecords as |program|}}
+                      {{! needs to change it so that onclick i get the currently editing dropdown
+                      then set it appropriatly }}
+                        <option value={{program.id}} selected={{eq uniGrade.program.id program.id}}>
+                          {{program.name}} Year: {{program.level}} 
+                     </option>
+                      {{/each}}
+                      {{! selects the null option if it's null'}}
+                      </select>
+                      </div>
 
-                  <div class="column">
-                    <div class="one column row">
-                      <h3> Plan </h3>
-                    </div>
-                    <div class="one column row">
-                      <select onmouseover={{action 'currentlySelectedProgram' uniGrade}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
+                <div class = "field">
+                   <select onmouseover={{action 'currentlySelectedProgram' uniGrade}} onclick={{action 'currentlySelectedProgram' uniGrade}} 
                       onchange={{action 'selectedProgramPlan' value="target.value"}}>
                         {{! show each term}}
                         <option value={{null}} selected={{eq uniGrade.plan.id null}}>Null </option>
@@ -657,27 +608,26 @@
                         {{/each}}
                         {{! selects the null option if it's null'}}
                         </select>
-                      </div> {{!END ONE OCLUMN ROW}}
-                  </div>{{!end column}}
+                      
+           
+  
+                 
+                             </div>
+                            
+              
+  </div>
+       <button class = "ui icon button" {{action "deleteGrade" uniGrade}}>
+                     
+                        <i class="remove circle icon"></i>
+                        </button>
+</div>
+</div>
 
-                 </div> {{!END TWO COLUMN ROW}}
+{{/each}}
+<hr>
+<button class = "ui button" {{action "createNewGradeForUni"}}>New Course Record</button> 
 
-                 <div class="one column row">
-                    <div class="column">
-                      <button class = "ui button" {{action "deleteGrade" uniGrade}}>Delete grade</button>
-                    </div>
-                 </div> {{!END ONE COLUMN ROW}}
 
-               </div> {{!END VERTICAL GRID}}
-              </div> {{!END ONE COLUMN ROW}}
-            {{/each}}
-
-            <div class="one column row">
-              <div class="column">
-                <button class = "ui button" {{action "createNewGradeForUni"}}>Create new grade for University</button> 
-              </div> {{!end colmn row}}
-            </div> {{!END ON COLUMNE ROW}}
-              </div>{{!END DIVIDED GRID}} 
       </div>{{!END CENTER}}
   </div> {{!END TAB}}
 

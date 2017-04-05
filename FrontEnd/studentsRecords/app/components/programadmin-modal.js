@@ -59,7 +59,7 @@ export default Ember.Component.extend({
     //Create new document
     newCode() {
       var myStore = this.get('store');
-      var newCode = myStore.createRecord("course", {
+      var newCode = myStore.createRecord("programadmin", {
         name: "NEW NAME",
         faculty: null,
       });

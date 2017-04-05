@@ -4,9 +4,9 @@ var mongoosePaginate = require('mongoose-paginate');
 var adjudicationSchema = mongoose.Schema(
     {
         date: Date,
-        termAVG: Number,
-        unitPassed: Number,
-        unitTotal: Number,
+        termAVG: String,
+        unitPassed: String,
+        unitTotal: String,
         note: String,
         program: {type: mongoose.Schema.ObjectId, ref: ('Programs')},
         plan: {type: mongoose.Schema.ObjectId, ref: ('Plans')},

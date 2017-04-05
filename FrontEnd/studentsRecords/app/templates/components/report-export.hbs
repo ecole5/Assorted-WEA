@@ -21,7 +21,7 @@
 
 
   <div class="inline field">
-    <label>Term</label>
+    <label>Which Term do you want to create a report on?</label>
       <select onchange={{action 'setTerm' value="target.value"}}>
                <option value={{null}} selected={{eq critTerm
                                                                    null}}>Null </option>
@@ -45,22 +45,24 @@
          <label> Sorted by: {{crit}}</label>
       </div>
       <div class="inline fields">
-        <button class="ui button" {{action "getReport"}}>Get Report</button>
+        <button class="ui button" {{action "getReport"}}>Make Report</button>
       </div>
       <div class="inline fields">
+
       {{#if haveReport}}      
           <button class="ui button" {{action "displayReport"}}>
-            Display as PDF
+            Display Report as PDF
           </button>
           <button class="ui button" {{action "downloadReport"}}>
-            Download
+            Download Report
           </button>
+          <label>The report will be downloaded as a .csv file. This file can be opened in Microsoft Excel</label>
       {{else}}
           <button class="ui disabled button">
-            Display as PDF
+            Display Report as PDF
           </button>
           <button class="ui disabled button">
-            Download
+            Download Report
           </button>
       {{/if}}
        </div>
