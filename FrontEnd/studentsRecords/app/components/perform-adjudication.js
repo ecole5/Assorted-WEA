@@ -16,7 +16,9 @@ export default Ember.Component.extend({
   catcommentModel: null,
   ruleModel: null,
   categoryModel: null,
-  facultyMode: null,
+
+  adjModel: null,
+
 
 
   processing: false,
@@ -56,13 +58,11 @@ export default Ember.Component.extend({
     },
     go() {
       this.set('processing', true);
-      this.set('complete', false)
+      this.set('complete', false);
       var self = this;
 
       this.get('store').findAll('category').then(function (records) {
         self.set('categoryModel', records);
-        self.get('store').findAll('faculty').then(function (records) {
-          self.set('facultyModel', records);
           self.get('store').findAll('grade').then(function (records) {
             self.set('gradeModel', records);
             self.get('store').findAll('comment').then(function (records) {
@@ -97,7 +97,7 @@ export default Ember.Component.extend({
             });
           });
         });
-      });
+    
 
     },
 
@@ -138,6 +138,7 @@ export default Ember.Component.extend({
           var temp = parseInt(grade.get('course').get('unit'));
           var temp2 = parseInt(grade.get('mark'));
           if (temp2 > 50) {
+            console.log("passed grade");
             passed = passed + temp;
           }
           total = temp2 / temp;
@@ -145,6 +146,7 @@ export default Ember.Component.extend({
 
         });
 
+        console.log(passed);
         var ywa = total / load;
 
 
@@ -159,8 +161,8 @@ export default Ember.Component.extend({
         var myAdjudication = myStore.createRecord("adjudication", {
           date: new Date(),
           termAVG: ywa.toString(),
-          unitPassed: passed.toString(),
-          unitTotal: total.toString(),
+          unitPassed: passed,
+          unitTotal: load.toString(),
           note: "This is a sample note",
           program: self.get('store').peekRecord('program', program.get('id')),
           plan: self.get('store').peekRecord('plan', plan.get('id')),
@@ -258,14 +260,14 @@ export default Ember.Component.extend({
       }//end of student loop
     
   
-    self.send('showComplete');
+      self.get('store').findAll('adjudication').then(function (records) {
+        self.set('adjModel', records);
+        self.set("processing", false);
+        self.set("complete", true);
+      });
   }, //end of entire action loop
   
-showComplete(){
-  this.set("processing", false);
-  this.set("complete", true);
 
-},
 
 
   }//end of action
