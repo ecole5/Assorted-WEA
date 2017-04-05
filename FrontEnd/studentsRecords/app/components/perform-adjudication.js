@@ -48,6 +48,8 @@ export default Ember.Component.extend({
 
 
 
+
+
   actions: {
 
     setCurrentTerm(value) {
@@ -125,7 +127,7 @@ export default Ember.Component.extend({
 
         //Check that enroledd in semester before continuing
         if (termGrades.length === 0) {
-          console.log("student not in semester");
+
           continue; //stop before evaluating the sutdent anymore
         }
 
@@ -138,7 +140,7 @@ export default Ember.Component.extend({
           var temp = parseInt(grade.get('course').get('unit'));
           var temp2 = parseInt(grade.get('mark'));
           if (temp2 > 50) {
-            console.log("passed grade");
+            
             passed = passed + temp;
           }
           total = temp2 / temp;
@@ -146,7 +148,7 @@ export default Ember.Component.extend({
 
         });
 
-        console.log(passed);
+     
         var ywa = total / load;
 
 
@@ -171,7 +173,9 @@ export default Ember.Component.extend({
 
         });
 
-        myAdjudication.save();
+             myAdjudication.save();
+     
+  
 
 
         //Evaluate all the independent categories
@@ -232,7 +236,27 @@ export default Ember.Component.extend({
           //Evaluate category satisfactory based on type and number of rules satisifed          
           if (cat.get('allRules') && allRuleSatisfied) { //all rules must be true, and they are all true
             console.log("All rules were true"); //get comment codes just for that specific rule
+             
+             
+             /* cat.get('comment').forEach(function (item) {
 
+               self.get('store').findRecord('adjudication', context).then(function (adjd) {
+                    var myComment = myStore.createRecord("adjcomment", {
+                    comment: item.get('comment'),
+                    adjudication: adjd,
+                            
+
+                  });
+
+                myComment.save();
+
+                 
+
+              });
+            });*/
+          
+                    
+                
             //Dont run for other none independent 
             if (!independentType){
               foundOne = true;

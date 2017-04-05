@@ -18,7 +18,7 @@
         <i class="large file excel outline icon"></i>
         Reports
       </a>
-        <a class="item " >
+        <a class="item" {{action "upload"}} >
         <i class="large upload icon"></i>
         Upload File
       </a>
@@ -51,7 +51,7 @@
         {{select-code}}
       {{/if}}
       {{#if isUploading}}
-        <input type='file' id='file-field'/>
+       <input type='file' id='file-field'/>
         <button class="ui button" {{action "submitUpload"}}>Upload</button>
       {{/if}}
       {{#if isReporting}}
