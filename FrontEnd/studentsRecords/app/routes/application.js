@@ -12,7 +12,7 @@ export default Ember.Route.extend({
         self.transitionTo('home');
       },
       function (error) {
-        console.log("error -->" + error);
+       
       });
 
   }
