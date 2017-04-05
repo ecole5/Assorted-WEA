@@ -403,12 +403,7 @@
                               {{! needs to change it so that onclick i get the currently editing dropdown
                               then set it appropriatly }}
                                 <option value={{courseChoice.id}} selected={{eq hsGrade.source.id courseChoice.id}}>
-                                  {{courseChoice.level}} <br>
-                                  {{courseChoice.source}} <br>
-                                  {{courseChoice.school.name}}   <br>
-                                  {{courseChoice.unit}} <br>
                                   {{courseChoice.subject.name}} <br>
-                                  {{courseChoice.subject.description}} <br>
                                   </option>
                               {{/each}}
                    </select>
