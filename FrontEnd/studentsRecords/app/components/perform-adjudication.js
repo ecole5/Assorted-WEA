@@ -20,7 +20,7 @@ export default Ember.Component.extend({
   adjModel: null,
   currentAdjudicaiton: null,
 
-
+termGrades: [],
   context: null,
   processing: false,
  complete: false,
@@ -140,20 +140,24 @@ export default Ember.Component.extend({
         var load = 0;
         var total = 0;
         var passed = 0;
+       
         termGrades.forEach(function (grade) {
-          var temp = parseInt(grade.get('course').get('unit'));
+         var temp = parseInt(grade.get('course').get('unit'));
+          
+          
           var temp2 = parseInt(grade.get('mark'));
+      
           if (temp2 > 50) {
             
             passed = passed + temp;
           }
-          total = temp2 * temp;
+          total = total + temp2 * temp;
           load = load + temp;
 
         });
 
-     
-        var ywa = total / load;
+       
+        var ywa = (total / load) .toFixed(2);
 
 
         //Determain level and plan
@@ -177,8 +181,10 @@ export default Ember.Component.extend({
 
         });
 
+        self.set('termGrades',termGrades);
+
    
-            
+
       myAdjudication.save().then(function(response) {
           self.set('context', response.get('id'));
           self.get('allNewAdj').pushObject(response);
@@ -228,6 +234,13 @@ export default Ember.Component.extend({
             var exp2 = exp.replace('AVG', ywa);
             var exp3 = exp2.replace('LOAD', load);
             var exp4 = exp3.replace('YEAR', level);
+
+
+          
+          self.get('termGrades').forEach(function (grade) {
+          exp4 = exp4.replace(grade.get('course').get('code'),grade.get('mark'));
+           
+        });
 
 
             if (!(eval(exp4))) {
