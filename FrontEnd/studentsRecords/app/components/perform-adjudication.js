@@ -21,11 +21,12 @@ export default Ember.Component.extend({
   currentAdjudicaiton: null,
 
 
-context: 'bob',
+  context: null,
   processing: false,
  complete: false,
   selectedTerm: null,
   result: null,
+  allNewAdj: null,
 
 
 
@@ -110,6 +111,7 @@ context: 'bob',
 
       var students = this.get('studentModel');
       var self = this;
+     
 
       //find a student
       for (var i = 0; i < students.get('length'); i++) {
@@ -176,8 +178,9 @@ context: 'bob',
 
    
             
-             myAdjudication.save().then(function(response) {
-                self.set('context', response.get('id'));
+      myAdjudication.save().then(function(response) {
+          self.set('context', response.get('id'));
+        
           
            
      
@@ -266,6 +269,8 @@ context: 'bob',
           else if(!cat.get('allRules') && oneRuleSatisfied)  {  //just one rules needed and one rules true
             console.log("Some of the rules were true"); //Get comment codes for both category and speicifc rule
 
+
+            //Get category specific commnets
              cat.get('comment').forEach(function (item) {
                     var myComment = myStore.createRecord("adjcomment", {
                     comment: item.get('comment'),
@@ -274,6 +279,7 @@ context: 'bob',
                 myComment.save();
               });
 
+                //Get rule specific comments
                 oneRuleSatisfied.get('comment').forEach(function (item) {
                     var myComment = myStore.createRecord("adjcomment", {
                     comment: item.get('comment'),
