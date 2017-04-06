@@ -81,16 +81,7 @@ router.route('/:category_id')
         })
     })
     .delete(parseUrlencoded, parseJSON, function (request, response) {
-        //Delete all rules with refrence to this category
-        ruleModel.Rules.find({ "category": request.params.category_id }, function (error, rules) {
-            if (error) { response.send(error); }
-            else {
 
-                for (var i = 0; i < rules.length; i++) {
-                    rules[i].delete();
-                }
-            }
-        });
         //Now actually remove the category
         models.Categories.findByIdAndRemove(request.params.category_id,
             function (error, deleted) {

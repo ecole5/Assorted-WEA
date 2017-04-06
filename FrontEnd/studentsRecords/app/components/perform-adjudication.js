@@ -18,13 +18,15 @@ export default Ember.Component.extend({
   categoryModel: null,
 
   adjModel: null,
+  currentAdjudicaiton: null,
 
 
-
+  context: null,
   processing: false,
  complete: false,
   selectedTerm: null,
   result: null,
+  allNewAdj: [],
 
 
 
@@ -61,6 +63,7 @@ export default Ember.Component.extend({
     go() {
       this.set('processing', true);
       this.set('complete', false);
+      this.set('allNewAdj', []);
       var self = this;
 
       this.get('store').findAll('category').then(function (records) {
@@ -109,6 +112,7 @@ export default Ember.Component.extend({
 
       var students = this.get('studentModel');
       var self = this;
+     
 
       //find a student
       for (var i = 0; i < students.get('length'); i++) {
@@ -143,7 +147,7 @@ export default Ember.Component.extend({
             
             passed = passed + temp;
           }
-          total = temp2 / temp;
+          total = temp2 * temp;
           load = load + temp;
 
         });
@@ -173,11 +177,14 @@ export default Ember.Component.extend({
 
         });
 
-             myAdjudication.save();
+   
+            
+      myAdjudication.save().then(function(response) {
+          self.set('context', response.get('id'));
+          self.get('allNewAdj').pushObject(response);
+          
+           
      
-  
-
-
         //Evaluate all the independent categories
         var category = [];
         category = plan.get('faculty').get('category');
@@ -237,23 +244,14 @@ export default Ember.Component.extend({
           if (cat.get('allRules') && allRuleSatisfied) { //all rules must be true, and they are all true
             console.log("All rules were true"); //get comment codes just for that specific rule
              
-             
-             /* cat.get('comment').forEach(function (item) {
-
-               self.get('store').findRecord('adjudication', context).then(function (adjd) {
+             cat.get('comment').forEach(function (item) {
                     var myComment = myStore.createRecord("adjcomment", {
                     comment: item.get('comment'),
-                    adjudication: adjd,
-                            
-
+                    adjudication: myStore.peekRecord('adjudication', self.get('context')),        
                   });
-
                 myComment.save();
-
-                 
-
               });
-            });*/
+          
           
                     
                 
@@ -268,6 +266,27 @@ export default Ember.Component.extend({
           else if(!cat.get('allRules') && oneRuleSatisfied)  {  //just one rules needed and one rules true
             console.log("Some of the rules were true"); //Get comment codes for both category and speicifc rule
 
+
+            //Get category specific commnets
+             cat.get('comment').forEach(function (item) {
+                    var myComment = myStore.createRecord("adjcomment", {
+                    comment: item.get('comment'),
+                    adjudication: myStore.peekRecord('adjudication', self.get('context')),        
+                  });
+                myComment.save();
+              });
+
+                //Get rule specific comments
+                oneRuleSatisfied.get('comment').forEach(function (item) {
+                    var myComment = myStore.createRecord("adjcomment", {
+                    comment: item.get('comment'),
+                    adjudication: myStore.peekRecord('adjudication', self.get('context')),        
+                  });
+                myComment.save();
+              });
+
+          
+
               //Dont run for other none independent 
               if (!independentType){
               foundOne = true;
@@ -280,6 +299,7 @@ export default Ember.Component.extend({
 
 
         } //end of looping through cats 
+          }); //Wait for adjudication record to be created
 
       }//end of student loop
     
