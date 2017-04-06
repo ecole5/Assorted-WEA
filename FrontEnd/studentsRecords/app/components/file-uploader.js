@@ -43,7 +43,6 @@ export default Ember.Component.extend({
   actions:{
     receiveFile: function(file){
       var asset;
-      console.log("apple");
 
       asset = this.store.createRecord('asset', {
         file:  file,
