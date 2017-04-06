@@ -18,9 +18,10 @@ export default Ember.Component.extend({
   categoryModel: null,
 
   adjModel: null,
+  currentAdjudicaiton: null,
 
 
-
+context: 'bob',
   processing: false,
  complete: false,
   selectedTerm: null,
@@ -173,7 +174,13 @@ export default Ember.Component.extend({
 
         });
 
-             myAdjudication.save();
+   
+            
+             myAdjudication.save().then(function(response) {
+                self.set('context', response.get('id'));
+          
+             });
+     
      
   
 
@@ -238,12 +245,12 @@ export default Ember.Component.extend({
             console.log("All rules were true"); //get comment codes just for that specific rule
              
              
-             /* cat.get('comment').forEach(function (item) {
+             cat.get('comment').forEach(function (item) {
 
-               self.get('store').findRecord('adjudication', context).then(function (adjd) {
+             
                     var myComment = myStore.createRecord("adjcomment", {
                     comment: item.get('comment'),
-                    adjudication: adjd,
+                    adjudication: self.get('context'),
                             
 
                   });
@@ -253,7 +260,7 @@ export default Ember.Component.extend({
                  
 
               });
-            });*/
+          
           
                     
                 
