@@ -26,7 +26,7 @@ export default Ember.Component.extend({
  complete: false,
   selectedTerm: null,
   result: null,
-  allNewAdj: null,
+  allNewAdj: [],
 
 
 
@@ -63,6 +63,7 @@ export default Ember.Component.extend({
     go() {
       this.set('processing', true);
       this.set('complete', false);
+      this.set('allNewAdj', []);
       var self = this;
 
       this.get('store').findAll('category').then(function (records) {
@@ -180,14 +181,10 @@ export default Ember.Component.extend({
             
       myAdjudication.save().then(function(response) {
           self.set('context', response.get('id'));
-        
+          self.get('allNewAdj').pushObject(response);
           
            
      
-     
-  
-
-
         //Evaluate all the independent categories
         var category = [];
         category = plan.get('faculty').get('category');

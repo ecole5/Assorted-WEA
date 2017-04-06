@@ -10,7 +10,7 @@ export default DS.Model.extend({
    plan: DS.belongsTo('plan'),
     term: DS.belongsTo('term'),
      student: DS.belongsTo('student'),
-      comment: DS.hasMany('adjcomment')
+      comments: DS.hasMany('adjcomment')
      
   
 

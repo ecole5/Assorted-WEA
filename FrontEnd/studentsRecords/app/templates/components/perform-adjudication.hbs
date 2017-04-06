@@ -53,12 +53,13 @@
           <th>Note</th>
                <th>Program</th>
                <th>Plan</th>
+               <th>Comments</th>
             
   </tr></thead>
   <tbody>
 
 
-      {{#each adjModel as |oneAdj|}}
+      {{#each allNewAdj as |oneAdj|}}
   
     <tr>
       <td>{{oneAdj.student.firstName}}</td>
@@ -68,7 +69,19 @@
       <td>{{oneAdj.unitTotal}}</td>
       <td>{{oneAdj.note}}</td>
       <td>{{oneAdj.program.name}} Year: {{oneAdj.program.level}} </td>
-      <td>{{oneAdj.plan.name}}</td>
+       <td>{{oneAdj.plan.name}}</td>
+        <td>
+          <div class="ui list">
+
+      {{#each oneAdj.comments as |oneComment|}}
+      
+          <div class="item">{{oneComment.comment.code}}: {{oneComment.comment.description}}</div>
+      
+      {{/each}}
+      </div>
+      </td>
+     
+      
     </tr>
   
     {{/each}}
