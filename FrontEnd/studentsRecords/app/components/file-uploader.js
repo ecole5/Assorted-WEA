@@ -1,9 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    
-});
- /* tagName: 'div',
+  tagName: 'div',
   classNames: 'uploader dropzone'.w(),
   classNameBindings: 'isDragging isDisabled:is-disabled'.w(),
   attributeBindings: 'data-uploader'.w(),
@@ -58,5 +56,7 @@ export default Ember.Component.extend({
         console.debug('Upload failed', error);
       }, 'file upload');
     }
-  }*/
-
+  }
+  
+});
+  

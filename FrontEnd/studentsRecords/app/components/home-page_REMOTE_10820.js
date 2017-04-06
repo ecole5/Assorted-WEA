@@ -3,9 +3,9 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   store: Ember.inject.service(),
   didInsertElement() {
-    //    Ember.$('.tabular.menu .item').tab();
-    Ember.$(document).ready(function () {
-      Ember.$('.ui .item').on('click', function () {
+//    Ember.$('.tabular.menu .item').tab();
+    Ember.$(document).ready(function(){
+      Ember.$('.ui .item').on('click', function() {
         Ember.$('.ui .item').removeClass('active');
         Ember.$(this).addClass('active');
       });
@@ -18,105 +18,67 @@ export default Ember.Component.extend({
   isSettingsShowing: false,
   isHelpShowing: false,
   isUploading: false,
-  isReporting: false,
-  isAdjudication: false,
-
-
   newFile:{
     file: null,
     fileName: ''
   },
 
   actions: {
-    home() {
+    home () {
       this.set('isHomeShowing', true);
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', false);
       this.set('isHelpShowing', false);
       this.set('isSettingsShowing', false);
-      this.set('isUploading', false);
-      this.set('isReporting', false);
-      this.set('isAdjudication', false);
-
+this.set('isUploading', false);
     },
 
-    studentsDataEntry() {
+    studentsDataEntry (){
       this.set('isHomeShowing', false);
       this.set('isStudentsRecordsDataEntry', true);
       this.set('isAboutShowing', false);
-      this.set('isUploading', false);
+this.set('isUploading', false);
 
       this.set('isHelpShowing', false);
-      this.set('isSettingsShowing', false);
-      this.set('isReporting', false);
-      this.set('isAdjudication', false);
+       this.set('isSettingsShowing', false);
+
     },
 
-    upload() {
-      this.set('isHomeShowing', false);
-      this.set('isStudentsRecordsDataEntry', false);
-      this.set('isAboutShowing', false);
-      this.set('isUploading', true);
-      this.set('isHelpShowing', false);
-      this.set('isSettingsShowing', false);
-      this.set('isReporting', false);
-      this.set('isAdjudication', false);
-    },
-
-    about() {
+    about (){
       this.set('isHomeShowing', false);
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', true);
       this.set('isHelpShowing', false);
-      this.set('isSettingsShowing', false);
-      this.set('isUploading', false);
-      this.set('isReporting', false);
-      this.set('isAdjudication', false);
+         this.set('isSettingsShowing', false);
+         this.set('isUploading', false);
+
     },
 
-    help() {
+    help (){
       this.set('isHomeShowing', false);
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', false);
       this.set('isHelpShowing', true);
       this.set('isSettingsShowing', false);
       this.set('isUploading', false);
-      this.set('isReporting', false);
-      this.set('isAdjudication', false);
+
     },
 
-    settings() {
+      settings (){
       this.set('isHomeShowing', false);
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', false);
-        this.set('isHelpShowing', false);
       this.set('isSettingsShowing', true);
-      this.set('isUploading', false);
-      this.set('isReporting', false);
-      this.set('isAdjudication', false);
+this.set('isUploading', false);
     },
-    report() {
-      this.set('isHomeShowing', false);
+    uploadFile(){
+            this.set('isHomeShowing', false);
       this.set('isStudentsRecordsDataEntry', false);
       this.set('isAboutShowing', false);
       this.set('isHelpShowing', false);
       this.set('isSettingsShowing', false);
-      this.set('isUploading', false);
-      this.set('isReporting', true);
-      this.set('isAdjudication', false);
+      this.set('isUploading', true);
     },
-
-    adjudication() {
-      this.set('isHomeShowing', false);
-      this.set('isStudentsRecordsDataEntry', false);
-      this.set('isAboutShowing', false);
-      this.set('isHelpShowing', false);
-      this.set('isSettingsShowing', false);
-      this.set('isUploading', false);
-      this.set('isReporting', false);
-      this.set('isAdjudication', true);
-    },
-
     checkFileValidity(name){
       var existing_data = [];
       if (existing_data.length === 0){
