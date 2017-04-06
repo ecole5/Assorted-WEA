@@ -29,40 +29,7 @@ export default Ember.Component.extend({
         this.get('store').findAll('term').then(function (records) {
             self.set('terms', records);
         });
- /*       var myStore = self.get('store');
-        var oneTerm = myStore.peekRecord('term', '58afb789576e752010d2339a');
-        var onePlan = myStore.peekRecord('plan', '58afb77d576e752010d23399');
-        var oneStudent = myStore.peekRecord('student', '585df32e0bf2ba5ea6951587');
-        var oneProgram = myStore.peekRecord('program', '58afb4d3576e752010d23389');
-   
-          var myAdjudication = myStore.createRecord("adjudication", {
-          date: new Date(),
-          termAVG: 45,
-          unitPassed: 5,
-          unitTotal: 5,
-          note: 'This is a sample note',
-          program: oneProgram,
-          plan: onePlan,
-          term: oneTerm,
-          student: oneStudent,
-
-  
-      });
-//myAdjudication.save();
-
-var myStore = self.get('store');
-var oneComment = myStore.peekRecord('comment', '58dc07154e1409348019cf0d'); 
-var oneAdjudication = myStore.peekRecord('adjudication', '58e2ce6f8171eb2ffccf7acb');
-
-
-   var myAdjudicationComment = myStore.createRecord("adjcomment", {
-            comment: oneComment,
-            adjudciation: oneAdjudication,
-    
-  
-      });
-//myAdjudicationComment.save();
-*/
+ 
     },
 
 
@@ -99,125 +66,7 @@ actions:{
     },
 
     downloadReport:function(){
- //var XLSX = require('xlsx');
-/*
-function sheet_from_array_of_arrays(data, opts) {
-	var ws = {};
-	var range = {s: {c:10000000, r:10000000}, e: {c:0, r:0 }};
-	for(var R = 0; R < data.length; ++R) {
-
-		//for(var C = 0; C < 6; ++C) {
-       //       console.log('C '+C);
-
-
-//should get student number, student firstname, student lastname, program, faculty, comment code
-            var v1=data[R].number;
-            var v2=data[R].firstName;
-            var v3=data[R].lastName;
-            var v4=data[R].program;
-            var v5=data[R].faculty;
-            var v6=data[R].code;
-
-			//if(range.s.r > R) {range.s.r = R;}
-			//if(range.s.c > C) {range.s.c = C;}
-			//if(range.e.r < R) {range.e.r = R;}
-			//if(range.e.c < C) {range.e.c = C;}
-
-
-			var cell1 = {v: v1 };
-			if(cell1.v !== null) {
-			    var cell_ref1 = XLSX.utils.encode_cell({c:0,r:R});
-            }			
-			if(typeof cell1.v === 'number') {cell1.t = 'n';}
-			else {cell1.t = 's';}
-			ws[cell_ref1] = cell1;
-
-            var cell2 = {v: v2 };
-			if(cell2.v !== null) {
-			    var cell_ref2 = XLSX.utils.encode_cell({c:1,r:R});
-            }			
-			if(typeof cell2.v === 'number') {cell2.t = 'n';}
-			else {cell2.t = 's';}			
-			ws[cell_ref2] = cell2;
-
-            var cell3 = {v: v3 };
-			if(cell3.v !== null) {
-			    var cell_ref3 = XLSX.utils.encode_cell({c:2,r:R});
-            }			
-			if(typeof cell3.v === 'number') {cell3.t = 'n';}
-			else {cell3.t = 's';}			
-			ws[cell_ref3] = cell3;
-
-            var cell4 = {v: v4 };
-			if(cell4.v !== null) {
-			    var cell_ref4 = XLSX.utils.encode_cell({c:3,r:R});
-            }			
-			if(typeof cell4.v === 'number') {cell4.t = 'n';}
-			else {cell4.t = 's';}			
-			ws[cell_ref4] = cell4;
-
-            var cell5 = {v: v5 };
-			if(cell5.v !== null) {
-			    var cell_ref5 = XLSX.utils.encode_cell({c:4,r:R});
-            }			
-			if(typeof cell5.v === 'number') {cell5.t = 'n';}
-			else {cell5.t = 's';}			
-			ws[cell_ref5] = cell5;
-
-            var cell6 = {v: v6 };
-			if(cell6.v !== null) {
-			    var cell_ref6 = XLSX.utils.encode_cell({c:5,r:R});
-            }			
-			if(typeof cell6.v === 'number') {cell6.t = 'n';}
-			else {cell6.t = 's';}			
-			ws[cell_ref6] = cell6;
-		//}
-	}
-	if(range.s.c < 10000000) {ws['!ref'] = XLSX.utils.encode_range(range);}
-	return ws;
-}
-
-// original data 
-var data = this.get('reportJSON').students;//[[1,2,3],[true, false, null, "sheetjs"],["foo","bar", "0.3"], ["baz", null, "qux"]]
-var ws_name = "SheetJS";
-
-function Workbook() {
-	if(!(this instanceof Workbook)) {return new Workbook();}
-	this.SheetNames = [];
-	this.Sheets = {};
-}
-
-var wb = new Workbook(), ws = sheet_from_array_of_arrays(data);
-
-// add worksheet to workbook 
-wb.SheetNames.push(ws_name);
-
-wb.Sheets[ws_name] = ws;
-
-var wbout = XLSX.write(wb, {bookType:'xlsx', bookSST:false, type: 'binary'});
-
-
-function s2ab(s) {
-	var buf = new ArrayBuffer(s.length);
-	var view = new Uint8Array(buf);
-	for (var i=0; i!=s.length; ++i) {view[i] = s.charCodeAt(i) & 0xFF;}
-	return buf;
-}
-saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), "report.xlsx");
-
-*/
-/*var data = { term: this.get('critTerm'), criteria: this.get('crit'), download:true},
-            host = this.get('store').adapterFor('application').get('host'),
-            //namespace = this.store.adapterFor('application').namespace,
-            getURL = [ host, 'reports'].join('/'); 
-            
-            Ember.$.get(getURL, data).then(
-                function (response) {
-
-
-
-                    //displayDownloadOption();    
-            });*/
+ 
 
         
 var CSV = '';    
@@ -292,46 +141,35 @@ var CSV = '';
     setCrit: function(criteria){
         this.set('crit', criteria);
     },
-    //this method by-passes Ember Data
     getReport: function(){
 
-    //uncommet this for actual use
         if(this.get('critTerm')===null||this.get('crit')===null||this.get('critTerm')==="Null"){
 
-            /*this.get('store').findAll('adjcomment')
-                .then(function(adjcomment) { 
-                    console.log(adjcomment);
-                });
-            */
-//this.set("haveReport",true);
         }else{
 var text = "";
-console.log('1');
-//pull adjuication reports. //use findrecords in case the user goes striaight from login to get reports.
-//go through list. if a report has the right term, grab all it's data, insertion sort, and throw it in the json. 
-//STARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTART
+
 var self = this;
 self.get('store').findAll('adjcomment').then(function (adjcomment){
+self.get('store').findAll('comment').then(function (commentF){
 self.get('store').query('student', {all: 'true',}).then(function (studentF){
 self.get('store').findAll('plan').then(function (records) {
 self.get('store').findAll('program').then(function (records) {
 self.get('store').findAll('faculty').then(function (records) {
 self.get('store').findAll('adjudication').then(function(Adjudication){
 
-    console.log('2');
+
     var entries=[];
     for(var u=0;u<Adjudication.get('length');u++){
         
 
         if(Adjudication.objectAt(u).get('note')!=='could not complete'){ 
-            console.log(Adjudication.objectAt(u).get('note'));
                 
             if(Adjudication.objectAt(u).get('term').get('name')===self.get('critTerm')){
-            console.log('3');
+
             var i, el, j;
 
             if(self.get('crit')==="Program"){            
-                console.log('4');
+
 
                     el = Adjudication.objectAt(u).get('program').get('name');
                     j = entries.length; 
@@ -350,7 +188,7 @@ self.get('store').findAll('adjudication').then(function(Adjudication){
             }
             else if(self.get('crit')==="Faculty"){
 
-                 console.log('5');
+
 
                     el = Adjudication.objectAt(u).get('plan').get('faculty').get('name');
 
@@ -372,21 +210,17 @@ self.get('store').findAll('adjudication').then(function(Adjudication){
             }
 
             text = '{ "students" : [';
-            console.log('6');
+
              for(i=0;i<entries.length;i++){
 
-
-                console.log('7');
                 var f = true;
-                console.log(entries[i]);
-                
+
 
                 for(var n=0;n<adjcomment.get('length');n++){
 
-                    if(adjcomment.objectAt(n).get('adjudication')===entries[i]){
+                    if(adjcomment.objectAt(n).get('adjudication').get('id')===entries[i].get('id')){
                         //com[c] = adjcomment[n].comment;
                         //c++;
-                        console.log('8a ' + f);
                         f=false;
 
                         text+='{ "number":"'+entries[i].get('student').get('number') +'" , '+
@@ -394,19 +228,13 @@ self.get('store').findAll('adjudication').then(function(Adjudication){
                         ' "lastName":"'+entries[i].get('student').get('lastName') +'" , '+
                         ' "program":"'+entries[i].get('program').get('name') +'" , '+
                         ' "faculty":"'+entries[i].get('plan').get('faculty').get('name') +'" , ';
-                        text+=' "comment":"'+adjcomment.objectAt(n).get('comment') +'" }, ';
+                        text+=' "comment":"'+adjcomment.objectAt(n).get('comment').get('code') +'" }, ';
 
                     }
                 }
-                console.log('8 ' + f);
                 
                 if(f){
-                    console.log('8b ' + f);
                         
-
-
-                        if(entries.objectAt(i)===entries[i]){console.log('aaaaaaaasdf');}
-
                     text+='{ "number":"'+entries[i].get('student').get('number') +'" , '+
                     ' "firstName":"'+entries[i].get('student').get('firstName') +'" , '+
                     ' "lastName":"'+entries[i].get('student').get('lastName') +'" , '+
@@ -427,12 +255,11 @@ self.get('store').findAll('adjudication').then(function(Adjudication){
             //var str = "12345.00";
     text = text.substring(0, text.length - 2);
     text+=' ]}';
-    console.log(text);
     var obj = JSON.parse(text);
-    console.log(obj);
     self.set('reportJSON',obj);
     self.set("haveReport",true); 
 
+});
 });
 });
 });
