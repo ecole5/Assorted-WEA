@@ -305,103 +305,149 @@ var CSV = '';
             */
 //this.set("haveReport",true);
         }else{
+var text = "";
+console.log('1');
+//pull adjuication reports. //use findrecords in case the user goes striaight from login to get reports.
+//go through list. if a report has the right term, grab all it's data, insertion sort, and throw it in the json. 
+//STARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTARTSTART
+var self = this;
+self.get('store').findAll('adjcomment').then(function (adjcomment){
+self.get('store').query('student', {all: 'true',}).then(function (studentF){
+self.get('store').findAll('plan').then(function (records) {
+self.get('store').findAll('program').then(function (records) {
+self.get('store').findAll('faculty').then(function (records) {
+self.get('store').findAll('adjudication').then(function(Adjudication){
+
+    console.log('2');
+    var entries=[];
+    for(var u=0;u<Adjudication.get('length');u++){
         
 
-            //this.get('store').find('student')
-            self=this;
+        if(Adjudication.objectAt(u).get('note')!=='could not complete'){ 
+            console.log(Adjudication.objectAt(u).get('note'));
+                
+            if(Adjudication.objectAt(u).get('term').get('name')===self.get('critTerm')){
+            console.log('3');
+            var i, el, j;
 
-            this.get('store').findAll('adjcomment')
-            .then(function(adjcomment) { 
+            if(self.get('crit')==="Program"){            
+                console.log('4');
 
-            var entries=[""];
-            var i, len = adjcomment.length, el, j;
-
-            if(self.get('crit')==="program"){            
-                //function insertionSort(arr){
-
-                for(i = 1; i<len; i++){
-                    el = adjcomment[i].adjudication.program.name;
-                    j = i;
-
-                    while(j>0 && entries[j-1].adjudication.program.name>el){
-                        entries[j] = entries[j-1];
-                        j--;
+                    el = Adjudication.objectAt(u).get('program').get('name');
+                    j = entries.length; 
+                    if(entries.length===0){
+                        entries[0]=Adjudication.objectAt(u);
                     }
+                    else{
+                        while(j>0 && entries[j-1].get('program').get('name')>el){
+                            entries[j] = entries[j-1];
+                            j--;
+                        }
 
-                    entries[j] = adjcomment[i];  
-                }
-            }
-            else if(self.get('crit')==="faculty"){
-                //adjcomment[i].adjudication.plan.faculty.name;
-                 
-                for(i = 1; i<len; i++){
-                    el = adjcomment[i].adjudication.plan.faculty.name;
-                    j = i;
-
-                    while(j>0 && entries[j-1].adjudication.plan.faculty.name>el){
-                        entries[j] = entries[j-1];
-                        j--;
+                        entries[j] = Adjudication.objectAt(u);  
                     }
+            
+            }
+            else if(self.get('crit')==="Faculty"){
 
-                    entries[j] = adjcomment[i];  
-                }
+                 console.log('5');
+
+                    el = Adjudication.objectAt(u).get('plan').get('faculty').get('name');
+
+                    j = entries.length;  
+                    if(entries.length===0){
+                        entries[0]=Adjudication.objectAt(u);
+                    }
+                    else{
+
+
+                        while(j>0 && entries[j-1].get('plan').get('faculty').get('name')>el){
+                            entries[j] = entries[j-1];
+                            j--;
+                        }
+                    
+                        entries[j] = Adjudication.objectAt(u);  
+                    }
+             
             }
 
+            text = '{ "students" : [';
+            console.log('6');
+             for(i=0;i<entries.length;i++){
 
-            //return arr;
-            //}
+
+                console.log('7');
+                var f = true;
+                console.log(entries[i]);
+                
+
+                for(var n=0;n<adjcomment.get('length');n++){
+
+                    if(adjcomment.objectAt(n).get('adjudication')===entries[i]){
+                        //com[c] = adjcomment[n].comment;
+                        //c++;
+                        console.log('8a ' + f);
+                        f=false;
+
+                        text+='{ "number":"'+entries[i].get('student').get('number') +'" , '+
+                        ' "firstName":"'+entries[i].get('student').get('firstName') +'" , '+
+                        ' "lastName":"'+entries[i].get('student').get('lastName') +'" , '+
+                        ' "program":"'+entries[i].get('program').get('name') +'" , '+
+                        ' "faculty":"'+entries[i].get('plan').get('faculty').get('name') +'" , ';
+                        text+=' "comment":"'+adjcomment.objectAt(n).get('comment') +'" }, ';
+
+                    }
+                }
+                console.log('8 ' + f);
+                
+                if(f){
+                    console.log('8b ' + f);
+                        
+
+
+                        if(entries.objectAt(i)===entries[i]){console.log('aaaaaaaasdf');}
+
+                    text+='{ "number":"'+entries[i].get('student').get('number') +'" , '+
+                    ' "firstName":"'+entries[i].get('student').get('firstName') +'" , '+
+                    ' "lastName":"'+entries[i].get('student').get('lastName') +'" , '+
+                    ' "program":"'+entries[i].get('program').get('name') +'" , '+
+                    ' "faculty":"'+entries[i].get('plan').get('faculty').get('name') +'" , ';
+                    text+=' "comment": "" }, ';
+
+                }
+
+            }        
+            
+
+        }
+        }
+    }
+    console.log('9');
+            
+            //var str = "12345.00";
+    text = text.substring(0, text.length - 2);
+    text+=' ]}';
+    console.log(text);
+    var obj = JSON.parse(text);
+    console.log(obj);
+    self.set('reportJSON',obj);
+    self.set("haveReport",true); 
+
+});
+});
+});
+});
+});
+});
+    }
+    }
+
     
 
-            var text = '{ "employees" : [';// +
+           /* var text = '{ "employees" : [';// +
 //'{ "firstName":"John" , "lastName":"Doe" },' +
 //'{ "firstName":"Anna" , "lastName":"Smith" },' +
 //'{ "firstName":"Peter" , "lastName":"Jones" } ]}';
-
-/*
-            var v1=arrData.students[i].number;
-            var v2=arrData.students[i].firstName;
-            var v3=arrData.students[i].lastName;
-            var v4=arrData.students[i].program;
-            var v5=arrData.students[i].faculty;
-            var v6=arrData.students[i].comment;
-*/
-
-            for(i=0;i<entries.length;i++){
-                text+='{ "number":'+entries[i].adjudication.student.number +' , '+
-                '{ "firstName":'+entries[i].adjudication.student.firstName +' , '+
-                '{ "lastName":'+entries[i].adjudication.student.lastName +' , '+
-                '{ "program":'+entries[i].adjudication.program.name +' , '+
-                '{ "faculty":'+entries[i].adjudication.plan.faculty.name +' , '+
-                '{ "comment":'+entries[i].comment +' , ';
-//do this for all things to be in the json
-            }        
-            text+=']}';
-            var obj = JSON.parse(text);
-
-            this.set("haveReport",true);
-            });
-            
-
-            
-
-            /*var data = { term: this.get('critTerm'), criteria: this.get('crit') },
-            host = this.get('store').adapterFor('application').get('host'),
-            //namespace = this.store.adapterFor('application').namespace,
-            getURL = [ host, 'reports'].join('/'); 
-            
-            Ember.$.get(getURL, data).then(
-                function (response) {
-                    try{
-                this.set('reportJSON',response);
-                this.set("haveReport",true); 
-                }
-                catch(err){  }
-                      
-            }); */
-
-
-            /*this.set("haveReport",true);
-   //should get student number, student firstname, student lastname, program, faculty, comment code
 
            //remove test for actual use// test is test value for JSON. once we have real JSON replace test
             var test={"students":[
@@ -414,22 +460,7 @@ var CSV = '';
             this.set('reportJSON',test);
 
         }*/
-        //}
-            //console.log('3');
+        
 
         }
-
-
-        /*var report = $.getJSON(this.store.adapterFor('application').get('')).then(
-            function (response) {}
-        )*/
-    }
-}
-
- /* model: function(params) {
-      return $.getJSON
-      //this.store.find(user, params.user_id);
-  }*/
-
-  
-});
+    });
