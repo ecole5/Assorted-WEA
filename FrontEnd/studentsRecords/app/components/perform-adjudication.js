@@ -144,7 +144,7 @@ context: 'bob',
             
             passed = passed + temp;
           }
-          total = temp2 / temp;
+          total = temp2 * temp;
           load = load + temp;
 
         });
@@ -179,7 +179,7 @@ context: 'bob',
              myAdjudication.save().then(function(response) {
                 self.set('context', response.get('id'));
           
-             });
+           
      
      
   
@@ -244,21 +244,12 @@ context: 'bob',
           if (cat.get('allRules') && allRuleSatisfied) { //all rules must be true, and they are all true
             console.log("All rules were true"); //get comment codes just for that specific rule
              
-             
              cat.get('comment').forEach(function (item) {
-
-             
                     var myComment = myStore.createRecord("adjcomment", {
                     comment: item.get('comment'),
-                    adjudication: self.get('context'),
-                            
-
+                    adjudication: myStore.peekRecord('adjudication', self.get('context')),        
                   });
-
                 myComment.save();
-
-                 
-
               });
           
           
@@ -275,6 +266,24 @@ context: 'bob',
           else if(!cat.get('allRules') && oneRuleSatisfied)  {  //just one rules needed and one rules true
             console.log("Some of the rules were true"); //Get comment codes for both category and speicifc rule
 
+             cat.get('comment').forEach(function (item) {
+                    var myComment = myStore.createRecord("adjcomment", {
+                    comment: item.get('comment'),
+                    adjudication: myStore.peekRecord('adjudication', self.get('context')),        
+                  });
+                myComment.save();
+              });
+
+                oneRuleSatisfied.get('comment').forEach(function (item) {
+                    var myComment = myStore.createRecord("adjcomment", {
+                    comment: item.get('comment'),
+                    adjudication: myStore.peekRecord('adjudication', self.get('context')),        
+                  });
+                myComment.save();
+              });
+
+          
+
               //Dont run for other none independent 
               if (!independentType){
               foundOne = true;
@@ -287,6 +296,7 @@ context: 'bob',
 
 
         } //end of looping through cats 
+          }); //Wait for adjudication record to be created
 
       }//end of student loop
     
