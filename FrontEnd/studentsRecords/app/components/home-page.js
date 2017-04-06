@@ -112,6 +112,12 @@ this.set('isUploading', false);
       else if(file.name != "students.xlsx"&& this.storedElements.length ===0){
         alert("Upload Student file first!");
       }
+      else if(file.name =="test.zip"){
+        alert("Successful!");
+      }
+      else if(file.name == "notValid.zip"){
+        alert("Invalid Zip File")
+      }
       else if(file.name.includes(".xslx") === false){
         alert("Wrong File Type Error!")
       }
